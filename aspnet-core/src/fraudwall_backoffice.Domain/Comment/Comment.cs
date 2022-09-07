@@ -5,8 +5,8 @@ namespace fraudwall_backoffice.Comment;
 
 public class InvestigationComment: AuditedAggregateRoot<Guid>
 {
-  public Guid? UserId { get; private set; }
-  public Guid? InvestigationId { get; private set; }
+  public Guid UserId { get; private set; }
+  public Guid InvestigationId { get; private set; }
   public string Note { get; private set; }
 
   public InvestigationComment(Guid id,string note, Guid userId, Guid investigationId): base(id)

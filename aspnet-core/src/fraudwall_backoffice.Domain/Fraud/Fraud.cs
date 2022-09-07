@@ -13,7 +13,13 @@ public class FraudNumber: AuditedAggregateRoot<Guid>
   public float? Rating { get; private set; }
   public RiskType? RiskLevel { get; private set; }
 
-  public FraudNumber(Guid id, string phoneNumber, int reportCount, float rating, RiskType riskLevel):base(id)
+  public FraudNumber(
+    Guid id, 
+    string phoneNumber, 
+    int? reportCount = null, 
+    float? rating = null, 
+    RiskType? riskLevel =null
+  ):base(id)
   {
     this.PhoneNumber = Check.NotNullOrWhiteSpace(phoneNumber, nameof(phoneNumber));
     this.ReportCount = reportCount;

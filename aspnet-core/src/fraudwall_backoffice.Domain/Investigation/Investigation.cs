@@ -7,16 +7,21 @@ namespace fraudwall_backoffice.Investigation;
 
 public class ReportInvestigation: AuditedAggregateRoot<Guid>
 {
-  public Guid? ReportId { get; private set; }
+  public Guid ReportId { get; private set; }
   public bool IsClosed { get; private set; }
   public ReasonEnum? ReasonClosed { get; private set;}
   public Guid? AssignedUserId { get; set; }
 
-  public ReportInvestigation(Guid id, Guid reportId): base(id)
+  public ReportInvestigation(
+    Guid id, 
+    Guid reportId, 
+    ReasonEnum? reasonClosed = null, 
+    Guid? assignedUserId =null
+    ): base(id)
   {
     this.ReportId = reportId;
-    this.AssignedUserId = null;
-    this.ReasonClosed = null;
+    this.AssignedUserId = assignedUserId;
+    this.ReasonClosed = reasonClosed;
   }
 
   //reopen investigation
