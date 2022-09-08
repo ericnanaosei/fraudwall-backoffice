@@ -8,9 +8,12 @@ public class fraudwall_backofficePermissionDefinitionProvider : PermissionDefini
 {
     public override void Define(IPermissionDefinitionContext context)
     {
-        var myGroup = context.AddGroup(fraudwall_backofficePermissions.GroupName);
-        //Define your own permissions here. Example:
-        //myGroup.AddPermission(fraudwall_backofficePermissions.MyPermission1, L("Permission:MyPermission1"));
+        var fraudwall = context.AddGroup(fraudwall_backofficePermissions.GroupName);
+        var fraudNumber = fraudwall.AddPermission(fraudwall_backofficePermissions.FraudNumberManagement);
+        fraudNumber.AddChild("Create");
+        fraudNumber.AddChild("Edit");
+        fraudNumber.AddChild("Delete");
+        fraudNumber.AddChild("Read");
     }
 
     private static LocalizableString L(string name)
