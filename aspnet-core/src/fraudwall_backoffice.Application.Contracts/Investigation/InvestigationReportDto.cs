@@ -2,7 +2,7 @@ using System;
 using fraudwall_backoffice.Closed;
 using Volo.Abp.Application.Dtos;
 
-namespace fraudwall_backoffice.Investigations;
+namespace fraudwall_backoffice.Investigation;
 
 public class InvestigationReportDto: AuditedEntityDto<Guid>
 {
