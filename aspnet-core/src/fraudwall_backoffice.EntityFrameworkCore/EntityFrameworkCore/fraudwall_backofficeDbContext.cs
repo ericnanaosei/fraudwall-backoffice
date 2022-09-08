@@ -1,9 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using fraudwall_backoffice.Comment;
+using fraudwall_backoffice.Fraud;
+using fraudwall_backoffice.Investigation;
+using Microsoft.EntityFrameworkCore;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.EntityFrameworkCore;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 using Volo.Abp.FeatureManagement.EntityFrameworkCore;
 using Volo.Abp.Identity;
 using Volo.Abp.Identity.EntityFrameworkCore;
@@ -27,16 +31,6 @@ public class fraudwall_backofficeDbContext :
 
     #region Entities from the modules
 
-    /* Notice: We only implemented IIdentityDbContext and ITenantManagementDbContext
-     * and replaced them for this DbContext. This allows you to perform JOIN
-     * queries for the entities of these modules over the repositories easily. You
-     * typically don't need that for other modules. But, if you need, you can
-     * implement the DbContext interface of the needed module and use ReplaceDbContext
-     * attribute just like IIdentityDbContext and ITenantManagementDbContext.
-     *
-     * More info: Replacing a DbContext of a module ensures that the related module
-     * uses this DbContext on runtime. Otherwise, it will use its own DbContext class.
-     */
 
     //Identity
     public DbSet<IdentityUser> Users { get; set; }
@@ -49,6 +43,11 @@ public class fraudwall_backofficeDbContext :
     // Tenant Management
     public DbSet<Tenant> Tenants { get; set; }
     public DbSet<TenantConnectionString> TenantConnectionStrings { get; set; }
+
+    // Fraud-wall entities
+    public DbSet<FraudNumber> FraudNumbers { get; set; }
+    public DbSet<ReportInvestigation> ReportInvestigations { get; set; }
+    public DbSet<InvestigationComment> InvestigationComments { get; set; }
 
     #endregion
 
@@ -75,11 +74,25 @@ public class fraudwall_backofficeDbContext :
 
         /* Configure your own tables/entities inside here */
 
-        //builder.Entity<YourEntity>(b =>
-        //{
-        //    b.ToTable(fraudwall_backofficeConsts.DbTablePrefix + "YourEntities", fraudwall_backofficeConsts.DbSchema);
-        //    b.ConfigureByConvention(); //auto configure for the base class props
-        //    //...
-        //});
+        builder.Entity<FraudNumber>(b =>
+        {
+           b.ToTable(fraudwall_backofficeConsts.DbTablePrefix + "FraudNumbers", fraudwall_backofficeConsts.DbSchema);
+           b.ConfigureByConvention(); //auto configure for the base class props
+           b.Property(x => x.PhoneNumber).IsRequired().HasMaxLength(10);
+           //...
+        });
+        builder.Entity<ReportInvestigation>(b =>
+        {
+           b.ToTable(fraudwall_backofficeConsts.DbTablePrefix + "ReportInvestigations", fraudwall_backofficeConsts.DbSchema);
+           b.ConfigureByConvention(); //auto configure for the base class props
+           b.Property(x => x.ReportId).IsRequired();
+        });
+        builder.Entity<InvestigationComment>( b =>{
+            b.ToTable(fraudwall_backofficeConsts.DbTablePrefix + "InvestigationComments", fraudwall_backofficeConsts.DbSchema);
+            b.ConfigureByConvention();
+            b.Property(x => x.InvestigationId).IsRequired();
+            b.Property(x => x.UserId).IsRequired();
+            b.HasOne<ReportInvestigation>().WithMany().HasForeignKey(x => x.InvestigationId).IsRequired();
+        });
     }
 }
