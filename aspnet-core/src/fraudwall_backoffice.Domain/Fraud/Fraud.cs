@@ -15,11 +15,11 @@ public class FraudNumber: AuditedAggregateRoot<Guid>
 
   public FraudNumber(
     Guid id, 
-    string phoneNumber, 
-    int? reportCount = null, 
-    float? rating = null, 
-    RiskType? riskLevel =null
-  ):base(id)
+      string phoneNumber, 
+      int? reportCount = null, 
+      float? rating = null, 
+      RiskType? riskLevel =null
+      ):base(id)
   {
     this.PhoneNumber = Check.NotNullOrWhiteSpace(phoneNumber, nameof(phoneNumber));
     this.ReportCount = reportCount;
@@ -27,6 +27,8 @@ public class FraudNumber: AuditedAggregateRoot<Guid>
     this.RiskLevel = RiskType.Low;
 
   }
+  // contructor
+  internal FraudNumber(){}
 
   // add number
   public void AddPhoneNumber(string phoneNumber){

@@ -15,6 +15,8 @@ public class InvestigationComment: AuditedAggregateRoot<Guid>
     this.UserId = userId;
     this.InvestigationId = investigationId;
   }
+  // contructor
+  internal InvestigationComment(){}
 
   public void SetNote(string note){
     this.Note = note;

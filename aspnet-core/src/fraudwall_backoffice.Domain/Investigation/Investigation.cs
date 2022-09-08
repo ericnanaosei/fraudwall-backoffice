@@ -23,7 +23,10 @@ public class ReportInvestigation: AuditedAggregateRoot<Guid>
     this.AssignedUserId = assignedUserId;
     this.ReasonClosed = reasonClosed;
   }
+  // contructor
+  internal ReportInvestigation(){}
 
+  
   //reopen investigation
   public void Open(){
     this.IsClosed = false;
