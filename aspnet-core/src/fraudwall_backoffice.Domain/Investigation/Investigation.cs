@@ -10,7 +10,7 @@ public class ReportInvestigation: AuditedAggregateRoot<Guid>
   public Guid ReportId { get; private set; }
   public bool IsClosed { get; private set; }
   public ReasonEnum? ReasonClosed { get; private set;}
-  public Guid? AssignedUserId { get; set; }
+  public Guid? AssignedUserId { get; private set; }
 
   public ReportInvestigation(
     Guid id, 
