@@ -1,7 +1,6 @@
 using System;
 using Shouldly;
 using System.Threading.Tasks;
-using Volo.Abp.Application.Dtos;
 using Xunit;
 using Volo.Abp.Validation;
 using System.Linq;
@@ -25,7 +24,7 @@ public class FraudAppServiceTests : fraudwall_backofficeApplicationTestBase
       var exception = await Assert.ThrowsAsync<AbpValidationException>(
         async ()=> {
           await _fraudNumberAppService.CreateAsync(
-            new CreateUpdateFraudNumberDto{
+            new CreateFraudNumberDto{
               PhoneNumber ="",
               ReportCount = 2,
               RiskLevel = Risk.RiskType.Low,
@@ -43,7 +42,7 @@ public class FraudAppServiceTests : fraudwall_backofficeApplicationTestBase
     public async Task Should_Create_Valid_Fraudnumber(){
       // Act
       var results = await _fraudNumberAppService.CreateAsync(
-        new CreateUpdateFraudNumberDto{
+        new CreateFraudNumberDto{
           PhoneNumber = "0242134019",
           ReportCount = 2,
           RiskLevel = Risk.RiskType.Low,

@@ -13,6 +13,7 @@ public class FraudNumber: AuditedAggregateRoot<Guid>
   public float? Rating { get; private set; }
   public RiskType? RiskLevel { get; private set; }
 
+
   public FraudNumber(
     Guid id, 
       string phoneNumber, 
@@ -32,17 +33,26 @@ public class FraudNumber: AuditedAggregateRoot<Guid>
 
   // add number
   public void AddPhoneNumber(string phoneNumber){
-    this.PhoneNumber = phoneNumber;
+    this.PhoneNumber = Check.NotNullOrEmpty(phoneNumber, nameof(phoneNumber));
   }
   public void SetCount(int count){
-    this.ReportCount = count;
+    this.ReportCount += count;
   }
 
-  public void SetRating(float rate){
-    this.Rating = rate;
+  public void SetRating(float increasedReportCount, float totalCount){
+    var result = ( increasedReportCount %  totalCount ) * 100;
+    this.Rating =result;
   }
   
-  public void SetRiskLevel(RiskType riskLevel){
-    this.RiskLevel = riskLevel;
+  public void SetRiskLevel(int reportCount){ 
+    if(reportCount <=3){
+      this.RiskLevel = RiskType.Low;
+    }
+    else if ((reportCount > 3) && (reportCount<= 6)){
+      this.RiskLevel = RiskType.Medium;
+    }
+    else{
+      this.RiskLevel = RiskType.High;
+    }
   }
 }
