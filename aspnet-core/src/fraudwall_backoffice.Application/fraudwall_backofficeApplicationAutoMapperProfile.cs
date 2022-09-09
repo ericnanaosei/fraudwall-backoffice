@@ -11,7 +11,9 @@ public class fraudwall_backofficeApplicationAutoMapperProfile : Profile
     {
         // investigation
         CreateMap<ReportInvestigation,InvestigationReportDto>();
-        CreateMap<CreateUpdateInvestigationReportDto,ReportInvestigation>();
+        CreateMap<CreateInvestigationReportDto,ReportInvestigation>();
+        CreateMap<ClosedInvestigationDto,ReportInvestigation>();
+        CreateMap<AssignInvestigationDto,ReportInvestigation>();
 
         // fraud numbers
         CreateMap<FraudNumber,FraudNumberDto>();

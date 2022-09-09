@@ -10,7 +10,7 @@ public class ReportInvestigation: AuditedAggregateRoot<Guid>
   public Guid ReportId { get; private set; }
   public bool IsClosed { get; private set; }
   public ReasonEnum? ReasonClosed { get; private set;}
-  public Guid? AssignedUserId { get; private set; }
+  public Guid? AssignedUserId { get; internal set; }
 
   public ReportInvestigation(
     Guid id, 
@@ -47,6 +47,9 @@ public class ReportInvestigation: AuditedAggregateRoot<Guid>
   }
 
   public void UnassignUser(){
+    if(IsClosed){
+      throw new InvestigationStateException("Investigation is closed");
+    }
     this.AssignedUserId = null;
   }
 }
