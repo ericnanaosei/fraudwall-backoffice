@@ -14,7 +14,8 @@ public interface IInvestigationReportService:
   CreateInvestigationReportDto
   >
 {
-  public Task OpenInvestigation(Guid id);
-  public Task CloseInvestigation(ClosedInvestigationDto input);
-  public Task AssignInvestigation(AssignInvestigationDto input);
+  public Task Open(Guid id);
+  public Task Close(ClosedInvestigationDto input);
+  public Task AssignUser(AssignInvestigationDto input);
+  public Task UnassignUser(AssignInvestigationDto input);
 }
