@@ -14,11 +14,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { APP_ROUTE_PROVIDER } from './route.provider';
 import { LogoComponent } from './logo/logo.component';
+import { RoutesComponent } from './routes/routes.component';
+import { SharedModule } from './shared/shared.module';
+
 
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    SharedModule,
     AppRoutingModule,
     CoreModule.forRoot({
       environment,
@@ -31,7 +35,7 @@ import { LogoComponent } from './logo/logo.component';
     SettingManagementConfigModule.forRoot(),
     ThemeBasicModule.forRoot(),
   ],
-  declarations: [AppComponent, LogoComponent],
+  declarations: [AppComponent, LogoComponent, RoutesComponent],
   providers: [APP_ROUTE_PROVIDER],
   bootstrap: [AppComponent],
 })
