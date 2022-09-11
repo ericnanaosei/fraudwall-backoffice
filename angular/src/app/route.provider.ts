@@ -10,7 +10,7 @@ function configureRoutes(routesService: RoutesService) {
     routesService.add([
       {
         path: '/',
-        name: '::Menu:Home',
+        name: 'Home',
         iconClass: 'fas fa-home',
         order: 1,
         layout: eLayoutType.application,
@@ -18,9 +18,9 @@ function configureRoutes(routesService: RoutesService) {
       {
         path: "/report",
         name: 'Reports',
-        iconClass: 'fas fa-files',
+        iconClass: 'fa light fa-address-card',
         order: 2,
-        layout: eLayoutType.account
+        layout: eLayoutType.application
       }
     ]);
   };
