@@ -1,0 +1,86 @@
+<div 
+class="flex justify-between 
+align-middle absolute left-[200px] 
+right-0 top-0 w-[calc(100vw -200px)] 
+bg-blue-400 h-[50px] px-2 py-2
+"
+id="header"
+>
+  <h5 class="text-[20px] font-bold">Logo</h5>
+  <ul class="flex">
+    <ng-template #loginBtn>
+      <button class="bg-slate-500 px-4 text-center rounded-lg text-white text-2xl" (click)="login()">Login</button>
+    </ng-template>
+    <div 
+      class="
+      flex 
+      justify-between 
+      text-center
+      hover: cursor-pointer
+      text-[20px]
+      font-semibold
+      " 
+      *ngIf="(currentUser$ | async)?.isAuthenticated; else loginBtn">
+      <li class="px-4"><a><strong>{{ (currentUser$ | async)?.userName }}</strong></a></li>
+      <li class="px-4"><a (click)="navigateToManageProfile()"><i class="fa solid fa-user"></i>Profile</a></li>
+      <li class="px-4"><a (click)="logout()"><i class="fa fa-power-off"></i>Log Out</a></li>
+    </div>
+  </ul>
+</div>
+
+<div class="flex justify-center">
+  <div class="w-[200px] bg-slate-500 h-[100vh] p-[10px] text-white" id="sidebar">
+    <ul class="flex flex-col justify-between text-[20px] mt-10">
+      <li class="mb-4">
+        <a 
+        class="
+        px-3 py-2 
+        rounded-lg 
+        "
+        routerLink="/identity/users" 
+        routerLinkActive="true"
+        >
+        <i class="fa duotone fa-users px-2"></i>
+        Users
+        </a>
+      </li>
+      <li class="mb-4">
+        <a 
+        class="
+        px-3 py-2 
+        rounded-lg 
+        "
+        routerLink="/identity/roles"
+        routerLinkActive="true"
+        >
+        <i class="fa solid fa-gears px-2"></i>
+        Roles
+        </a>
+      </li>
+      <li class="mb-4">
+        <a 
+        class="
+        px-3 py-2 
+        rounded-lg 
+        "
+        routerLink="/tenant-management/tenants"
+        >
+        <i class="fa solid fa-wrench px-2"></i>
+          Tenants
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="mt-[50px] flex-1">
+    <div class="container mx-auto">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+</div>
+
+<footer class=" w-[ calc(100vw -200px)] absolute left-[200px] right-0 bottom-0 mb-3">
+  <h5 class="text-center font-bold">Afrilogic Solutions <span class="text-blue-600">Copyright@2022</span></h5>
+</footer>
+      

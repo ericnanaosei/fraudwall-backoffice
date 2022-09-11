@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ReplaceableComponentsService } from '@abp/ng.core';
 import { LogoComponent } from './logo/logo.component';
 import { eThemeBasicComponents } from '@abp/ng.theme.basic';
-import { RoutesComponent } from './routes/routes.component';
+import { FraudwallLayoutComponent } from './fraudwall-layout/fraudwall-layout.component';
 
 @Component({
   selector: 'app-root',
@@ -20,8 +20,8 @@ export class AppComponent  implements OnInit{
         key: eThemeBasicComponents.Logo,
       })
       this.replaceableComponent.add({
-        component: RoutesComponent,
-        key: eThemeBasicComponents.Routes
+        component: FraudwallLayoutComponent,
+        key: eThemeBasicComponents.ApplicationLayout
       })
   }
 }

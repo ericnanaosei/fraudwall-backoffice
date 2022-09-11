@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RoutesComponent } from './routes.component';
+import { FraudwallLayoutComponent } from './fraudwall-layout.component';
 
-describe('RoutesComponent', () => {
-  let component: RoutesComponent;
-  let fixture: ComponentFixture<RoutesComponent>;
+describe('FraudwallLayoutComponent', () => {
+  let component: FraudwallLayoutComponent;
+  let fixture: ComponentFixture<FraudwallLayoutComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RoutesComponent ]
+      declarations: [ FraudwallLayoutComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RoutesComponent);
+    fixture = TestBed.createComponent(FraudwallLayoutComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

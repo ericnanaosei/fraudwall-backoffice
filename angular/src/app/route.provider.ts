@@ -15,6 +15,13 @@ function configureRoutes(routesService: RoutesService) {
         order: 1,
         layout: eLayoutType.application,
       },
+      {
+        path: "/report",
+        name: 'Reports',
+        iconClass: 'fas fa-files',
+        order: 2,
+        layout: eLayoutType.account
+      }
     ]);
   };
 }

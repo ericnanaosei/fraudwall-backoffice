@@ -14,8 +14,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { APP_ROUTE_PROVIDER } from './route.provider';
 import { LogoComponent } from './logo/logo.component';
-import { RoutesComponent } from './routes/routes.component';
 import { SharedModule } from './shared/shared.module';
+import { FraudwallLayoutComponent } from './fraudwall-layout/fraudwall-layout.component';
+
 
 
 @NgModule({
@@ -35,7 +36,7 @@ import { SharedModule } from './shared/shared.module';
     SettingManagementConfigModule.forRoot(),
     ThemeBasicModule.forRoot(),
   ],
-  declarations: [AppComponent, LogoComponent, RoutesComponent],
+  declarations: [AppComponent, LogoComponent, FraudwallLayoutComponent],
   providers: [APP_ROUTE_PROVIDER],
   bootstrap: [AppComponent],
 })
