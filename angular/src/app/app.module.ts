@@ -13,10 +13,12 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { APP_ROUTE_PROVIDER } from './route.provider';
-import { LogoComponent } from './logo/logo.component';
 import { SharedModule } from './shared/shared.module';
-import { FraudwallLayoutComponent } from './fraudwall-layout/fraudwall-layout.component';
 import { CardModule } from './card/card.module';
+import { LogoComponent } from './logo/logo.component';
+import { FraudwallLayoutComponent } from './fraudwall-layout/fraudwall-layout.component';
+import { SidebarModule } from './sidebar/sidebar.module';
+
 
 
 
@@ -39,6 +41,7 @@ import { CardModule } from './card/card.module';
     SettingManagementConfigModule.forRoot(),
     ThemeBasicModule.forRoot(),
     CardModule,
+    SidebarModule
   ],
   declarations: [AppComponent, LogoComponent, FraudwallLayoutComponent],
   providers: [APP_ROUTE_PROVIDER],

@@ -3,7 +3,7 @@ import { ReplaceableComponentsService } from '@abp/ng.core';
 import { LogoComponent } from './logo/logo.component';
 import { eThemeBasicComponents } from '@abp/ng.theme.basic';
 import { FraudwallLayoutComponent } from './fraudwall-layout/fraudwall-layout.component';
-import { HomeComponent } from './home/home.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @Component({
   selector: 'app-root',
@@ -23,10 +23,10 @@ export class AppComponent  implements OnInit{
       this.replaceableComponent.add({
         component: FraudwallLayoutComponent,
         key: eThemeBasicComponents.ApplicationLayout
-      })
+      }),
       this.replaceableComponent.add({
-        component: HomeComponent,
-        key: eThemeBasicComponents.ApplicationLayout
+        component: SidebarComponent,
+        key: eThemeBasicComponents.Routes
       })
   }
 }

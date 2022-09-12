@@ -1,0 +1,48 @@
+<div class="flex justify-center absolute top-[60px] left-0" *ngIf="(currentUser$ | async)?.isAuthenticated">
+  <div class="w-[200px] bg-slate-800 h-[100vh] pt-[10px] text-white">
+    <ul class="text-[20px] text-start mx-2">
+      <li class="mb-4 bg-slate-400 py-6 rounded-lg hover:bg-slate-600">
+        <a
+        class="px-6"
+        routerLink="/"
+        >
+          <i class="fa duotone fa-folder-open"></i>
+          Reports
+        </a>
+      </li>
+      <li class="mb-4 bg-slate-400 py-6 rounded-lg hover:bg-slate-600">
+        <a class="px-6"
+        routerLink="/identity/users" 
+        routerLinkActive="true"
+        >
+        <i class="fa duotone fa-users"></i>
+        Users
+        </a>
+      </li>
+      <li class="mb-4 bg-slate-400 py-6 rounded-lg hover:bg-slate-600">
+        <a class="px-6"
+        routerLink="/identity/roles"
+        routerLinkActive="true"
+        >
+        <i class="fa solid fa-gears"></i>
+        Roles
+        </a>
+      </li>
+      <li class="mb-4 bg-slate-400 py-6 rounded-lg hover:bg-slate-600">
+        <a class="px-6"
+        routerLink="/tenant-management/tenants"
+        >
+        <i class="fa solid fa-wrench"></i>
+          Tenants
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="mt-[100px] flex-1">
+    <div class="container w-[calc(100vw-300px)] mx-auto">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+

@@ -14,6 +14,8 @@ export class FraudwallLayoutComponent implements OnInit {
     @Inject(NAVIGATE_TO_MANAGE_PROFILE) public navigateToManageProfile
     ){}
 
+  showSideBar$: boolean = false;
+
   ngOnInit(): void {}
   currentUser$: Observable<CurrentUserDto> = this.configState.getOne$('currentUser');
 
@@ -23,5 +25,12 @@ export class FraudwallLayoutComponent implements OnInit {
 
   logout() {
     this.authService.logout().subscribe();
+  }
+
+  showSideBar(){
+    this.showSideBar$ = !this.showSideBar$
+  }
+  closeSideBar(){
+    this.showSideBar$ = !this.showSideBar$
   }
 }

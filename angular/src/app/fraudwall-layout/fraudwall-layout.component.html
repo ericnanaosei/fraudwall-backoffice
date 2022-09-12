@@ -1,10 +1,12 @@
 <div 
 class="flex justify-between 
-align-middle absolute left-[200] 
-right-0 top-0 w-[calc(100vw-200px)]
+align-middle absolute left-0
+right-0 top-0 w-[calc(100vw)]
 bg-slate-400 h-[60px] px-2 py-2
 "
 >
+  <i (click)="showSideBar()" class="fa duotone fa-bars text-4xl ml-6 hover:cursor-pointer" [ngClass]="{hidden: showSideBar$}"></i>
+  <i (click)="closeSideBar()" class="fa solid fa-arrow-left text-4xl ml-6 hover:cursor-pointer" [ngClass]="{hidden: !showSideBar$}"></i>
   <app-logo></app-logo>
   <ng-template #loginBtn>
     <button class="
@@ -35,54 +37,7 @@ bg-slate-400 h-[60px] px-2 py-2
   </div>
 </div>
 
-<div class="flex justify-center absolute top-0 left-0" *ngIf="(currentUser$ | async)?.isAuthenticated">
-  <div class="w-[200px] bg-slate-800 h-[100vh] pt-[10px] text-white" id="sidebar">
-    <ul class="text-[20px] text-start mx-2">
-      <li class="mb-4 bg-slate-400 py-6 rounded-lg hover:bg-slate-600">
-        <a
-        class="px-6"
-        routerLink="/"
-        >
-          <i class="fa duotone fa-bars"></i>
-          Home
-        </a>
-      </li>
-      <li class="mb-4 bg-slate-400 py-6 rounded-lg hover:bg-slate-600">
-        <a class="px-6"
-        routerLink="/identity/users" 
-        routerLinkActive="true"
-        >
-        <i class="fa duotone fa-users"></i>
-        Users
-        </a>
-      </li>
-      <li class="mb-4 bg-slate-400 py-6 rounded-lg hover:bg-slate-600">
-        <a class="px-6"
-        routerLink="/identity/roles"
-        routerLinkActive="true"
-        >
-        <i class="fa solid fa-gears"></i>
-        Roles
-        </a>
-      </li>
-      <li class="mb-4 bg-slate-400 py-6 rounded-lg hover:bg-slate-600">
-        <a class="px-6"
-        routerLink="/tenant-management/tenants"
-        >
-        <i class="fa solid fa-wrench"></i>
-          Tenants
-        </a>
-      </li>
-    </ul>
-  </div>
-
-  <div class="mt-[100px] flex-1">
-    <div class="container w-[calc(100vw-300px)] mx-auto">
-      <router-outlet></router-outlet>
-    </div>
-  </div>
-
-</div>
+<sidebar *ngIf="showSideBar$" [showSideBar$]="showSideBar$" [currentUser$]="currentUser$"></sidebar>
 
 <footer class=" w-[ calc(100vw -200px)] absolute left-[200px] right-0 bottom-0 mb-3">
   <h5 class="text-center font-bold">Afrilogic Solutions <span class="text-blue-600">Copyright@2022</span></h5>
