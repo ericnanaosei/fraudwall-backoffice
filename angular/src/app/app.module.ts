@@ -16,6 +16,9 @@ import { APP_ROUTE_PROVIDER } from './route.provider';
 import { LogoComponent } from './logo/logo.component';
 import { SharedModule } from './shared/shared.module';
 import { FraudwallLayoutComponent } from './fraudwall-layout/fraudwall-layout.component';
+import { CardModule } from './card/card.module';
+
+
 
 
 
@@ -35,6 +38,7 @@ import { FraudwallLayoutComponent } from './fraudwall-layout/fraudwall-layout.co
     TenantManagementConfigModule.forRoot(),
     SettingManagementConfigModule.forRoot(),
     ThemeBasicModule.forRoot(),
+    CardModule,
   ],
   declarations: [AppComponent, LogoComponent, FraudwallLayoutComponent],
   providers: [APP_ROUTE_PROVIDER],

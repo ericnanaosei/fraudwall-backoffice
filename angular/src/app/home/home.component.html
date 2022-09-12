@@ -1,8 +1,4 @@
 <div class="container">
-  <div class="p-5 text-center">
-    <p class="text-3xl">Welcome</p>
-
-    <a *ngIf="!hasLoggedIn" (click)="login()" class="px-4 btn btn-primary ms-1"><i class="fa fa-sign-in"></i>Login</a>
-  </div>
-
+  <app-card [cardInfo]="getCardInfo()" class="flex justify-center gap-5 align-middle">
+  </app-card>
 </div>
