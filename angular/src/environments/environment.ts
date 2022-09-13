@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   application: {
     baseUrl,
-    name: 'fraudwall_backoffice',
+    name: 'Fraudwall',
     logoUrl: '',
   },
   oAuthConfig: {
@@ -22,8 +22,8 @@ export const environment = {
       url: 'https://localhost:44353',
       rootNamespace: 'fraudwall_backoffice',
     },
-    clientApi: {
-      url: 'http://localhost/300/api'
+    webapi: {
+      url: 'http://localhost:3000/api'
     }
   },
 } as Environment;
