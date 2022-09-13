@@ -1,3 +1,4 @@
+<!-- Header Section -->
 <div 
 class="flex justify-between 
 align-middle absolute left-0
@@ -37,9 +38,26 @@ bg-slate-400 h-[60px] px-2 py-2
   </div>
 </div>
 
+<!-- Sidebar section -->
 <sidebar *ngIf="showSideBar$" [showSideBar$]="showSideBar$" [currentUser$]="currentUser$"></sidebar>
 
-<footer class=" w-[ calc(100vw -200px)] absolute left-[200px] right-0 bottom-0 mb-3">
-  <h5 class="text-center font-bold">Afrilogic Solutions <span class="text-blue-600">Copyright@2022</span></h5>
+<!-- Main content section -->
+<div 
+  class="mt-[100px] 
+  flex-1
+  container
+  justify-center
+  md:w-[calc(100vw-300px)]
+  mb-[20px]">
+  <div class="container mx-auto flex flex-col justify-center">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<!-- Footer section -->
+
+<footer class="absolute bottom-0 left-0 right-0">
+  <h5 class="text-center font-bold mb-2 mt-6">Afrilogic Solutions <span class="text-blue-600">Copyright@2022</span></h5>
 </footer>
+
       
