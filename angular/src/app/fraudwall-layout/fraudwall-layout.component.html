@@ -1,0 +1,63 @@
+<!-- Header Section -->
+<div 
+class="flex justify-between 
+align-middle absolute left-0
+right-0 top-0 w-[calc(100vw)]
+bg-slate-400 h-[60px] px-2 py-2
+"
+>
+  <i (click)="showSideBar()" class="fa duotone fa-bars text-4xl ml-6 hover:cursor-pointer" [ngClass]="{hidden: showSideBar$}"></i>
+  <i (click)="closeSideBar()" class="fa solid fa-arrow-left text-4xl ml-6 hover:cursor-pointer" [ngClass]="{hidden: !showSideBar$}"></i>
+  <app-logo></app-logo>
+  <ng-template #loginBtn>
+    <button class="
+    bg-slate-500 
+    px-4
+    text-center 
+    rounded-lg 
+    text-white 
+    mr-4
+    text-1xl" (click)="login()">
+    <i class="fa fa-sign-in"></i>Login</button>
+  </ng-template>
+  <div 
+    class="
+    flex
+    justify-between 
+    text-center
+    mr-4
+    text-white
+    text-[20px]
+    " 
+    *ngIf="(currentUser$ | async)?.isAuthenticated; else loginBtn">
+    <ul class="flex justify-between">
+      <li class="px-3 text-pink-800"><a><strong>{{ (currentUser$ | async)?.userName }}</strong></a></li>
+      <li class="px-3 hover:cursor-pointer"><a (click)="navigateToManageProfile()"><i class="fa solid fa-user"></i></a></li>
+      <li class="px-3 hover:cursor-pointer"><a (click)="logout()"><i class="fa fa-power-off"></i></a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- Sidebar section -->
+<sidebar *ngIf="showSideBar$" [showSideBar$]="showSideBar$" [currentUser$]="currentUser$"></sidebar>
+
+<!-- Main content section -->
+<div 
+  class="mt-[100px] 
+  flex-1
+  container
+  justify-center
+  md:w-[calc(100vw-300px)]
+  mb-[20px]">
+  <div class="container mx-auto flex flex-col justify-center">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<!-- Footer section -->
+
+<footer class="absolute bottom-0 left-0 right-0">
+  <h5 class="text-center font-bold mb-2 mt-6">Afrilogic Solutions <span class="text-blue-600">Copyright@2022</span></h5>
+</footer>
+
+      

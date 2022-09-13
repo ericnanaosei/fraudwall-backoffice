@@ -13,11 +13,22 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { APP_ROUTE_PROVIDER } from './route.provider';
+import { SharedModule } from './shared/shared.module';
+import { CardModule } from './card/card.module';
+import { LogoComponent } from './logo/logo.component';
+import { FraudwallLayoutComponent } from './fraudwall-layout/fraudwall-layout.component';
+import { SidebarModule } from './sidebar/sidebar.module';
+
+
+
+
+
 
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    SharedModule,
     AppRoutingModule,
     CoreModule.forRoot({
       environment,
@@ -29,8 +40,10 @@ import { APP_ROUTE_PROVIDER } from './route.provider';
     TenantManagementConfigModule.forRoot(),
     SettingManagementConfigModule.forRoot(),
     ThemeBasicModule.forRoot(),
+    CardModule,
+    SidebarModule
   ],
-  declarations: [AppComponent],
+  declarations: [AppComponent, LogoComponent, FraudwallLayoutComponent],
   providers: [APP_ROUTE_PROVIDER],
   bootstrap: [AppComponent],
 })

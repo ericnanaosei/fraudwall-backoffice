@@ -22,5 +22,8 @@ export const environment = {
       url: 'https://localhost:44353',
       rootNamespace: 'fraudwall_backoffice',
     },
+    clientApi: {
+      url: 'http://localhost/300/api'
+    }
   },
 } as Environment;

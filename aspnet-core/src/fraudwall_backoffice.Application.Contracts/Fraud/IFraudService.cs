@@ -1,13 +1,18 @@
 using System;
+using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
+
+
 namespace fraudwall_backoffice.Fraud;
+
 public interface IFraudService: 
   ICrudAppService<
   FraudNumberDto,
   Guid, 
   PagedAndSortedResultRequestDto,
-  CreateUpdateFraudNumberDto>
+  CreateFraudNumberDto>
 {
-  // create additional interface methods
+  // validate number
+  public Task<ValiatePhoneNumberDto> ValiatePhoneNumber(string phoneNumber);
 }

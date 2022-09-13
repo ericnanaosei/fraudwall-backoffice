@@ -10,11 +10,18 @@ function configureRoutes(routesService: RoutesService) {
     routesService.add([
       {
         path: '/',
-        name: '::Menu:Home',
+        name: 'Home',
         iconClass: 'fas fa-home',
         order: 1,
         layout: eLayoutType.application,
       },
+      {
+        path: "/report",
+        name: 'Reports',
+        iconClass: 'fa light fa-address-card',
+        order: 2,
+        layout: eLayoutType.application
+      }
     ]);
   };
 }

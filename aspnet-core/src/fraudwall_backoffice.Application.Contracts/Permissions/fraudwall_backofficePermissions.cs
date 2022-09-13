@@ -2,8 +2,8 @@
 
 public static class fraudwall_backofficePermissions
 {
-    public const string GroupName = "fraudwall_backoffice";
+    public const string GroupName = "Fraud Management";
 
     //Add your own permission names. Example:
-    //public const string MyPermission1 = GroupName + ".MyPermission1";
+    public const string FraudNumberManagement = "Fraud_Number_Management";
 }
