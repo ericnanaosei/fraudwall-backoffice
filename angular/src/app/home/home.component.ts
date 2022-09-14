@@ -39,10 +39,31 @@ export class HomeComponent implements OnInit{
   // get card information method
   getCardInfo(){
       return this.cardInfo = [
-      {title: "Report Cases", icon: "fa duotone fa-folder-open w-[90px]", total: this.totalReport, color: "bg-yellow-600"},
-      {title: "Fraud Cases", icon: "fa solid fa-suitcase w-[90px]",total: 99, color: "bg-red-600"},
-      {title:"Investigations", icon: "fa solid fa-vial w-[90px]", total: 100, color: "bg-green-600"},
-      {title: "Archives", icon: "fa solid fa-database w-[90px]", total: 16, color: "bg-blue-600"}
+      {
+        title: "Report Cases", 
+        icon: "fa duotone fa-folder-open w-[90px]", 
+        total: this.totalReport, 
+        color: "bg-yellow-600", 
+        url:"report"
+      },
+      {
+        title: "Fraud Cases", 
+        icon: "fa solid fa-suitcase w-[90px]",
+        total: 99, color: "bg-red-600",
+        url: 'fraud'
+      },
+      {
+        title:"Investigations", 
+        icon: "fa solid fa-vial w-[90px]", 
+        total: 100, color: "bg-green-600",
+        url: "investigation"
+      },
+      {
+        title: "Archives", 
+        icon: "fa solid fa-database w-[90px]", 
+        total: 16, color: "bg-blue-600",
+        url: "archives"
+      }
     ]
   };
   // get total report
