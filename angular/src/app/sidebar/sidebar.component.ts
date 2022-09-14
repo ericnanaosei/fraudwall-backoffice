@@ -6,15 +6,14 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
 
   @Input() showSideBar$: boolean;
+  @Input()currentUser$: Observable<CurrentUserDto>
 
   constructor() { }
 
   ngOnInit(): void {
   }
-  @Input()currentUser$: Observable<CurrentUserDto>
 }
