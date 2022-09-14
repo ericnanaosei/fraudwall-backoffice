@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ICardInfo } from './Interface/ICardInfo';
 
 @Component({
@@ -6,19 +7,21 @@ import { ICardInfo } from './Interface/ICardInfo';
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.css']
 })
-export class CardComponent implements OnInit {
+export class CardComponent {
 
   @Input() public cardInfo: ICardInfo[] = [
     {
       title : "",
       icon :"",
       total : 0,
-      color: ""
+      color: "",
+      url: ""
     }
   ]
-  constructor() { }
+  constructor(private readonly router: Router) { }
 
-  ngOnInit(): void {
+  navigateTo(path: string){
+    this.router.navigateByUrl(path);
   }
 
 }
