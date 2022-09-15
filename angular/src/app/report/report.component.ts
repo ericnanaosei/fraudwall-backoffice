@@ -31,7 +31,8 @@ export class ReportComponent implements OnInit {
     });
   }
   // on page change event
-  onPageChange(page: Event){
-
-  }
+  pageChangeEvent(event: number){
+    this.page = event;
+    this.reportService.getReportList();
+}
 }
