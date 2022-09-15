@@ -1,8 +1,32 @@
-<ngx-datatable
-  [rows]="reportList"
-  [count]="count"
-  [list]="list"
-  default
->
-  <!-- column templates here -->
-</ngx-datatable>
+<ng-template #loadingReport>
+  <p>Loading</p>
+</ng-template>
+
+<table class="min-w-max w-full table-auto">
+  <thead>
+    <tr class="bg-indigo-500 text-gray-700 uppercase text-sm leading-normal text-start">
+      <th class="py-3 px-6 text-left">Report ID</th>
+      <th class="py-3 px-6 text-left">Suspect Number</th>
+      <th class="py-3 px-6 text-left">Platform</th>
+      <th class="py-3 px-6 text-left">Incident Date</th>
+      <th class="py-3 px-6 text-left">Description</th>
+      <th class="py-3 px-6 text-left">Actions</th>
+    </tr>
+  </thead>
+
+  <!-- table body -->
+  <tbody *ngIf="reportList != null; else loadingReport" class="text-gray-700 text-sm font-medium">
+    <tr *ngFor="let report of reportList" class="border-b border-gray-200 hover:bg-gray-100">
+      <td class="py-3 px-6 text-left whitespace-nowrap">{{report.reportId}}</td>
+      <td class="py-3 px-6 text-start whitespace-nowrap">{{report.suspectNumber}}</td>
+      <td class="py-3 px-6 text-left whitespace-nowrap">{{report.platForm}}</td>
+      <td class="py-3 px-6 text-left whitespace-nowrap">{{report.incidentDate}}</td>
+      <td class="py-3 px-6 text-left whitespace-nowrap">{{report.description}}</td>
+      <td class="py-3 px-6 text-start whitespace-nowrap flex justify-between hover:cursor-pointer">
+        <div class="hover:text-2xl"><i class="fa solid fa-trash text-red-600"></i></div>
+        <div class="hover:text-2xl"><i class="fa solid fa-vial text-green-600"></i></div>
+        <div class="hover:text-2xl"><i class="fa solid fa-database text-blue-600 hover"></i></div>
+      </td>
+    </tr>
+  </tbody>
+</table>

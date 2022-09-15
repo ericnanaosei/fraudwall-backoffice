@@ -68,7 +68,7 @@ export class HomeComponent implements OnInit{
   };
   // get total report
   getTotalReport(){
-    this.reportService.getListReport().subscribe(total => {
+    this.reportService.getReportList().subscribe(total => {
       this.totalReport = total.length;
     });
   }
