@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReportRoutingModule } from './report-routing.module';
 import { ReportComponent } from './report.component';
 import { SharedModule } from '../shared/shared.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -10,6 +11,7 @@ import { SharedModule } from '../shared/shared.module';
     ReportComponent
   ],
   imports: [
+    NgxPaginationModule,
     ReportRoutingModule,
     SharedModule
   ]

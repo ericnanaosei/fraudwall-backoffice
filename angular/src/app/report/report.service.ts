@@ -1,5 +1,8 @@
 import { Rest, RestService } from '@abp/ng.core';
+import { HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ReportDto } from './Dto/ReportDto';
+
 
 
 @Injectable({
@@ -13,15 +16,16 @@ export class ReportService {
 
 
   // get all reports
-  getListReport(){
-    const request: Rest.Request<null> = {
+  getReportList(){
+    const request: Rest.Request<ReportDto> ={
       method: 'GET',
-      url: '/report'
+      url: `/report`,
+      responseType: 'json'
     };
-
-    return this.restService.request<null,any>(request,{ apiName: 'webapi'});
+    return this.restService.request<ReportDto, ReportDto[]>(request, { apiName: 'webapi'});
   }
 
+  // get report by Id
   getReport(id: string){
     const request: Rest.Request<string> = {
       method: 'GET',

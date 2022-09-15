@@ -1,21 +1,27 @@
-import { ListService } from '@abp/ng.core';
 import { Component, OnInit } from '@angular/core';
+import { ReportDto } from './Dto/ReportDto';
 import { ReportService } from './report.service';
 
 @Component({
   selector: 'app-report',
-  providers: [ListService],
   templateUrl: './report.component.html',
 })
 export class ReportComponent implements OnInit {
+  reportList: ReportDto[];
+  page: number = 1;
+  totalCount: number = 0;
 
-  constructor( private readonly reportService: ReportService) { }
-  report$: [];
+  constructor( 
+    private readonly reportService: ReportService,
+    ) {
 
-  ngOnInit(): void {
-    this.reportService.getListReport().subscribe( reports => {
-      this.report$ = reports;
-    });
+     }
+
+  ngOnInit(){
+    this.reportService.getReportList().subscribe(report => {
+      this.reportList = report;
+      this.totalCount = report.length;
+    })
   }
 
   // get report by id
@@ -24,4 +30,9 @@ export class ReportComponent implements OnInit {
       return report;
     });
   }
+  // on page change event
+  pageChangeEvent(event: number){
+    this.page = event;
+    this.reportService.getReportList();
+}
 }
