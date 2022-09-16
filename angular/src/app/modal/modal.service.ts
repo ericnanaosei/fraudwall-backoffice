@@ -6,4 +6,6 @@ import { Injectable } from '@angular/core';
 export class ModalService {
 
   constructor() { }
+  showModal: boolean = true;
+  hideModal: boolean = false;
 }
