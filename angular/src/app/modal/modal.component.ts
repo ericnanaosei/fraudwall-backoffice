@@ -12,6 +12,8 @@ export class ModalComponent implements OnInit {
   showPageModalValue: boolean;
   @Input()
   title: string;
+  @Input()
+  data: any;
   constructor(private readonly modalService: ModalService) { }
 
   ngOnInit(): void {

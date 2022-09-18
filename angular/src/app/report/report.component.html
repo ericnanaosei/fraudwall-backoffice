@@ -40,7 +40,7 @@
       <td class="py-3 px-6 text-left whitespace-nowrap">{{report.platForm}}</td>
       <td class="py-3 px-6 text-left whitespace-nowrap">{{report.incidentDate}}</td>
       <td class="py-3 px-6 text-left whitespace-nowrap">{{report.description}}</td>
-      <td class="py-3 px-6 text-start whitespace-nowrap flex justify-between hover:cursor-pointer">
+      <td class="py-3 px-6 text-start whitespace-nowrap flex justify-between hover:cursor-pointer" (click)="data=report.reportId">
         <div class="hover:text-2xl"><i class="fa solid fa-trash text-red-600"></i></div>
         <div class="hover:text-2xl" (click)="showPageModal()"><i class="fa solid fa-vial text-green-600"></i></div>
         <div class="hover:text-2xl"><i class="fa solid fa-database text-blue-600 hover"></i></div>
@@ -59,7 +59,8 @@
     <form class="text-center font-light">
       <div class="flex justify-start px-6 py-4">
         <label class="text-3xl" for="reportId">Report Id:</label>
-        <input class="px-6 text-start text-2xl rounded-sm py-2 ml-2 w-[600px]" type="text" placeholder="Report ID">
+        <input class="px-6 text-start text-2xl rounded-sm py-2 ml-2 w-[600px]"
+         type="text" placeholder="Report ID" value={{data}}>
       </div>
     </form>
   </app-modal>
