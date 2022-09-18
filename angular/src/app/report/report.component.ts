@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalService } from '../modal/modal.service';
 import { ReportDto } from './Dto/ReportDto';
 import { ReportService } from './report.service';
 
@@ -10,9 +11,12 @@ export class ReportComponent implements OnInit {
   reportList: ReportDto[];
   page: number = 1;
   totalCount: number = 0;
+  showModal: boolean;
+  modalTitle: string;
 
   constructor( 
     private readonly reportService: ReportService,
+    private readonly modalService: ModalService
     ) {
 
      }
@@ -21,7 +25,9 @@ export class ReportComponent implements OnInit {
     this.reportService.getReportList().subscribe(report => {
       this.reportList = report;
       this.totalCount = report.length;
-    })
+    });
+    this.showModal = this.modalService.hideModal;
+    this.modalTitle = "Create New Investigation"
   }
 
   // get report by id
@@ -34,5 +40,13 @@ export class ReportComponent implements OnInit {
   pageChangeEvent(event: number){
     this.page = event;
     this.reportService.getReportList();
-}
+  }
+  showPageModal(){
+    this.showModal = this.modalService.showModal;
+  }
+  // close page modal
+  closePageModal(data?: boolean){
+    this.showModal = data;
+    // alert(this.showModal);
+  }
 }
