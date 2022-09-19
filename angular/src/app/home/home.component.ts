@@ -1,5 +1,7 @@
 import { AuthService } from '@abp/ng.core';
 import { Component, OnInit } from '@angular/core';
+import { FraudService } from '@proxy/fraud';
+import { ReportInvestigationService } from '@proxy/investigation';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { ICardInfo } from '../card/Interface/ICardInfo';
 import { ReportService } from '../report/report.service';
@@ -7,18 +9,22 @@ import { ReportService } from '../report/report.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  providers: [ReportService]
+  providers: [ReportService, ReportInvestigationService]
 })
 export class HomeComponent implements OnInit{
 
   cardInfo: ICardInfo[];
   totalReport: number;
+  totalInvestigation: number;
+  totalFraudCases: number;
 
   // Home component constructor
   constructor(
     private oAuthService: OAuthService, 
     private authService: AuthService,
     private readonly reportService: ReportService,
+    private readonly reportInvestigationService: ReportInvestigationService,
+    private readonly fraudService: FraudService,
     ) {}
   
   // check if user has login
@@ -33,6 +39,8 @@ export class HomeComponent implements OnInit{
   // Hook
   ngOnInit(): void {
     this.getTotalReport();
+    this.getTotalInvestigation();
+    this.getTotalFraudCases();
     this.getCardInfo();
   }
 
@@ -49,27 +57,44 @@ export class HomeComponent implements OnInit{
       {
         title: "Fraud Cases", 
         icon: "fa solid fa-suitcase w-[90px]",
-        total: 99, color: "bg-red-600",
+        total: this.totalFraudCases, 
+        color: "bg-red-600",
         url: 'fraud'
       },
       {
         title:"Investigations", 
         icon: "fa solid fa-vial w-[90px]", 
-        total: 100, color: "bg-green-600",
+        total: this.totalInvestigation, 
+        color: "bg-green-600",
         url: "investigation"
       },
       {
         title: "Archives", 
         icon: "fa solid fa-database w-[90px]", 
-        total: 16, color: "bg-blue-600",
+        total: 0, 
+        color: "bg-blue-600",
         url: "archives"
       }
     ]
   };
   // get total report
   getTotalReport(){
-    this.reportService.getReportList().subscribe(total => {
-      this.totalReport = total.length;
+    this.reportService.getReportList().subscribe(report => {
+      this.totalReport = report.length;
     });
+  };
+
+  // get total investigation
+  getTotalInvestigation(){
+    this.reportInvestigationService.getList({ maxResultCount: 1, skipCount: 0 }).subscribe(investigation =>{
+      this.totalInvestigation = investigation.totalCount;
+    })
+  };
+
+  // get total fraud cases
+  getTotalFraudCases(){
+    this.fraudService.getList({ maxResultCount: 1, skipCount: 0}).subscribe(fraud =>{
+      this.totalFraudCases = fraud.totalCount;
+    })
   }
 }
