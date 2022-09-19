@@ -4,11 +4,14 @@
 </ng-template>
 
 <!-- Search and Filter Section -->
-<div class="container mx-auto md:flex flex-col justify-center">
-  <div class="flex justify-between mb-2">
-    <div class="flex mb-2 px-4">
-      <label for="search" class="text-2xl mr-2 py-2">Search Number:</label>
-      <input type="text" class="rounded-lg px-4" placeholder="Search Number">
+<div class="container mx-auto md:flex flex-col justify-center text-center">
+  <div class="flex justify-between mb-2 py-3 px-3">
+    <div class="flex justify-center">
+      <label for="search" class="text-[20px] px-3 py-1 font-semibold">Search Number:</label>
+      <input type="text" class="rounded-sm px-2 w-[400px]" placeholder="Search Number">
+    </div>
+    <div>
+      <button class="bg-violet-600 px-3 py-2 rounded-lg font-semibold text-white">Create Investigtation</button>
     </div>
   </div>
 
@@ -21,7 +24,7 @@
         <th class="py-3 px-6 text-left">Platform</th>
         <th class="py-3 px-6 text-left">Incident Date</th>
         <th class="py-3 px-6 text-left">Description</th>
-        <th class="py-3 px-6 text-left">Actions</th>
+        <th class="py-3 px-6 text-center">Actions</th>
       </tr>
     </thead>
 
@@ -52,8 +55,8 @@
   >
     <form class="font-light">
       <div class="flex justify-center px-4 py-2">
-        <label class="text-2xl text-center" for="reportId">Report Id:</label>
-        <input class="px-4 text-start text-1xl rounded-sm ml-2 w-[600px]"
+        <label class="text-[15px] text-start font-normal" for="reportId">Report Id:</label>
+        <input class="px-4 text-start text-[15px] rounded-sm ml-2 w-[600px]"
          type="text" placeholder="Report ID" value={{data}} disabled="true">
       </div>
     </form>

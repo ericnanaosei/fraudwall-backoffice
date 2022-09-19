@@ -3,11 +3,11 @@
   <p class="bg-blue-600 text-center mt-12 rounded-lg px-6 py-3 text-white animate-pulse">Loading.....</p>
 </ng-template>
 
-<div class="container mx-auto md:flex flex-col justify-center">
-  <div class="flex justify-between mb-2">
-    <div class="flex mb-2 px-4">
-      <label for="search" class="text-2xl mr-2 py-2">Search Number</label>
-      <input type="text" class="rounded-lg px-4" placeholder="Search Number">
+<div class="container mx-auto md:flex flex-col justify-center text-center">
+  <div class="flex justify-between py-3 px-3">
+    <div class="flex justify-center">
+      <label for="search" class="text-[20px] px-3 font-semibold py-1">Search Investigation</label>
+      <input type="text" class="rounded-sm px-2 w-[400px]" placeholder="Search Number">
     </div>
   </div>
   
@@ -21,7 +21,7 @@
         <th class="py-3 px-6 text-left">Status</th>
         <th class="py-3 px-6 text-left">Reason Closed</th>
         <th class="py-3 px-6 text-left">Assigned User</th>
-        <th>Actions</th>
+        <th class="py-3 px-6 text-center">Actions</th>
       </tr>
     </thead>
   
@@ -35,8 +35,10 @@
         <td class="py-3 px-6 text-left whitespace-nowrap">{{invest.isClosed}}</td>
         <td class="py-3 px-6 text-start whitespace-nowrap">{{invest.reasonClosed}}</td>
         <td class="py-3 px-6 text-start whitespace-nowrap">{{invest.assignedUserId| slice:0:10}}</td>
-        <td>
-          Delete
+        <td class="py-3 px-4 whitespace-nowrap flex justify-between hover:cursor-pointer">
+          <div class="hover:text-2xl"><i class="fa solid fa-trash text-red-600"></i></div>
+          <div class="hover:text-2xl"><i class="fa solid fa-edit text-green-600"></i></div>
+          <div class="hover:text-2xl"><i class="fa solid fa-user text-blue-600 hover"></i></div>
         </td>
       </tr>
     </tbody>
