@@ -73,7 +73,7 @@ export class HomeComponent implements OnInit{
         icon: "fa solid fa-database w-[90px]", 
         total: 0, 
         color: "bg-blue-600",
-        url: "archives"
+        url: "archive"
       }
     ]
   };
