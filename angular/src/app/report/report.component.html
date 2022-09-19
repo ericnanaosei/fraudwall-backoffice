@@ -4,52 +4,46 @@
 </ng-template>
 
 <!-- Search and Filter Section -->
-<div class="flex justify-between">
-  <div class="flex mb-2 px-6">
-    <label for="search" class="text-2xl mr-2">Search Number</label>
-    <input type="text" class="rounded-lg px-6" placeholder="Search Number">
-  </div>
-  <div class="flex justify-around px-6 mb-2 text-center">
-    <p class="text-2xl mr-2">Filter By:</p>
-    <div>
-      <button class="rounded-lg bg-blue-600 border px-3 py-1 ml-2">Suspect Number</button>
-      <button class="rounded-lg bg-blue-600 border px-3 py-1 ml-2">Platform</button>
+<div class="container mx-auto md:flex flex-col justify-center">
+  <div class="flex justify-between mb-2">
+    <div class="flex mb-2 px-4">
+      <label for="search" class="text-2xl mr-2 py-2">Search Number:</label>
+      <input type="text" class="rounded-lg px-4" placeholder="Search Number">
     </div>
   </div>
+
+  <!-- Table -->
+  <table lass=" container table-auto mx-auto">
+    <thead>
+      <tr class="bg-blue-500 text-gray-700 uppercase text-sm leading-normal text-start">
+        <th class="py-3 px-6 text-left">Report ID</th>
+        <th class="py-3 px-6 text-left">Suspect Number</th>
+        <th class="py-3 px-6 text-left">Platform</th>
+        <th class="py-3 px-6 text-left">Incident Date</th>
+        <th class="py-3 px-6 text-left">Description</th>
+        <th class="py-3 px-6 text-left">Actions</th>
+      </tr>
+    </thead>
+
+    <!-- table body -->
+    <tbody *ngIf="reportList != null; else loadingReport" class="text-gray-700 text-sm font-medium">
+      <tr *ngFor="let report of reportList | paginate: {itemsPerPage: 3, currentPage: page, totalItems: totalCount}" 
+        class="border-b border-gray-200 hover:bg-gray-100">
+        <td class="py-3 px-6 text-left whitespace-nowrap">{{report.reportId}}</td>
+        <td class="py-3 px-6 text-start whitespace-nowrap">{{report.suspectNumber}}</td>
+        <td class="py-3 px-6 text-left whitespace-nowrap">{{report.platForm}}</td>
+        <td class="py-3 px-6 text-left whitespace-nowrap">{{report.incidentDate}}</td>
+        <td class="py-3 px-6 text-left whitespace-nowrap">{{report.description}}</td>
+        <td class="py-3 px-6 text-start whitespace-nowrap flex justify-between hover:cursor-pointer" (click)="data=report.reportId">
+          <div class="hover:text-2xl"><i class="fa solid fa-trash text-red-600"></i></div>
+          <div class="hover:text-2xl" (click)="showPageModal()"><i class="fa solid fa-vial text-green-600"></i></div>
+          <div class="hover:text-2xl"><i class="fa solid fa-database text-blue-600 hover"></i></div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls>
 </div>
-
-<!-- Table -->
-<table class="min-w-max w-full table-auto mb-10">
-  <thead>
-    <tr class="bg-blue-500 text-gray-700 uppercase text-sm leading-normal text-start">
-      <th class="py-3 px-6 text-left">Report ID</th>
-      <th class="py-3 px-6 text-left">Suspect Number</th>
-      <th class="py-3 px-6 text-left">Platform</th>
-      <th class="py-3 px-6 text-left">Incident Date</th>
-      <th class="py-3 px-6 text-left">Description</th>
-      <th class="py-3 px-6 text-left">Actions</th>
-    </tr>
-  </thead>
-
-  <!-- table body -->
-  <tbody *ngIf="reportList != null; else loadingReport" class="text-gray-700 text-sm font-medium">
-    <tr *ngFor="let report of reportList | paginate: {itemsPerPage: 3, currentPage: page, totalItems: totalCount}" 
-      class="border-b border-gray-200 hover:bg-gray-100">
-      <td class="py-3 px-6 text-left whitespace-nowrap">{{report.reportId}}</td>
-      <td class="py-3 px-6 text-start whitespace-nowrap">{{report.suspectNumber}}</td>
-      <td class="py-3 px-6 text-left whitespace-nowrap">{{report.platForm}}</td>
-      <td class="py-3 px-6 text-left whitespace-nowrap">{{report.incidentDate}}</td>
-      <td class="py-3 px-6 text-left whitespace-nowrap">{{report.description}}</td>
-      <td class="py-3 px-6 text-start whitespace-nowrap flex justify-between hover:cursor-pointer" (click)="data=report.reportId">
-        <div class="hover:text-2xl"><i class="fa solid fa-trash text-red-600"></i></div>
-        <div class="hover:text-2xl" (click)="showPageModal()"><i class="fa solid fa-vial text-green-600"></i></div>
-        <div class="hover:text-2xl"><i class="fa solid fa-database text-blue-600 hover"></i></div>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls>
-
 <div>
   <app-modal *ngIf="showModal == true" 
   [showPageModalValue]="showModal" 

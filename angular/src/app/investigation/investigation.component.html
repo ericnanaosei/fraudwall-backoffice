@@ -1,1 +1,46 @@
-<p>investigation works!</p>
+<!-- Loading animation -->
+<ng-template #loadingInvestigation>
+  <p class="bg-blue-600 text-center mt-12 rounded-lg px-6 py-3 text-white animate-pulse">Loading.....</p>
+</ng-template>
+
+<div class="container mx-auto md:flex flex-col justify-center">
+  <div class="flex justify-between mb-2">
+    <div class="flex mb-2 px-4">
+      <label for="search" class="text-2xl mr-2 py-2">Search Number</label>
+      <input type="text" class="rounded-lg px-4" placeholder="Search Number">
+    </div>
+  </div>
+  
+  <!-- Table -->
+  <table class=" container table-auto mx-auto">
+    <thead>
+      <tr class="bg-blue-500 text-gray-700 uppercase text-sm leading-normal text-start">
+        <th class="text-start px-2">ID</th>
+        <th class="py-3 px-6 text-left">Report Id</th>
+        <th class="py-3 px-6 text-left">Created By</th>
+        <th class="py-3 px-6 text-left">Status</th>
+        <th class="py-3 px-6 text-left">Reason Closed</th>
+        <th class="py-3 px-6 text-left">Assigned User</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+  
+    <!-- table body -->
+    <tbody *ngIf="investigations.items != null; else loadingInvestigation" class="text-gray-700 text-sm font-medium">
+      <tr *ngFor="let invest of investigations.items | paginate: {itemsPerPage: 30, currentPage: page, totalItems: investigations.totalCount}" 
+        class="border-b border-gray-200 hover:bg-gray-100">
+        <td class="py-3 px-6 text-left whitespace-nowrap">{{invest.id | slice: 0:10 }}</td>
+        <td class="py-3 px-6 text-start whitespace-nowrap">{{invest.reportId | slice:0:10}}</td>
+        <td class="py-3 px-6 text-left whitespace-nowrap">{{invest.creatorId | slice:0:10}}</td>
+        <td class="py-3 px-6 text-left whitespace-nowrap">{{invest.isClosed}}</td>
+        <td class="py-3 px-6 text-start whitespace-nowrap">{{invest.reasonClosed}}</td>
+        <td class="py-3 px-6 text-start whitespace-nowrap">{{invest.assignedUserId| slice:0:10}}</td>
+        <td>
+          Delete
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls>  
+</div>
+
