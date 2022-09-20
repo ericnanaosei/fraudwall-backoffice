@@ -10,8 +10,8 @@
       <label for="search" class="text-[20px] px-3 py-1 font-semibold">Search Number:</label>
       <input type="text" class="rounded-sm px-2 w-[400px]" placeholder="Search Number">
     </div>
-    <div>
-      <button class="bg-violet-600 px-3 py-2 rounded-lg font-semibold text-white">
+    <div class="ml-2">
+      <button class="bg-violet-600 px-3 py-2 rounded-lg font-semibold text-white" (click)="createInvestigation()">
         <i class="fa fa-plus"></i> Create Investigtation
       </button>
     </div>
@@ -50,6 +50,7 @@
   <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls>
 </div>
 <div>
+  <!-- customized modal -->
   <app-modal *ngIf="showModal == true" 
   [showPageModalValue]="showModal" 
   (pageModalEvent)="closePageModal($event)"
@@ -63,4 +64,30 @@
       </div>
     </form>
   </app-modal>
+  <!-- End -->
+  <!-- Abp modal -->
+  <abp-modal [(visible)]="isModalOpen">
+    <ng-template #abpHeader>
+      <h1>Create Investigation</h1>
+    </ng-template>
+  
+    <ng-template #abpBody>
+      <form [formGroup]="investigationForm" (ngSubmit)="save()">
+        <div class="form-group">
+          <label for="reportId">ReportId</label><span> * </span>
+          <input type="text" id="reportId" class="form control" formControlName="reportId" autofocus />
+        </div>
+      </form>
+    </ng-template>
+    <ng-template #abpFooter>
+      <button type="button" class="btn btn-secondary" abpClose>
+        Closed
+      </button>
+      <button class="btn btn-primary" (click)="save()" [disabled]="investigationForm.invalid">
+            <i class="fa fa-check mr-1"></i>
+            Save
+      </button>
+    </ng-template>
+  </abp-modal>
+  <!-- End -->
 </div>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReportInvestigationService } from '@proxy/investigation';
 import { ModalService } from '../modal/modal.service';
 import { ReportDto } from './Dto/ReportDto';
 import { ReportService } from './report.service';
@@ -14,9 +16,15 @@ export class ReportComponent implements OnInit {
   showModal: boolean;
   modalTitle: string;
 
+  // modal
+  isModalOpen = false;
+  investigationForm: FormGroup
+
   constructor( 
     private readonly reportService: ReportService,
-    private readonly modalService: ModalService
+    private readonly modalService: ModalService,
+    private readonly formbuilder: FormBuilder,
+    private readonly reportInvestigationService: ReportInvestigationService,
     ) {
 
      }
@@ -48,5 +56,29 @@ export class ReportComponent implements OnInit {
   closePageModal(data?: boolean){
     this.showModal = data;
     // alert(this.showModal);
+  }
+
+  // create Investigation
+  createInvestigation(){
+    this.buildInvestigationForm();
+    this.isModalOpen = true;
+  }
+
+  // build form
+  buildInvestigationForm() {
+    this.investigationForm = this.formbuilder.group({
+      reportId: ['', Validators.required],
+    });
+  };
+
+  // save form
+  save(){
+    if(this.investigationForm.invalid){
+      return;
+    }
+    this.reportInvestigationService.create(this.investigationForm.value).subscribe(() => {
+      this.isModalOpen = false;
+      this.investigationForm.reset();
+    });
   }
 }
