@@ -5,6 +5,8 @@ using Volo.Abp.Application.Dtos;
 using System.Threading.Tasks;
 using fraudwall_backoffice.Exceptions;
 using Volo.Abp.Identity;
+using Microsoft.AspNetCore.Authorization;
+using Volo.Abp.Authorization;
 
 namespace fraudwall_backoffice.Investigation;
 
@@ -50,6 +52,24 @@ public class ReportInvestigationService:
     _investigationReportManager.CloseInvestigation(investigationReport, input.reasonClosed);
     await _investigationRepository.UpdateAsync(investigationReport);
 
+  }
+
+  // create investigation
+  public async override Task<InvestigationReportDto> CreateAsync(CreateInvestigationDto input){
+    var authorize = await AuthorizationService.AuthorizeAsync("Fraud_Number_Management");
+    // check authorization 
+    if(authorize.Succeeded == false){
+      throw new AbpAuthorizationException("Forbidden resource");
+    }
+    // create investigation
+    var investigation = await _investigationReportManager.CreateRportInvestigationAsync(
+      input.ReportId,
+      input.InvestigationStatus,
+      input.AssignedUserId
+    );
+    // save object
+    await _investigationRepository.InsertAsync(investigation);
+    return ObjectMapper.Map<ReportInvestigation,InvestigationReportDto>(investigation);
   }
 
   // assign investigation

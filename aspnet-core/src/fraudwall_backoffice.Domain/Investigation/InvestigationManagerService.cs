@@ -18,17 +18,23 @@ public class InvestigationReportManager: DomainService
     _investigationRepository = investigationRepo;
   }
 
-  // public async Task<ReportInvestigation> CreateRportInvestigation(
-  //   Guid reportId,
-  //   Status? investigationStatus, 
-  //   ReasonClosed? reasonClosed , 
-  //   Guid? assignedUserId
-  // )
-  // {
-  //  if(await _investigationRepository.AnyAsync(result => result.ReportId == reportId)){
-  //    throw new BusinessException("Investigation already created for this report");
-  //  } 
-  // }
+  // create investigation
+  public async Task<ReportInvestigation> CreateRportInvestigationAsync(
+    Guid reportId,
+    Status investigationStatus,
+    Guid assignedUserId
+  )
+  {
+   if(await _investigationRepository.AnyAsync(result => result.ReportId == reportId)){
+     throw new BusinessException("Investigation already created for this report");
+   }
+    return new ReportInvestigation(
+      GuidGenerator.Create(),
+      reportId,
+      investigationStatus,
+      assignedUserId
+    ); 
+  }
 
 // assign investigation
   public void AssignToAsync(ReportInvestigation investigation, IdentityUser user){
