@@ -1,11 +1,13 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-
 namespace fraudwall_backoffice.Investigation;
 
-public class CreateInvestigationReportDto
+public class CreateInvestigationDto
 {
   [Required]
   public Guid ReportId { get; set; }
+  public Status? InvestigationStatus { get; set; }
+  public ReasonClosed? ReasonClosed {get; set;}
+  public Guid? AssignedUserId { get; set;}
 }

@@ -14,46 +14,46 @@ public class ReportInvestigationService:
     InvestigationReportDto,
     Guid,
     PagedAndSortedResultRequestDto,
-    CreateInvestigationReportDto>, 
+    CreateInvestigationDto>, 
   IInvestigationReportService
 {
   private readonly IRepository<ReportInvestigation,Guid> _investigationRepository;
-  private readonly InvestigationManager _investigationManager;
+  private readonly InvestigationReportManager _investigationReportManager;
   private readonly IRepository<IdentityUser,Guid> _userRepository;
 
 
   // investigation service constructor
   public ReportInvestigationService(
     IRepository<ReportInvestigation, Guid> investigationRepository,
-    InvestigationManager manager,
+    InvestigationReportManager manager,
     IRepository<IdentityUser,Guid> userRepository
     ): base(investigationRepository)
   {
     _investigationRepository = investigationRepository;
-    _investigationManager = manager;
+    _investigationReportManager = manager;
     _userRepository = userRepository;
   }
 
   // open investigation method
-  public async Task Open(Guid id){
+  public async Task OpenInvestigation(Guid id){
     // find investigation
     var investigationReport = await _investigationRepository.GetAsync(invest => invest.Id ==id);
-    _investigationManager.OpenInvestigation(investigationReport);
+    _investigationReportManager.OpenInvestigation(investigationReport);
     await _investigationRepository.UpdateAsync(investigationReport);
 
   }
 
 // close investigation
-  public async Task Close(ClosedInvestigationDto input){
+  public async Task CloseInvestigation(ClosedInvestigationDto input){
     // find investigation
     var investigationReport = await _investigationRepository.GetAsync(invest => invest.Id == input.investigationId);
-    _investigationManager.CloseInvestigation(investigationReport, input.reason);
+    _investigationReportManager.CloseInvestigation(investigationReport, input.reasonClosed);
     await _investigationRepository.UpdateAsync(investigationReport);
 
   }
 
   // assign investigation
-  public async Task AssignUser(AssignInvestigationDto input){
+  public async Task AssignInvestigation(AssignInvestigationDto input){
     // find investigation
     var investigation = await _investigationRepository.GetAsync(invest => invest.Id == input.investigationId);
     if(investigation !=null){
@@ -61,8 +61,8 @@ public class ReportInvestigationService:
       var userFound = await _userRepository.GetAsync(user => user.Id == input.AssignUserId);
       if(userFound != null){
         // assign investigation
-        _investigationManager.AssignToAsync(investigation, userFound);
-        _investigationManager.OpenInvestigation(investigation);
+        _investigationReportManager.AssignToAsync(investigation, userFound);
+        _investigationReportManager.OpenInvestigation(investigation);
         await _investigationRepository.UpdateAsync(investigation);
         
       }
@@ -72,12 +72,12 @@ public class ReportInvestigationService:
   }
 
   // unassigned investigation
-  public async Task UnassignUser(AssignInvestigationDto input){
+  public async Task UnassignInvestigation(AssignInvestigationDto input){
     // find investigation
     var investigation = await _investigationRepository.GetAsync(invest => invest.Id == input.investigationId);
     var userFound = await _userRepository.GetAsync(user => user.Id == input.AssignUserId);
     if(investigation != null && investigation.AssignedUserId == userFound.Id){
-      _investigationManager.UnassignUser(investigation);
+      _investigationReportManager.UnassignInvestigation(investigation);
       await _investigationRepository.UpdateAsync(investigation);
     }
     throw new InvestigationStateException("Investigation not found or user not found");
