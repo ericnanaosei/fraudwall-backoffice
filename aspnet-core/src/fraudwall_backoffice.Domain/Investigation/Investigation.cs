@@ -8,15 +8,15 @@ public class ReportInvestigation: AuditedAggregateRoot<Guid>
 {
   public Guid ReportId { get; private set; }
   public Status InvestigationStatus { get; private set; }
-  public ReasonClosed? ReasonClosed { get; private set;}
   public Guid? AssignedUserId { get; internal set; }
+  public ReasonClosed? ReasonClosed { get; private set;}
 
   public ReportInvestigation(
     Guid id, 
     Guid reportId,
-    Status investigationStatus, 
-    ReasonClosed? reasonClosed = Investigation.ReasonClosed.Default, 
-    Guid? assignedUserId =null
+    Status investigationStatus,
+    Guid? assignedUserId = null, 
+    ReasonClosed? reasonClosed = Investigation.ReasonClosed.Default
     ): base(id)
   {
     this.ReportId = reportId;

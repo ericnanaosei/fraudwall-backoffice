@@ -7,7 +7,6 @@ public class CreateInvestigationDto
 {
   [Required]
   public Guid ReportId { get; set; }
-  public Status? InvestigationStatus { get; set; }
-  public ReasonClosed? ReasonClosed {get; set;}
-  public Guid? AssignedUserId { get; set;}
+  public Status InvestigationStatus { get; set; }
+  public Guid AssignedUserId { get; set;}
 }
