@@ -5,7 +5,7 @@
 
 <!-- Search and Filter Section -->
 <div class="container mx-auto md:flex flex-col justify-center text-center">
-  <div class="flex justify-between mb-2 py-3 px-3">
+  <div class="md:flex justify-between mb-2 py-3 px-3">
     <div class="flex justify-center">
       <label for="search" class="text-[20px] px-3 py-1 font-semibold">Search Number:</label>
       <input type="text" class="rounded-sm px-2 w-[400px]" placeholder="Search Number">
@@ -39,9 +39,9 @@
         <td class="py-3 px-6 text-left whitespace-nowrap">{{report.platForm}}</td>
         <td class="py-3 px-6 text-left whitespace-nowrap">{{report.incidentDate}}</td>
         <td class="py-3 px-6 text-left whitespace-nowrap">{{report.description}}</td>
-        <td class="py-3 px-6 text-start whitespace-nowrap flex justify-between hover:cursor-pointer" (click)="data=report.reportId">
+        <td class="py-3 px-6 text-start whitespace-nowrap flex justify-between hover:cursor-pointer">
           <div class="hover:text-2xl"><i class="fa solid fa-trash text-red-600"></i></div>
-          <div class="hover:text-2xl" (click)="showPageModal()"><i class="fa solid fa-vial text-green-600"></i></div>
+          <div class="hover:text-2xl" (click)="createInvestigation()"><i class="fa solid fa-vial text-green-600"></i></div>
           <div class="hover:text-2xl"><i class="fa solid fa-database text-blue-600 hover"></i></div>
         </td>
       </tr>
@@ -49,45 +49,28 @@
   </table>
   <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls>
 </div>
-<div>
-  <!-- customized modal -->
-  <app-modal *ngIf="showModal == true" 
-  [showPageModalValue]="showModal" 
-  (pageModalEvent)="closePageModal($event)"
-  [title] = "modalTitle"
-  >
-    <form class="font-light">
-      <div class="flex justify-center px-4 py-2">
-        <label class="text-[15px] text-start font-normal" for="reportId">Report Id:</label>
-        <input class="px-4 text-start text-[15px] rounded-sm ml-2 w-[600px]"
-         type="text" placeholder="Report ID" value={{data}} disabled="true">
+<!-- Modal -->
+<abp-modal [(visible)]="isModalOpen">
+  <ng-template #abpHeader>
+    <h3>Create Investigation</h3>
+  </ng-template>
+
+  <ng-template #abpBody>
+    <form [formGroup]="investigationForm" (ngSubmit)="save()">
+      <div class="form-group">
+        <label for="reportId" class="text-[18px]">ReportId</label><span class="text-red-700"> * </span>
+        <input type="text" id="reportId" class="form-control" formControlName="reportId" autofocus />
       </div>
     </form>
-  </app-modal>
-  <!-- End -->
-  <!-- Abp modal -->
-  <abp-modal [(visible)]="isModalOpen">
-    <ng-template #abpHeader>
-      <h1>Create Investigation</h1>
-    </ng-template>
-  
-    <ng-template #abpBody>
-      <form [formGroup]="investigationForm" (ngSubmit)="save()">
-        <div class="form-group">
-          <label for="reportId">ReportId</label><span> * </span>
-          <input type="text" id="reportId" class="form control" formControlName="reportId" autofocus />
-        </div>
-      </form>
-    </ng-template>
-    <ng-template #abpFooter>
-      <button type="button" class="btn btn-secondary" abpClose>
-        Closed
-      </button>
-      <button class="btn btn-primary" (click)="save()" [disabled]="investigationForm.invalid">
-            <i class="fa fa-check mr-1"></i>
-            Save
-      </button>
-    </ng-template>
-  </abp-modal>
-  <!-- End -->
-</div>
+  </ng-template>
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      Close
+    </button>
+    <button class="btn btn-primary" (click)="save()" [disabled]="investigationForm.invalid">
+          <i class="fa fa-check mr-1"></i>
+          Save
+    </button>
+  </ng-template>
+</abp-modal>
+<!-- End -->

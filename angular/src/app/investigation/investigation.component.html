@@ -9,6 +9,11 @@
       <label for="search" class="text-[20px] px-3 font-semibold py-1">Search Investigation</label>
       <input type="text" class="rounded-sm px-2 w-[400px]" placeholder="Search Number">
     </div>
+    <div class="ml-2">
+      <button class="bg-violet-600 px-3 py-2 rounded-lg font-semibold text-white">
+        <i class="fa fa-plus"></i> Create Investigtation
+      </button>
+    </div>
   </div>
   
   <!-- Table -->
@@ -18,9 +23,8 @@
         <th class="text-start px-2">ID</th>
         <th class="py-3 px-6 text-left">Report Id</th>
         <th class="py-3 px-6 text-left">Created By</th>
-        <th class="py-3 px-6 text-left">Status</th>
-        <th class="py-3 px-6 text-left">Reason Closed</th>
-        <th class="py-3 px-6 text-left">Assigned User</th>
+        <th class="py-3 px-6 text-left">Assigned To</th>
+        <th class="py-3 px-6 text-center">Status</th>
         <th class="py-3 px-6 text-center">Actions</th>
       </tr>
     </thead>
@@ -32,9 +36,14 @@
         <td class="py-3 px-6 text-left whitespace-nowrap">{{invest.id | slice: 0:10 }}</td>
         <td class="py-3 px-6 text-start whitespace-nowrap">{{invest.reportId | slice:0:10}}</td>
         <td class="py-3 px-6 text-left whitespace-nowrap">{{invest.creatorId | slice:0:10}}</td>
-        <td class="py-3 px-6 text-left whitespace-nowrap">{{invest.isClosed}}</td>
-        <td class="py-3 px-6 text-start whitespace-nowrap">{{invest.reasonClosed}}</td>
         <td class="py-3 px-6 text-start whitespace-nowrap">{{invest.assignedUserId| slice:0:10}}</td>
+        <td class="py-3 px-6 text-left whitespace-nowrap">
+          <div class="flex justify-evenly hover:cursor-pointer font-bold">
+            <button *ngIf="invest.isClosed == true" class="px-3 py-1 rounded-xl bg-green-800 text-white hover:bg-green-400">Opened</button>
+            <button *ngIf="invest.isClosed == pending" class="px-3 py-1 rounded-xl bg-yellow-700 text-white hover:bg-yellow-300">Pending</button>
+            <button *ngIf="invest.isClosed == false" class="px-3 py-1 rounded-xl bg-red-700 text-white hover:bg-red-400">Closed</button>
+          </div>
+        </td>
         <td class="py-3 px-4 whitespace-nowrap flex justify-between hover:cursor-pointer">
           <div class="hover:text-2xl"><i class="fa solid fa-trash text-red-600"></i></div>
           <div class="hover:text-2xl"><i class="fa solid fa-edit text-green-600"></i></div>
