@@ -17,5 +17,5 @@ public interface IInvestigationReportService:
   public Task OpenInvestigation(Guid id);
   public Task CloseInvestigation(ClosedInvestigationDto input);
   public Task AssignInvestigation(AssignInvestigationDto input);
-  public Task UnassignInvestigation(AssignInvestigationDto input);
+  public Task UnassignInvestigation(Guid id);
 }

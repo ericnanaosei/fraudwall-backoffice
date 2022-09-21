@@ -3,7 +3,8 @@ using System;
 namespace fraudwall_backoffice.Investigation;
 
 public class UpdateInvestigatonReportDto{
-  public bool IsClosed { get; set; }
-  public ReasonClosed ReasonClosed { get; private set;}
-  public Guid AssignedUserId { get; set; }
+  public Guid id {get; set;}
+  public Status investigationStatus { get; set; }
+  public ReasonClosed reasonClosed { get; set;}
+  public Guid assignedUserId { get; set; }
 }

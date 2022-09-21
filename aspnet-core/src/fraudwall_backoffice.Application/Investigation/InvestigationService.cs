@@ -78,7 +78,7 @@ public class ReportInvestigationService:
     var investigation = await _investigationRepository.GetAsync(invest => invest.Id == input.investigationId);
     if(investigation !=null){
       // find user
-      var userFound = await _userRepository.GetAsync(user => user.Id == input.AssignUserId);
+      var userFound = await _userRepository.GetAsync(user => user.Id == input.assignUserId);
       if(userFound != null){
         // assign investigation
         _investigationReportManager.AssignToAsync(investigation, userFound);
@@ -92,14 +92,13 @@ public class ReportInvestigationService:
   }
 
   // unassigned investigation
-  public async Task UnassignInvestigation(AssignInvestigationDto input){
+  public async Task UnassignInvestigation(Guid id){
     // find investigation
-    var investigation = await _investigationRepository.GetAsync(invest => invest.Id == input.investigationId);
-    var userFound = await _userRepository.GetAsync(user => user.Id == input.AssignUserId);
-    if(investigation != null && investigation.AssignedUserId == userFound.Id){
+    var investigation = await _investigationRepository.GetAsync(invest => invest.Id == id);
+    if(investigation != null){
       _investigationReportManager.UnassignInvestigation(investigation);
       await _investigationRepository.UpdateAsync(investigation);
     }
-    throw new InvestigationStateException("Investigation not found or user not found");
+    throw new InvestigationStateException("Investigation not found");
   }
 }

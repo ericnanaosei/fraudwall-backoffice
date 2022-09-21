@@ -7,7 +7,7 @@ namespace fraudwall_backoffice.Investigation;
 public class ReportInvestigation: AuditedAggregateRoot<Guid>
 {
   public Guid ReportId { get; private set; }
-  public Status InvestigationStatus { get; private set; }
+  public Status InvestigationStatus { get; set; }
   public Guid? AssignedUserId { get; internal set; }
   public ReasonClosed? ReasonClosed { get; private set;}
 
@@ -41,14 +41,14 @@ public class ReportInvestigation: AuditedAggregateRoot<Guid>
 
   // assign investigaton to a user
   public void AssignInvestigation(Guid userId){
-    if((InvestigationStatus != Status.Closed )&&( InvestigationStatus == Status.Pending)){
-      throw new InvestigationStateException("Cannot Assign a Closed Investigation to a User");
+    if((InvestigationStatus != Status.Closed ) ||( InvestigationStatus == Status.Pending)){
+      this.AssignedUserId = userId;
     }
-    this.AssignedUserId = userId;
+    throw new InvestigationStateException("Cannot Assign a Closed Investigation to a User");
   }
 
   public void UnassignInvestigation(){
-    if(InvestigationStatus != Status.Closed){
+    if(InvestigationStatus == Status.Closed){
       throw new InvestigationStateException("Cannot Unassigned a Closed Investigation");
     }
     this.AssignedUserId = null;

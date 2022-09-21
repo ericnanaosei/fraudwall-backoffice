@@ -33,15 +33,15 @@
     <tbody *ngIf="investigations.items != null; else loadingInvestigation" class="text-gray-700 text-sm font-medium">
       <tr *ngFor="let invest of investigations.items | paginate: {itemsPerPage: 30, currentPage: page, totalItems: investigations.totalCount}" 
         class="border-b border-gray-200 hover:bg-gray-100">
-        <td class="py-3 px-6 text-left whitespace-nowrap">{{invest.id | slice: 0:10 }}</td>
-        <td class="py-3 px-6 text-start whitespace-nowrap">{{invest.reportId | slice:0:10}}</td>
+        <td class="py-3 px-6 text-left whitespace-nowrap">{{invest.id }}</td>
+        <td class="py-3 px-6 text-start whitespace-nowrap">{{invest.reportId}}</td>
         <td class="py-3 px-6 text-left whitespace-nowrap">{{invest.creatorId | slice:0:10}}</td>
         <td class="py-3 px-6 text-start whitespace-nowrap">{{invest.assignedUserId| slice:0:10}}</td>
         <td class="py-3 px-6 text-left whitespace-nowrap">
           <div class="flex justify-evenly hover:cursor-pointer font-bold">
-            <button *ngIf="invest.isClosed == true" class="px-3 py-1 rounded-xl bg-green-800 text-white hover:bg-green-400">Opened</button>
-            <button *ngIf="invest.isClosed == pending" class="px-3 py-1 rounded-xl bg-yellow-700 text-white hover:bg-yellow-300">Pending</button>
-            <button *ngIf="invest.isClosed == false" class="px-3 py-1 rounded-xl bg-red-700 text-white hover:bg-red-400">Closed</button>
+            <button *ngIf="invest.investigationStatus == 1" class="px-3 py-1 rounded-xl bg-green-800 text-white hover:bg-green-400">Opened</button>
+            <button *ngIf="invest.investigationStatus == 0" class="px-3 py-1 rounded-xl bg-yellow-700 text-white hover:bg-yellow-300">Pending</button>
+            <button *ngIf="invest.investigationStatus == 2" class="px-3 py-1 rounded-xl bg-red-700 text-white hover:bg-red-400">Closed</button>
           </div>
         </td>
         <td class="py-3 px-4 whitespace-nowrap flex justify-between hover:cursor-pointer">
