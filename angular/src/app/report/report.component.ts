@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ReportInvestigationService } from '@proxy/investigation';
-import { ModalService } from '../modal/modal.service';
+import { ReportInvestigationService, statusOptions } from '@proxy/investigation';
 import { ReportDto } from './Dto/ReportDto';
 import { ReportService } from './report.service';
 
@@ -13,17 +12,14 @@ export class ReportComponent implements OnInit {
   reportList: ReportDto[];
   page: number = 1;
   totalCount: number = 0;
-  showModal: boolean;
-  modalTitle: string;
-
   // modal
   isModalOpen = false;
   investigationForm: FormGroup
+  investigationStatusOptions = statusOptions;
 
   constructor( 
     private readonly reportService: ReportService,
-    private readonly modalService: ModalService,
-    private readonly formbuilder: FormBuilder,
+    private readonly formBuilder: FormBuilder,
     private readonly reportInvestigationService: ReportInvestigationService,
     ) {
 
@@ -34,8 +30,6 @@ export class ReportComponent implements OnInit {
       this.reportList = report;
       this.totalCount = report.length;
     });
-    this.showModal = this.modalService.hideModal;
-    this.modalTitle = "Create New Investigation"
   }
 
   // get report by id
@@ -49,25 +43,19 @@ export class ReportComponent implements OnInit {
     this.page = event;
     this.reportService.getReportList();
   }
-  showPageModal(){
-    this.showModal = this.modalService.showModal;
-  }
-  // close page modal
-  closePageModal(data?: boolean){
-    this.showModal = data;
-    // alert(this.showModal);
-  }
 
   // create Investigation
   createInvestigation(){
-    this.buildInvestigationForm();
+    this.buildForm();
     this.isModalOpen = true;
   }
 
   // build form
-  buildInvestigationForm() {
-    this.investigationForm = this.formbuilder.group({
+  buildForm() {
+    this.investigationForm = this.formBuilder.group({
       reportId: ['', Validators.required],
+      investigationStatus: [null, Validators.required],
+      assignedUserId: [null,Validators.nullValidator]
     });
   };
 
