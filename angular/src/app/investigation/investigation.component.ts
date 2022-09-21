@@ -18,7 +18,7 @@ export class InvestigationComponent implements OnInit {
 
   constructor(
     public readonly list: ListService, 
-    private investigationService: ReportInvestigationService,
+    private readonly investigationService: ReportInvestigationService,
     private readonly formBuilder: FormBuilder
     ) {}
 
@@ -49,22 +49,20 @@ export class InvestigationComponent implements OnInit {
   // build form
   buildForm(){
     this.investigationForm = this.formBuilder.group({
-      reportId: [null, Validators.required],
+      reportId: ['', Validators.required],
       investigationStatus: [null, Validators.required],
-      assignedUserId: [null, Validators.required]
+      assignedUserId: [null]
     });
   }
 
   // add save method
   save() {
-    if (this.investigationForm) {
+    if (this.investigationForm.invalid) {
       return;
     }
-
     this.investigationService.create(this.investigationForm.value).subscribe(() => {
       this.isModalOpen = false;
       this.investigationForm.reset();
-      this.list.get();
     });
   }
 }
