@@ -10,7 +10,7 @@
       <input type="text" class="rounded-sm px-2 w-[400px]" placeholder="Search Number">
     </div>
     <div class="ml-2">
-      <button class="bg-violet-600 px-3 py-2 rounded-lg font-semibold text-white">
+      <button class="bg-violet-600 px-3 py-2 rounded-lg font-semibold text-white" (click)="createInvestigation()">
         <i class="fa fa-plus"></i> Create Investigtation
       </button>
     </div>
@@ -31,7 +31,7 @@
   
     <!-- table body -->
     <tbody *ngIf="investigations.items != null; else loadingInvestigation" class="text-gray-700 text-sm font-medium">
-      <tr *ngFor="let invest of investigations.items | paginate: {itemsPerPage: 30, currentPage: page, totalItems: investigations.totalCount}" 
+      <tr *ngFor="let invest of investigations.items | paginate: {itemsPerPage: 3, currentPage: page, totalItems: investigations.totalCount}" 
         class="border-b border-gray-200 hover:bg-gray-100">
         <td class="py-3 px-6 text-left whitespace-nowrap">{{invest.id }}</td>
         <td class="py-3 px-6 text-start whitespace-nowrap">{{invest.reportId}}</td>
@@ -39,8 +39,8 @@
         <td class="py-3 px-6 text-start whitespace-nowrap">{{invest.assignedUserId| slice:0:10}}</td>
         <td class="py-3 px-6 text-left whitespace-nowrap">
           <div class="flex justify-evenly hover:cursor-pointer font-bold">
-            <button *ngIf="invest.investigationStatus == 1" class="px-3 py-1 rounded-xl bg-green-800 text-white hover:bg-green-400">Opened</button>
             <button *ngIf="invest.investigationStatus == 0" class="px-3 py-1 rounded-xl bg-yellow-700 text-white hover:bg-yellow-300">Pending</button>
+            <button *ngIf="invest.investigationStatus == 1" class="px-3 py-1 rounded-xl bg-green-800 text-white hover:bg-green-400">Opened</button>
             <button *ngIf="invest.investigationStatus == 2" class="px-3 py-1 rounded-xl bg-red-700 text-white hover:bg-red-400">Closed</button>
           </div>
         </td>
@@ -55,3 +55,46 @@
   <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls>  
 </div>
 
+
+
+<!-- Modal -->
+<abp-modal [(visible)]="isModalOpen">
+  <ng-template #abpHeader>
+    <h3>Create Investigation</h3>
+  </ng-template>
+
+  <ng-template #abpBody>
+    <form [formGroup]="investigationForm" (ngSubmit)="save()">
+      <!-- Report Id -->
+      <div class="form-group">
+        <label for="reportId">Report ID</label><span> * </span>
+        <input type="text" id="reportId" class="form-control" formControlName="reportId" autofocus/>
+      </div>
+      <!-- Investigation Status -->
+      <div class="form-group">
+        <label for="status">Status</label>
+        <select class="form-control" id="investigationStatus" formControlName="investigationStatus">
+          <option [ngValue]="null">Chose Status</option>
+          <option [ngValue]="status.value" *ngFor="let status of investigationStatusOptions"> {{ status.key }}</option>
+        </select>
+      </div>
+
+      <!-- Assign User Id -->
+      <div class="form-group">
+        <label for="reportId">Assigned User ID</label><span> * </span>
+        <input type="text" id="assignedUserId" class="form-control" formControlName="assignedUserId"/>
+      </div>
+
+    </form>
+  </ng-template>
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      Close
+    </button>
+    <button class="btn btn-primary" (click)="save()" [disabled]="investigationForm.invalid">
+          <i class="fa fa-check mr-1"></i>
+          Save
+    </button>
+  </ng-template>
+</abp-modal>
+<!-- End -->
