@@ -45,8 +45,8 @@
           </div>
         </td>
         <td class="py-3 px-4 whitespace-nowrap flex justify-between hover:cursor-pointer">
-          <div class="hover:text-2xl"><i class="fa solid fa-trash text-red-600"></i></div>
-          <div class="hover:text-2xl"><i class="fa solid fa-edit text-green-600"></i></div>
+          <div class="hover:text-2xl" (click)="deleteInvestigation(invest.id)"><i class="fa solid fa-trash text-red-600"></i></div>
+          <div class="hover:text-2xl" (click)="editInvestigation(invest.id)"><i class="fa solid fa-edit text-green-600"></i></div>
           <div class="hover:text-2xl"><i class="fa solid fa-user text-blue-600 hover"></i></div>
         </td>
       </tr>
