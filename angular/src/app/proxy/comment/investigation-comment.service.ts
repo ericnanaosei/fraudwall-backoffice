@@ -35,7 +35,7 @@ export class InvestigationCommentService {
     this.restService.request<any, PagedResultDto<InvestigationCommentDto>>({
       method: 'GET',
       url: '/api/app/investigation-comment',
-      params: { skipCount: input.skipCount, maxResultCount: input.maxResultCount, sorting: input.sorting },
+      params: { sorting: input.sorting, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
     },
     { apiName: this.apiName });
 
