@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ReportInvestigationService } from '@proxy/investigation';
+import { ReportInvestigationService, statusOptions } from '@proxy/investigation';
 import { ReportDto } from './Dto/ReportDto';
 import { ReportService } from './report.service';
 
@@ -15,6 +15,7 @@ export class ReportComponent implements OnInit {
   // modal
   isModalOpen = false;
   investigationForm: FormGroup
+  investigationStatusOptions = statusOptions;
 
   constructor( 
     private readonly reportService: ReportService,
@@ -53,6 +54,8 @@ export class ReportComponent implements OnInit {
   buildForm() {
     this.investigationForm = this.formBuilder.group({
       reportId: ['', Validators.required],
+      investigationStatus: [null, Validators.required],
+      assignedUserId: [null,Validators.nullValidator]
     });
   };
 

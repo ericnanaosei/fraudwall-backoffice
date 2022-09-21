@@ -51,7 +51,7 @@ export class InvestigationComponent implements OnInit {
     this.investigationForm = this.formBuilder.group({
       reportId: ['', Validators.required],
       investigationStatus: [null, Validators.required],
-      assignedUserId: [null]
+      assignedUserId: [null,Validators.nullValidator]
     });
   }
 
@@ -61,8 +61,10 @@ export class InvestigationComponent implements OnInit {
       return;
     }
     this.investigationService.create(this.investigationForm.value).subscribe(() => {
+      console.log(this.investigationForm.value);
       this.isModalOpen = false;
       this.investigationForm.reset();
+      this.list.get();
     });
   }
 }

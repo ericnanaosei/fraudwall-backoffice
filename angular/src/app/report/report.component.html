@@ -54,15 +54,31 @@
 <!-- Modal -->
 <abp-modal [(visible)]="isModalOpen">
   <ng-template #abpHeader>
-    <h3>Create Investigation</h3>
+    <h4 class="text-blue-400 font-bold">Create Investigation</h4>
   </ng-template>
 
   <ng-template #abpBody>
     <form [formGroup]="investigationForm" (ngSubmit)="save()">
-      <div class="form-group">
-        <label for="reportId" class="text-[18px]">ReportId</label><span class="text-red-700"> * </span>
-        <input type="text" id="reportId" class="form-control" formControlName="reportId" autofocus />
+      <!-- Report Id -->
+      <div class="form-group" class="py-1">
+        <label for="reportId" class="font-bold mb-2">Report ID</label><span class="text-red-800 font-bold"> * </span>
+        <input type="text" id="reportId" class="form-control" formControlName="reportId" autofocus/>
       </div>
+      <!-- Investigation Status -->
+      <div class="form-group" class="py-1">
+        <label for="status" class="font-bold mb-2">Status</label>
+        <select class="form-control" id="investigationStatus" formControlName="investigationStatus">
+          <option [ngValue]="null">Chose Status</option>
+          <option [ngValue]="status.value" *ngFor="let status of investigationStatusOptions"> {{ status.key }}</option>
+        </select>
+      </div>
+
+      <!-- Assign User Id -->
+      <div class="form-group" class="py-1">
+        <label for="reportId" class="font-bold mb-2">Assigned User ID</label>
+        <input type="text" id="assignedUserId" class="form-control" formControlName="assignedUserId"/>
+      </div>
+
     </form>
   </ng-template>
   <ng-template #abpFooter>
