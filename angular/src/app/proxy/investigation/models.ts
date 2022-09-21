@@ -1,4 +1,5 @@
-import type { ReasonEnum } from '../closed/reason-enum.enum';
+import type { ReasonClosed } from './reason-closed.enum';
+import type { Status } from './status.enum';
 import type { AuditedEntityDto } from '@abp/ng.core';
 
 export interface AssignInvestigationDto {
@@ -8,16 +9,18 @@ export interface AssignInvestigationDto {
 
 export interface ClosedInvestigationDto {
   investigationId?: string;
-  reason: ReasonEnum;
+  reasonClosed: ReasonClosed;
 }
 
-export interface CreateInvestigationReportDto {
+export interface CreateInvestigationDto {
   reportId: string;
+  investigationStatus: Status;
+  assignedUserId?: string;
 }
 
 export interface InvestigationReportDto extends AuditedEntityDto<string> {
   reportId?: string;
-  isClosed: boolean;
-  reasonClosed: ReasonEnum;
+  investigationStatus: Status;
+  reasonClosed: ReasonClosed;
   assignedUserId?: string;
 }

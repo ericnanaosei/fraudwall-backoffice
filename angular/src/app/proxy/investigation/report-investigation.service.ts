@@ -1,4 +1,4 @@
-import type { AssignInvestigationDto, ClosedInvestigationDto, CreateInvestigationReportDto, InvestigationReportDto } from './models';
+import type { AssignInvestigationDto, ClosedInvestigationDto, CreateInvestigationDto, InvestigationReportDto } from './models';
 import { RestService } from '@abp/ng.core';
 import type { PagedAndSortedResultRequestDto, PagedResultDto } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
@@ -9,23 +9,23 @@ import { Injectable } from '@angular/core';
 export class ReportInvestigationService {
   apiName = 'Default';
 
-  assignUserByInput = (input: AssignInvestigationDto) =>
+  assignInvestigationByInput = (input: AssignInvestigationDto) =>
     this.restService.request<any, void>({
       method: 'POST',
-      url: '/api/app/report-investigation/assign-user',
+      url: '/api/app/report-investigation/assign-investigation',
       body: input,
     },
     { apiName: this.apiName });
 
-  closeByInput = (input: ClosedInvestigationDto) =>
+  closeInvestigationByInput = (input: ClosedInvestigationDto) =>
     this.restService.request<any, void>({
       method: 'POST',
-      url: '/api/app/report-investigation/close',
+      url: '/api/app/report-investigation/close-investigation',
       body: input,
     },
     { apiName: this.apiName });
 
-  create = (input: CreateInvestigationReportDto) =>
+  create = (input: CreateInvestigationDto) =>
     this.restService.request<any, InvestigationReportDto>({
       method: 'POST',
       url: '/api/app/report-investigation',
@@ -51,26 +51,25 @@ export class ReportInvestigationService {
     this.restService.request<any, PagedResultDto<InvestigationReportDto>>({
       method: 'GET',
       url: '/api/app/report-investigation',
-      params: { skipCount: input.skipCount, maxResultCount: input.maxResultCount, sorting: input.sorting },
+      params: { sorting: input.sorting, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
     },
     { apiName: this.apiName });
 
-  openById = (id: string) =>
+  openInvestigationById = (id: string) =>
     this.restService.request<any, void>({
       method: 'POST',
-      url: `/api/app/report-investigation/${id}/open`,
+      url: `/api/app/report-investigation/${id}/open-investigation`,
     },
     { apiName: this.apiName });
 
-  unassignUserByInput = (input: AssignInvestigationDto) =>
+  unassignInvestigationById = (id: string) =>
     this.restService.request<any, void>({
       method: 'POST',
-      url: '/api/app/report-investigation/unassign-user',
-      body: input,
+      url: `/api/app/report-investigation/${id}/unassign-investigation`,
     },
     { apiName: this.apiName });
 
-  update = (id: string, input: CreateInvestigationReportDto) =>
+  update = (id: string, input: CreateInvestigationDto) =>
     this.restService.request<any, InvestigationReportDto>({
       method: 'PUT',
       url: `/api/app/report-investigation/${id}`,
