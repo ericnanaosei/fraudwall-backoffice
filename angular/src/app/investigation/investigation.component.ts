@@ -90,4 +90,13 @@ export class InvestigationComponent implements OnInit {
       }
     });
   }
+
+  // open investigation
+  openInvestigation(id: string) {
+    this.confirmation.warn('::Are you sure you want to open this Investigation?', '::Confirm Action').subscribe((status) => {
+      if (status === Confirmation.Status.confirm) {
+        this.investigationService.openInvestigationById(id).subscribe(() => this.list.get());
+      }
+    });
+  }
 }

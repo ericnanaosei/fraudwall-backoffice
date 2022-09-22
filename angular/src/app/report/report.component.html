@@ -3,52 +3,55 @@
   <p class="bg-blue-600 text-center mt-12 rounded-lg px-6 py-3 text-white animate-pulse">Loading.....</p>
 </ng-template>
 
-<!-- Search and Filter Section -->
-<div class="container mx-auto md:flex flex-col justify-center text-center">
-  <div class="md:flex justify-between mb-2 py-3 px-3">
-    <div class="flex justify-center">
-      <label for="search" class="text-[20px] px-3 py-1 font-semibold">Search Number:</label>
-      <input type="text" class="rounded-sm px-2 w-[400px]" placeholder="Search Number">
+<!-- Main frame -->
+<div class="flex flex-col justify-center w-[100%]">
+  <!-- Search and Add area -->
+  <div class="flex justify-between text-[20px] mb-4">
+    <div class="md:flex mr-2">
+      <label for="search" class="font-semibold mr-2 py-1">Search Report</label>
+      <input type="text" id="search" class="rounded-lg md:w-[400px] md:font-semibold px-1" placeholder="Search Number">
     </div>
-    <div class="ml-2">
-      <button class="bg-violet-600 px-3 py-2 rounded-lg font-semibold text-white" (click)="createInvestigation()">
-        <i class="fa fa-plus"></i> Create Investigtation
+    <div class="md:flex justify-center mr-2">
+      <button class="bg-violet-600 px-2 py-1 rounded-xl font-semibold text-white" (click)="createInvestigation()">
+        <i class="fa fa-plus"></i> Add Investigtation
       </button>
     </div>
   </div>
-
-  <!-- Table -->
-  <table lass=" container table-auto mx-auto">
-    <thead>
-      <tr class="bg-blue-500 text-gray-700 uppercase text-sm leading-normal text-start">
-        <th class="py-3 px-6 text-left">Report ID</th>
-        <th class="py-3 px-6 text-left">Suspect Number</th>
-        <th class="py-3 px-6 text-left">Platform</th>
-        <th class="py-3 px-6 text-left">Incident Date</th>
-        <th class="py-3 px-6 text-left">Description</th>
-        <th class="py-3 px-6 text-center">Actions</th>
-      </tr>
-    </thead>
-
-    <!-- table body -->
-    <tbody *ngIf="reportList != null; else loadingReport" class="text-gray-700 text-sm font-medium">
-      <tr *ngFor="let report of reportList | paginate: {itemsPerPage: 3, currentPage: page, totalItems: totalCount}" 
-        class="border-b border-gray-200 hover:bg-gray-100">
-        <td class="py-3 px-6 text-left whitespace-nowrap">{{report.reportId}}</td>
-        <td class="py-3 px-6 text-start whitespace-nowrap">{{report.suspectNumber}}</td>
-        <td class="py-3 px-6 text-left whitespace-nowrap">{{report.platForm}}</td>
-        <td class="py-3 px-6 text-left whitespace-nowrap">{{report.incidentDate}}</td>
-        <td class="py-3 px-6 text-left whitespace-nowrap">{{report.description}}</td>
-        <td class="py-3 px-6 text-start whitespace-nowrap flex justify-between hover:cursor-pointer">
-          <div class="hover:text-2xl"><i class="fa solid fa-trash text-red-600"></i></div>
-          <div class="hover:text-2xl" (click)="createInvestigation()"><i class="fa solid fa-vial text-green-600"></i></div>
-          <div class="hover:text-2xl"><i class="fa solid fa-database text-blue-600 hover"></i></div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls>
+  <!-- End of search-->
+  <div class="overflow-x-auto">
+    <table class="w-[100%]">
+      <thead>
+        <tr class="bg-blue-500 text-gray-700 uppercase text-sm leading-normal text-start">
+          <th class="py-3 px-6 text-left">Report ID</th>
+          <th class="py-3 px-6 text-left">Suspect Number</th>
+          <th class="py-3 px-6 text-left">Platform</th>
+          <th class="py-3 px-6 text-left">Incident Date</th>
+          <th class="py-3 px-6 text-left">Description</th>
+          <th class="py-3 px-6 text-center">Actions</th>
+        </tr>
+      </thead>
+  
+      <!-- table body -->
+      <tbody *ngIf="reportList != null; else loadingReport" class="text-gray-700 text-sm font-medium">
+        <tr *ngFor="let report of reportList | paginate: {itemsPerPage: 3, currentPage: page, totalItems: totalCount}" 
+          class="border-b border-gray-200 hover:bg-gray-100">
+          <td class="py-3 px-6 text-left whitespace-nowrap">{{report.reportId}}</td>
+          <td class="py-3 px-6 text-start whitespace-nowrap">{{report.suspectNumber}}</td>
+          <td class="py-3 px-6 text-left whitespace-nowrap">{{report.platForm}}</td>
+          <td class="py-3 px-6 text-left whitespace-nowrap">{{report.incidentDate}}</td>
+          <td class="py-3 px-6 text-left whitespace-nowrap">{{report.description}}</td>
+          <td class="py-3 px-6 text-start whitespace-nowrap flex justify-between hover:cursor-pointer">
+            <div class="hover:text-2xl"><i class="fa solid fa-trash text-red-600"></i></div>
+            <div class="hover:text-2xl" (click)="createInvestigation()"><i class="fa solid fa-vial text-green-600"></i></div>
+            <div class="hover:text-2xl"><i class="fa solid fa-database text-blue-600 hover"></i></div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls>
+  </div>
 </div>
+<!-- End of frame -->
 
 
 <!-- Modal -->
