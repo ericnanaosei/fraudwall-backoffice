@@ -27,7 +27,7 @@ public class FraudAppServiceTests : fraudwall_backofficeApplicationTestBase
             new CreateFraudNumberDto{
               PhoneNumber ="",
               ReportCount = 2,
-              RiskLevel = Risk.RiskType.Low,
+              RiskLevel = RiskType.Low,
               Rating = 2
             }
           );
@@ -45,7 +45,7 @@ public class FraudAppServiceTests : fraudwall_backofficeApplicationTestBase
         new CreateFraudNumberDto{
           PhoneNumber = "0242134019",
           ReportCount = 2,
-          RiskLevel = Risk.RiskType.Low,
+          RiskLevel = RiskType.Low,
           Rating = 2
 
         }

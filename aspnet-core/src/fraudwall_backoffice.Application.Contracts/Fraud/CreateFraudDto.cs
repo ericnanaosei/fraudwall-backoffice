@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using fraudwall_backoffice.Risk;
 
 namespace fraudwall_backoffice.Fraud;
 

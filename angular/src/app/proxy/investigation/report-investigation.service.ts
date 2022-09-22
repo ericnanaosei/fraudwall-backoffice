@@ -51,7 +51,7 @@ export class ReportInvestigationService {
     this.restService.request<any, PagedResultDto<InvestigationReportDto>>({
       method: 'GET',
       url: '/api/app/report-investigation',
-      params: { sorting: input.sorting, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
+      params: { skipCount: input.skipCount, maxResultCount: input.maxResultCount, sorting: input.sorting },
     },
     { apiName: this.apiName });
 

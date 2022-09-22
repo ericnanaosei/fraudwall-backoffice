@@ -35,7 +35,7 @@ export class FraudService {
     this.restService.request<any, PagedResultDto<FraudNumberDto>>({
       method: 'GET',
       url: '/api/app/fraud',
-      params: { sorting: input.sorting, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
+      params: { skipCount: input.skipCount, maxResultCount: input.maxResultCount, sorting: input.sorting },
     },
     { apiName: this.apiName });
 

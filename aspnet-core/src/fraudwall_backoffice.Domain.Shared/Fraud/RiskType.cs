@@ -1,4 +1,4 @@
-namespace fraudwall_backoffice.Risk;
+namespace fraudwall_backoffice.Fraud;
 public enum RiskType{
   Low, Medium, High
 }
