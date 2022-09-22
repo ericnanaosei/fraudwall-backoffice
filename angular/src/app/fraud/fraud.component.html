@@ -1,9 +1,115 @@
-<div class="flex flex-col justify-center bg-red-300">
-  <div class="flex justify-between bg-green-600">
-    <div>Search Fraud Number</div>
-    <div>Add Fraud Number</div>
+<!-- Loading animation -->
+<ng-template #loading>
+  <p class="bg-blue-600 text-center mt-12 rounded-lg px-6 py-3 text-white animate-pulse">Loading.....</p>
+</ng-template>
+<!-- end of loading animation -->
+
+<!-- Container -->
+<div class="flex flex-col justify-center">
+  <!-- search area -->
+  <div class="flex justify-between mb-4 py-2 px-2">
+    <div class="text-base">
+      <div class="py-2">
+        <label for="search" class="font-semibold mr-2 text-[22px]">Search Number</label>
+        <input type="text" id="search" class="rounded-lg py-2 md:w-[400px] text-[17px] text-center md:font-semibold" placeholder="Search Number">
+      </div>
+    </div>
+    <div class="py-3">
+      <button class="bg-violet-600 px-2 py-2 rounded-xl font-semibold text-white" (click)="createFraudNumber()">
+        <i class="fa fa-plus"></i> Add Number
+      </button>
+    </div>
   </div>
-  <div class="bg-blue-500">
-    table
+  <!-- end of search area -->
+  <!-- Table frame -->
+  <div class="overflow-x-auto">
+    <table class="w-[100%]">
+      <thead>
+        <tr class="bg-blue-500 text-gray-700 uppercase text-sm leading-normal text-start">
+          <th class="text-start px-2">ID</th>
+          <th class="py-3 px-6 text-left">Phone Number</th>
+          <th class="py-3 px-6 text-left">Number of Reports</th>
+          <th class="py-3 px-6 text-left">Rate</th>
+          <th class="py-3 px-6 text-center">Risk Level</th>
+          <th class="py-3 px-6 text-center">Actions</th>
+        </tr>
+      </thead>
+          <!-- table body -->
+      <tbody *ngIf="fraudNumbers.items != null; else loading" class="text-gray-700 text-sm font-medium">
+        <tr *ngFor="let fraud of fraudNumbers.items | paginate: {itemsPerPage: 3, currentPage: page, totalItems: fraudNumbers.totalCount}" 
+          class="border-b border-gray-200 hover:bg-gray-100">
+          <td class="py-3 px-6 text-left whitespace-nowrap">{{fraud.id }}</td>
+          <td class="py-3 px-6 text-start whitespace-nowrap">{{fraud.phoneNumber}}</td>
+          <td class="py-3 px-6 text-left whitespace-nowrap">{{fraud.reportCount}}</td>
+          <td class="py-3 px-6 text-start whitespace-nowrap">{{fraud.rating}}</td>
+          <td class="py-3 px-6 text-left whitespace-nowrap">
+            <div class="flex justify-evenly hover:cursor-pointer font-bold">
+              <button *ngIf="fraud.riskLevel == 0" class="px-3 py-1 rounded-xl bg-yellow-700 text-white hover:bg-yellow-300">Low</button>
+              <button *ngIf="fraud.riskLevel == 1" class="px-3 py-1 rounded-xl bg-green-800 text-white hover:bg-green-400">Medium</button>
+              <button *ngIf="fraud.riskLevel == 2" class="px-3 py-1 rounded-xl bg-red-700 text-white hover:bg-red-400">High</button>
+            </div>
+          </td>
+          <td class="py-3 px-4 whitespace-nowrap flex justify-between hover:cursor-pointer">
+            <div class="hover:text-2xl" (click)="deleteFraudNumber(fraud.id)"><i class="fa solid fa-trash text-red-600"></i></div>
+            <div class="hover:text-2xl" (click)="editFraudNumber(fraud.id)"><i class="fa solid fa-edit text-green-600"></i></div>
+            <div class="hover:text-2xl"><i class="fa solid fa-database text-blue-600"></i></div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls>
+    <!-- End of table -->
   </div>
+  <!-- End of table frame -->
 </div>
+<!-- End of container -->
+
+
+<!-- Modal -->
+<abp-modal [(visible)]="isModalOpen">
+  <ng-template #abpHeader>
+    <h4 class="text-blue-400 font-bold">Create Fraud Number</h4>
+  </ng-template>
+
+  <ng-template #abpBody>
+    <form [formGroup]="fraudNumberForm" (ngSubmit)="save()">
+      <!-- Report Id -->
+      <div class="form-group" class="py-1">
+        <label for="phoneNumber" class="font-bold mb-2">Phone Number</label><span class="text-red-800 font-bold"> * </span>
+        <input type="text" id="phoneNumber" class="form-control" formControlName="phoneNumber" autofocus/>
+      </div>
+      <!-- Report Counts -->
+      <div class="form-group" class="py-1">
+        <label for="reportCount" class="font-bold mb-2">Number of Reports</label>
+        <input type="number" id="reportCount" class="form-control" formControlName="reportCount"/>
+      </div>
+            <!-- Rating -->
+      <div class="form-group" class="py-1">
+        <label for="rating" class="font-bold mb-2">Rating</label>
+        <input type="number" id="rating" class="form-control" formControlName="rating"/>
+      </div>
+      <!-- Risk Level -->
+      <div class="form-group" class="py-1">
+        <label for="riskLevel" class="font-bold mb-2">Risk Level</label>
+        <select class="form-control" id="riskLevel" formControlName="riskLevel">
+          <option [ngValue]="null">Select Risk Level</option>
+          <option [ngValue]="risk.value" *ngFor="let risk of riskType"> {{ risk.key }}</option>
+        </select>
+      </div>
+
+    </form>
+  </ng-template>
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      Close
+    </button>
+    <button class="btn btn-primary" (click)="save()" [disabled]="fraudNumberForm.invalid">
+          <i class="fa fa-check mr-1"></i>
+          Save
+    </button>
+  </ng-template>
+</abp-modal>
+<!-- End -->
+
+
+
