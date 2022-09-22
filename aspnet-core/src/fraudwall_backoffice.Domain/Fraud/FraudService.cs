@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using fraudwall_backoffice.Risk;
 using Volo.Abp;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;

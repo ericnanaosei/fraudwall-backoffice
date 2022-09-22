@@ -1,4 +1,4 @@
-import type { RiskType } from '../risk/risk-type.enum';
+import type { RiskType } from './risk-type.enum';
 import type { AuditedEntityDto } from '@abp/ng.core';
 
 export interface CreateFraudNumberDto {
@@ -17,7 +17,4 @@ export interface FraudNumberDto extends AuditedEntityDto<string> {
 
 export interface ValiatePhoneNumberDto {
   phoneNumber?: string;
-  reportCount: number;
-  rating: number;
-  riskLevel: RiskType;
 }

@@ -1,6 +1,5 @@
 using System;
 using Volo.Abp;
-using fraudwall_backoffice.Risk;
 using Volo.Abp.Domain.Entities.Auditing;
 
 

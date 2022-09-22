@@ -2,8 +2,7 @@ import { ListService, PagedResultDto } from '@abp/ng.core';
 import { ConfirmationService, Confirmation } from '@abp/ng.theme.shared';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FraudService, FraudNumberDto, CreateFraudNumberDto, ValiatePhoneNumberDto } from '@proxy/fraud';
-import { riskTypeOptions } from '@proxy/risk';
+import { FraudService, FraudNumberDto, riskTypeOptions, CreateFraudNumberDto, ValiatePhoneNumberDto } from '@proxy/fraud';
 
 @Component({
   selector: 'app-fraud',

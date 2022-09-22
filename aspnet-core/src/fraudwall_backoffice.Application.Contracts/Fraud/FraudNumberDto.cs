@@ -1,5 +1,4 @@
 using System;
-using fraudwall_backoffice.Risk;
 using Volo.Abp.Application.Dtos;
 
 namespace fraudwall_backoffice.Fraud;
