@@ -1,60 +1,64 @@
 <!-- Loading animation -->
-<ng-template #loadingInvestigation>
+<ng-template #loading>
   <p class="bg-blue-600 text-center mt-12 rounded-lg px-6 py-3 text-white animate-pulse">Loading.....</p>
 </ng-template>
 
-<div class="container mx-auto md:flex flex-col justify-center text-center relative">
-  <div class="flex justify-between py-3 px-3">
-    <div class="flex justify-center">
-      <label for="search" class="text-[20px] px-3 font-semibold py-1">Search Investigation</label>
-      <input type="text" class="rounded-sm px-2 w-[400px]" placeholder="Search Number">
+<!-- Main frame -->
+<div class="flex flex-col justify-center">
+  <div class="flex justify-between mb-4 py-2 px-2">
+    <div class="text-base">
+      <div class="py-2">
+        <label for="search" class="font-semibold mr-2 text-[22px]">Search Investigation</label>
+        <input type="text" id="search" class="rounded-lg py-2 md:w-[400px] text-[17px] text-center md:font-semibold" placeholder="Search Number">
+      </div>
     </div>
-    <div class="ml-2">
-      <button class="bg-violet-600 px-3 py-2 rounded-lg font-semibold text-white" (click)="createInvestigation()">
-        <i class="fa fa-plus"></i> Create Investigtation
+    <div class="py-3">
+      <button class="bg-violet-600 px-2 py-2 rounded-xl font-semibold text-white" (click)="createInvestigation()">
+        <i class="fa fa-plus"></i> Add Investigation
       </button>
     </div>
   </div>
-  
-  <!-- Table -->
-  <table class=" container table-auto mx-auto">
-    <thead>
-      <tr class="bg-blue-500 text-gray-700 uppercase text-sm leading-normal text-start">
-        <th class="text-start px-2">ID</th>
-        <th class="py-3 px-6 text-left">Report Id</th>
-        <th class="py-3 px-6 text-left">Created By</th>
-        <th class="py-3 px-6 text-left">Assigned To</th>
-        <th class="py-3 px-6 text-center">Status</th>
-        <th class="py-3 px-6 text-center">Actions</th>
-      </tr>
-    </thead>
-  
-    <!-- table body -->
-    <tbody *ngIf="investigations.items != null; else loadingInvestigation" class="text-gray-700 text-sm font-medium">
-      <tr *ngFor="let invest of investigations.items | paginate: {itemsPerPage: 3, currentPage: page, totalItems: investigations.totalCount}" 
-        class="border-b border-gray-200 hover:bg-gray-100">
-        <td class="py-3 px-6 text-left whitespace-nowrap">{{invest.id }}</td>
-        <td class="py-3 px-6 text-start whitespace-nowrap">{{invest.reportId}}</td>
-        <td class="py-3 px-6 text-left whitespace-nowrap">{{invest.creatorId | slice:0:10}}</td>
-        <td class="py-3 px-6 text-start whitespace-nowrap">{{invest.assignedUserId| slice:0:10}}</td>
-        <td class="py-3 px-6 text-left whitespace-nowrap">
-          <div class="flex justify-evenly hover:cursor-pointer font-bold">
-            <button *ngIf="invest.investigationStatus == 0" class="px-3 py-1 rounded-xl bg-yellow-700 text-white hover:bg-yellow-300">Pending</button>
-            <button *ngIf="invest.investigationStatus == 1" class="px-3 py-1 rounded-xl bg-green-800 text-white hover:bg-green-400">Opened</button>
-            <button *ngIf="invest.investigationStatus == 2" class="px-3 py-1 rounded-xl bg-red-700 text-white hover:bg-red-400">Closed</button>
-          </div>
-        </td>
-        <td class="py-3 px-4 whitespace-nowrap flex justify-between hover:cursor-pointer">
-          <div class="hover:text-2xl" (click)="deleteInvestigation(invest.id)"><i class="fa solid fa-trash text-red-600"></i></div>
-          <div class="hover:text-2xl" (click)="editInvestigation(invest.id)"><i class="fa solid fa-edit text-green-600"></i></div>
-          <div class="hover:text-2xl"><i class="fa solid fa-user text-blue-600 hover"></i></div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls>  
+  <!-- table area -->
+  <div class="overflow-x-auto">
+    <table class="w-[100%]">
+      <thead>
+        <tr class="bg-blue-500 text-gray-700 uppercase text-sm leading-normal text-start">
+          <th class="text-start px-2">ID</th>
+          <th class="py-3 px-6 text-left">Report Id</th>
+          <th class="py-3 px-6 text-left">Created By</th>
+          <th class="py-3 px-6 text-left">Assigned To</th>
+          <th class="py-3 px-6 text-center">Status</th>
+          <th class="py-3 px-6 text-center">Actions</th>
+        </tr>
+      </thead>
+          <!-- table body -->
+      <tbody *ngIf="investigations.items != null; else loading" class="text-gray-700 text-sm font-medium">
+        <tr *ngFor="let invest of investigations.items | paginate: {itemsPerPage: 3, currentPage: page, totalItems: investigations.totalCount}" 
+          class="border-b border-gray-200 hover:bg-gray-100">
+          <td class="py-3 px-6 text-left whitespace-nowrap">{{invest.id }}</td>
+          <td class="py-3 px-6 text-start whitespace-nowrap">{{invest.reportId}}</td>
+          <td class="py-3 px-6 text-left whitespace-nowrap">{{invest.creatorId | slice:0:10}}</td>
+          <td class="py-3 px-6 text-start whitespace-nowrap">{{invest.assignedUserId| slice:0:10}}</td>
+          <td class="py-3 px-6 text-left whitespace-nowrap">
+            <div class="flex justify-evenly hover:cursor-pointer font-bold">
+              <button *ngIf="invest.investigationStatus == 0" class="px-3 py-1 rounded-xl bg-yellow-700 text-white hover:bg-yellow-300">Pending</button>
+              <button *ngIf="invest.investigationStatus == 1" class="px-3 py-1 rounded-xl bg-green-800 text-white hover:bg-green-400">Opened</button>
+              <button *ngIf="invest.investigationStatus == 2" class="px-3 py-1 rounded-xl bg-red-700 text-white hover:bg-red-400">Closed</button>
+            </div>
+          </td>
+          <td class="py-3 px-4 whitespace-nowrap flex justify-between hover:cursor-pointer">
+            <div class="hover:text-2xl" (click)="deleteInvestigation(invest.id)"><i class="fa solid fa-trash text-red-600"></i></div>
+            <div class="hover:text-2xl" (click)="editInvestigation(invest.id)"><i class="fa solid fa-edit text-green-600"></i></div>
+            <div class="hover:text-2xl"><i class="fa solid fa-user text-blue-600 hover"></i></div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls> 
+  </div>  
+  <!-- End of table -->
 </div>
-
+<!--End of main frame  -->
 
 
 <!-- Modal -->
