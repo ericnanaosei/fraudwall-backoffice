@@ -5,12 +5,14 @@ import { ReportComponent } from './report.component';
 import { SharedModule } from '../shared/shared.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SearchModule } from '../search/search.module';
+import { ReportDetailComponent } from './report-detail/report-detail.component';
 
 
 
 @NgModule({
   declarations: [
-    ReportComponent
+    ReportComponent,
+    ReportDetailComponent
   ],
   imports: [
     NgxPaginationModule,

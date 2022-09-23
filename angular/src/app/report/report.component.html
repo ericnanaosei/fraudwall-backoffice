@@ -29,12 +29,14 @@
       </thead>
   
       <!-- table body -->
-      <ng-container *ngIf="reportList != null; else loadingReport">
+      <ng-container *ngIf="(reportList) != null; else loadingReport">
         <tbody class="text-gray-700 text-sm font-medium" 
-          *ngFor="let report of reportList | 
+          *ngFor="let report of reportList |
           paginate: {itemsPerPage: 3, currentPage: page, totalItems: totalCount}" >
-          <tr class="border-b border-gray-200 hover:bg-gray-100" 
-            *ngIf="searchTextEntered==='' || report.suspectNumber.trim().toLowerCase().includes(searchTextEntered)">
+          <tr class="border-b border-gray-200 hover:bg-gray-100 hover:cursor-pointer"
+            routerLink="detail/{{report.reportId}}" 
+            *ngIf="searchTextEntered==='' || 
+            report.suspectNumber.trim().toLowerCase().includes(searchTextEntered)">
             <td class="py-3 px-6 text-left whitespace-nowrap">{{report.reportId}}</td>
             <td class="py-3 px-6 text-start whitespace-nowrap">{{report.suspectNumber}}</td>
             <td class="py-3 px-6 text-left whitespace-nowrap">{{report.platForm}}</td>
