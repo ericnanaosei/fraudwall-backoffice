@@ -16,6 +16,7 @@ export class FraudComponent implements OnInit {
   fraudNumberForm: FormGroup;
   riskType = riskTypeOptions;
   selectedFraudNumber = {} as FraudNumberDto
+  searchTextEntered = "";
 
   constructor(
     public readonly list: ListService, 
@@ -89,5 +90,11 @@ export class FraudComponent implements OnInit {
         this.fraudService.delete(id).subscribe(() => this.list.get());
       }
     });
+  }
+
+  // search text custom event called
+  onSearchedText(searchedText:string){
+    this.searchTextEntered = searchedText;
+    console.log(this.searchTextEntered);
   }
 }

@@ -9,9 +9,9 @@
   <!-- search area -->
   <div class="flex justify-between mb-4 py-2 px-2">
       <!-- search Component -->
-      <app-search></app-search>
-    <div class="flex">
-      <button class="bg-violet-600 px-2 py-3 rounded-xl font-semibold text-white" (click)="createFraudNumber()">
+      <app-search (searchTextChanged)="onSearchedText($event)"></app-search>
+    <div class="flex px-2">
+      <button class="bg-violet-600 px-2 py-2 rounded-xl font-semibold text-white" (click)="createFraudNumber()">
         <i class="fa fa-plus"></i> Add Number
       </button>
     </div>
@@ -30,28 +30,30 @@
           <th class="py-3 px-6 text-center">Actions</th>
         </tr>
       </thead>
-          <!-- table body -->
-      <tbody *ngIf="fraudNumbers.items != null; else loading" class="text-gray-700 text-sm font-medium">
-        <tr *ngFor="let fraud of fraudNumbers.items | paginate: {itemsPerPage: 3, currentPage: page, totalItems: fraudNumbers.totalCount}" 
-          class="border-b border-gray-200 hover:bg-gray-100">
-          <td class="py-3 px-6 text-left whitespace-nowrap">{{fraud.id }}</td>
-          <td class="py-3 px-6 text-start whitespace-nowrap">{{fraud.phoneNumber}}</td>
-          <td class="py-3 px-6 text-left whitespace-nowrap">{{fraud.reportCount}}</td>
-          <td class="py-3 px-6 text-start whitespace-nowrap">{{fraud.rating}}</td>
-          <td class="py-3 px-6 text-left whitespace-nowrap">
-            <div class="flex justify-evenly hover:cursor-pointer font-bold">
-              <button *ngIf="fraud.riskLevel == 0" class="px-3 py-1 rounded-xl bg-yellow-700 text-white hover:bg-yellow-300">Low</button>
-              <button *ngIf="fraud.riskLevel == 1" class="px-3 py-1 rounded-xl bg-green-800 text-white hover:bg-green-400">Medium</button>
-              <button *ngIf="fraud.riskLevel == 2" class="px-3 py-1 rounded-xl bg-red-700 text-white hover:bg-red-400">High</button>
-            </div>
-          </td>
-          <td class="py-3 px-4 whitespace-nowrap flex justify-between hover:cursor-pointer">
-            <div class="hover:text-2xl" (click)="deleteFraudNumber(fraud.id)"><i class="fa solid fa-trash text-red-600"></i></div>
-            <div class="hover:text-2xl" (click)="editFraudNumber(fraud.id)"><i class="fa solid fa-edit text-green-600"></i></div>
-            <div class="hover:text-2xl"><i class="fa solid fa-database text-blue-600"></i></div>
-          </td>
-        </tr>
-      </tbody>
+      <!-- table body -->
+      <ng-container *ngIf="fraudNumbers.items != null; else loading" class="text-gray-700 text-sm font-medium">
+        <tbody *ngFor="let fraud of fraudNumbers.items | paginate: {itemsPerPage: 3, currentPage: page, totalItems: fraudNumbers.totalCount}">
+          <tr class="border-b border-gray-200 hover:bg-gray-100" *ngIf="searchTextEntered === '' || fraud.phoneNumber.trim().toLowerCase().includes(searchTextEntered)">
+            <td class="py-3 px-6 text-left whitespace-nowrap">{{fraud.id }}</td>
+            <td class="py-3 px-6 text-start whitespace-nowrap">{{fraud.phoneNumber}}</td>
+            <td class="py-3 px-6 text-left whitespace-nowrap">{{fraud.reportCount}}</td>
+            <td class="py-3 px-6 text-start whitespace-nowrap">{{fraud.rating}}</td>
+            <td class="py-3 px-6 text-left whitespace-nowrap">
+              <div class="flex justify-evenly hover:cursor-pointer font-bold">
+                <button *ngIf="fraud.riskLevel == 0" class="px-3 py-1 rounded-xl bg-yellow-700 text-white hover:bg-yellow-300">Low</button>
+                <button *ngIf="fraud.riskLevel == 1" class="px-3 py-1 rounded-xl bg-green-800 text-white hover:bg-green-400">Medium</button>
+                <button *ngIf="fraud.riskLevel == 2" class="px-3 py-1 rounded-xl bg-red-700 text-white hover:bg-red-400">High</button>
+              </div>
+            </td>
+            <td class="py-3 px-4 whitespace-nowrap flex justify-between hover:cursor-pointer">
+              <div class="hover:text-2xl" (click)="deleteFraudNumber(fraud.id)"><i class="fa solid fa-trash text-red-600"></i></div>
+              <div class="hover:text-2xl" (click)="editFraudNumber(fraud.id)"><i class="fa solid fa-edit text-green-600"></i></div>
+              <div class="hover:text-2xl"><i class="fa solid fa-database text-blue-600"></i></div>
+            </td>
+          </tr>
+        </tbody>
+      </ng-container>
+      
     </table>
     <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls>
     <!-- End of table -->
