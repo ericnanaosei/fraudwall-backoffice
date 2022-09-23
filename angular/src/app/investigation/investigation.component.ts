@@ -17,6 +17,7 @@ export class InvestigationComponent implements OnInit {
   investigationForm: FormGroup;
   investigationStatusOptions = statusOptions;
   selectedInvestigation = {} as InvestigationReportDto
+  searchTextEntered ="";
 
   constructor(
     public readonly list: ListService, 
@@ -98,5 +99,11 @@ export class InvestigationComponent implements OnInit {
         this.investigationService.openInvestigationById(id).subscribe(() => this.list.get());
       }
     });
+  }
+  
+  // search text custom event called
+  onSearchedText(searchedText:string){
+    this.searchTextEntered = searchedText;
+    console.log(this.searchTextEntered);
   }
 }

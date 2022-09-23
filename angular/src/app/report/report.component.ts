@@ -16,6 +16,7 @@ export class ReportComponent implements OnInit {
   isModalOpen = false;
   investigationForm: FormGroup
   investigationStatusOptions = statusOptions;
+  searchTextEntered="";
 
   constructor( 
     private readonly reportService: ReportService,
@@ -68,5 +69,11 @@ export class ReportComponent implements OnInit {
       this.isModalOpen = false;
       this.investigationForm.reset();
     });
+  }
+
+  // search text custom event called
+  onSearchedText(searchedText:string){
+    this.searchTextEntered = searchedText;
+    console.log(this.searchTextEntered);
   }
 }
