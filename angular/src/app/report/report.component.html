@@ -7,14 +7,9 @@
 <div class="flex flex-col justify-center">
   <!-- Search and Add area -->
   <div class="flex justify-between mb-4 py-2 px-2">
-    <div class="text-base">
-      <div class="py-2">
-        <label for="search" class="font-semibold mr-2 text-[22px]">Search Investigation</label>
-        <input type="text" id="search" class="rounded-lg py-2 md:w-[400px] text-[17px] text-center md:font-semibold" placeholder="Search Number">
-      </div>
-    </div>
-    <div class="py-3">
-      <button class="bg-violet-600 px-2 py-2 rounded-xl font-semibold text-white" (click)="createInvestigation()">
+    <app-search></app-search>
+    <div class="flex">
+      <button class="bg-violet-600 px-2 py-3 rounded-xl font-semibold text-white" (click)="createInvestigation()">
         <i class="fa fa-plus"></i> Add Investigation
       </button>
     </div>

@@ -4,6 +4,7 @@ import { ReportRoutingModule } from './report-routing.module';
 import { ReportComponent } from './report.component';
 import { SharedModule } from '../shared/shared.module';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { SearchModule } from '../search/search.module';
 
 
 
@@ -14,7 +15,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
   imports: [
     NgxPaginationModule,
     ReportRoutingModule,
-    SharedModule
+    SharedModule,
+    SearchModule
   ]
 })
 export class ReportModule { }

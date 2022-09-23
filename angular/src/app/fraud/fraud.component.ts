@@ -1,6 +1,6 @@
 import { ListService, PagedResultDto } from '@abp/ng.core';
 import { ConfirmationService, Confirmation } from '@abp/ng.theme.shared';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FraudService, FraudNumberDto, riskTypeOptions, CreateFraudNumberDto, ValiatePhoneNumberDto } from '@proxy/fraud';
 
@@ -90,5 +90,4 @@ export class FraudComponent implements OnInit {
       }
     });
   }
-
 }
