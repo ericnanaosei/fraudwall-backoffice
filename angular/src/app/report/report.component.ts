@@ -76,4 +76,8 @@ export class ReportComponent implements OnInit {
     this.searchTextEntered = searchedText;
     console.log(this.searchTextEntered);
   }
+
+  navigateToReportDetail(){
+
+  }
 }
