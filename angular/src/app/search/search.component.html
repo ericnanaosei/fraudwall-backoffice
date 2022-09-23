@@ -1,0 +1,9 @@
+<div>
+  <label for="search" class="font-semibold mr-2 mb-2 text-[20px]">Find</label>
+  <input type="text" id="search" class="rounded-lg py-2 md:w-[400px]
+    text-[17px] text-center md:font-semibold"
+    placeholder="Search here" 
+    [(ngModel)]="searchedText"
+    (input)="onSearchTextChanged()"
+    >
+</div>

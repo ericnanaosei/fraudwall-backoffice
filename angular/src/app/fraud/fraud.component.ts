@@ -1,6 +1,6 @@
 import { ListService, PagedResultDto } from '@abp/ng.core';
 import { ConfirmationService, Confirmation } from '@abp/ng.theme.shared';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FraudService, FraudNumberDto, riskTypeOptions, CreateFraudNumberDto, ValiatePhoneNumberDto } from '@proxy/fraud';
 
@@ -16,6 +16,7 @@ export class FraudComponent implements OnInit {
   fraudNumberForm: FormGroup;
   riskType = riskTypeOptions;
   selectedFraudNumber = {} as FraudNumberDto
+  searchTextEntered = "";
 
   constructor(
     public readonly list: ListService, 
@@ -91,4 +92,9 @@ export class FraudComponent implements OnInit {
     });
   }
 
+  // search text custom event called
+  onSearchedText(searchedText:string){
+    this.searchTextEntered = searchedText;
+    console.log(this.searchTextEntered);
+  }
 }

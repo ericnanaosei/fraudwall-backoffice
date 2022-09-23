@@ -5,6 +5,7 @@ import { InvestigationComponent } from './investigation.component';
 import { SharedModule } from '../shared/shared.module';
 import { ModalService } from '../modal/modal.service';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { SearchModule } from '../search/search.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
   imports: [
     SharedModule,
     InvestigationRoutingModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    SearchModule
   ]
 })
 export class InvestigationModule { }
