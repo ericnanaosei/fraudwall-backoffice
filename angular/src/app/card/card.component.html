@@ -1,18 +1,19 @@
 <ng-container *ngFor="let card of cardInfo">
-  <div 
-    class="
-      md:flex
-      items-center
-      justify-center
-      {{card.color}} 
-      text-white md:w-[250px] h-[120px]
-      rounded-lg px-3 py-2"
-      (click)="navigateTo(card.url)"
-      >
-    <div class="md:text-4xl flex justify-center items-center "><i [class]="card.icon"></i></div>
-    <div class="flex flex-col items-center text-center justify-center">
-      <p>{{card.title}}</p>
-      <p>{{card.total}}</p>
+  <div class="md:flex items-center justify-center">
+    <div 
+      class="
+        text-center
+        hover:cursor-pointer
+        {{card.color}} 
+        text-white md:w-[250px] h-[120px]
+        rounded-lg px-3 py-2"
+        (click)="navigateTo(card.url)"
+        >
+      <div class="sm:text-sm md:text-4xl flex text-center"><i [class]="card.icon"></i></div>
+      <div class="flex flex-col items-center text-center justify-center">
+        <p>{{card.title}}</p>
+        <p>{{card.total}}</p>
+      </div>
     </div>
   </div>
 </ng-container>
