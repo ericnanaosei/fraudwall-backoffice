@@ -27,9 +27,18 @@ export class ReportService {
 
   // get report by Id
   getReport(id: string){
-    const request: Rest.Request<string> = {
+    const request: Rest.Request<ReportDto> = {
       method: 'GET',
       url: '/report/' + id
+    };
+    return this.restService.request<ReportDto,ReportDto>(request, { apiName: 'webapi'});
+  }
+
+  //get fraudNumber details
+  getFraudNumber(phoneNumber: string){
+    const request: Rest.Request<string> = {
+      method: 'GET',
+      url: '/report/phone-number/'+ phoneNumber
     };
     return this.restService.request<string,any>(request, { apiName: 'webapi'});
   }
