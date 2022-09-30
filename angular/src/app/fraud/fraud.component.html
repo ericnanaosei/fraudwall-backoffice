@@ -31,10 +31,12 @@
         </tr>
       </thead>
       <!-- table body -->
-      <ng-container *ngIf="fraudNumbers.items != null; else loading" class="text-gray-700 text-sm font-medium">
+      <ng-container *ngIf="fraudNumbers.items != null; else loading" 
+        class="text-gray-700 text-sm font-medium">
         <tbody *ngFor="let fraud of fraudNumbers.items | 
           paginate: {itemsPerPage: 3, currentPage: page, totalItems: fraudNumbers.totalCount}">
-          <tr class="border-b border-gray-200 hover:bg-gray-100" 
+          <tr class="border-b border-gray-200 hover:bg-gray-100 hover:cursor-pointer" 
+            routerLink="detail/{{fraud.id}}/{{fraud.phoneNumber}}" 
             *ngIf="searchTextEntered === '' || fraud.phoneNumber.trim().toLowerCase().includes(searchTextEntered)">
             <td class="py-3 px-6 text-left whitespace-nowrap">{{fraud.id }}</td>
             <td class="py-3 px-6 text-start whitespace-nowrap">{{fraud.phoneNumber}}</td>
