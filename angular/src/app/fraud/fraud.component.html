@@ -23,34 +23,35 @@
       <thead>
         <tr class="bg-blue-500 text-gray-700 uppercase text-sm leading-normal text-start">
           <th class="text-start px-2">ID</th>
-          <th class="py-3 px-6 text-left">Phone Number</th>
-          <th class="py-3 px-6 text-left">Number of Reports</th>
-          <th class="py-3 px-6 text-left">Rate</th>
+          <th class="py-3 px-6 text-left">Fraud Number</th>
+          <th class="py-3 px-6 text-left">Total Reports</th>
+          <th class="py-3 px-6 text-left">Visibility</th>
           <th class="py-3 px-6 text-center">Risk Level</th>
           <th class="py-3 px-6 text-center">Actions</th>
         </tr>
       </thead>
       <!-- table body -->
-      <ng-container *ngIf="fraudNumbers.items != null; else loading" class="text-gray-700 text-sm font-medium">
+      <ng-container *ngIf="fraudNumbers.items != null; else loading" 
+        class="text-gray-700 text-sm font-medium">
         <tbody *ngFor="let fraud of fraudNumbers.items | 
-          paginate: {itemsPerPage: 3, currentPage: page, totalItems: fraudNumbers.totalCount}">
-          <tr class="border-b border-gray-200 hover:bg-gray-100" 
-            *ngIf="searchTextEntered === '' || fraud.phoneNumber.trim().toLowerCase().includes(searchTextEntered)">
-            <td class="py-3 px-6 text-left whitespace-nowrap">{{fraud.id }}</td>
-            <td class="py-3 px-6 text-start whitespace-nowrap">{{fraud.phoneNumber}}</td>
+          paginate: {itemsPerPage: 30, currentPage: page, totalItems: fraudNumbers.totalCount}">
+          <tr class="border-b border-gray-200 hover:bg-gray-100 hover:cursor-pointer" 
+            
+            *ngIf="searchTextEntered === '' || fraud.fraudNumber.trim().toLowerCase().includes(searchTextEntered)">
+            <td class="py-3 px-6 text-left whitespace-nowrap">{{fraud.fraudNumberId}}</td>
+            <td class="py-3 px-6 text-start whitespace-nowrap">{{fraud.fraudNumber}}</td>
             <td class="py-3 px-6 text-left whitespace-nowrap">{{fraud.reportCount}}</td>
-            <td class="py-3 px-6 text-start whitespace-nowrap">{{fraud.rating}}</td>
+            <td class="py-3 px-6 text-start whitespace-nowrap">{{fraud.visibility}}</td>
             <td class="py-3 px-6 text-left whitespace-nowrap">
               <div class="flex justify-evenly hover:cursor-pointer font-bold">
-                <button *ngIf="fraud.riskLevel == 0" class="px-3 py-1 rounded-xl bg-yellow-700 text-white hover:bg-yellow-300">Low</button>
-                <button *ngIf="fraud.riskLevel == 1" class="px-3 py-1 rounded-xl bg-green-800 text-white hover:bg-green-400">Medium</button>
-                <button *ngIf="fraud.riskLevel == 2" class="px-3 py-1 rounded-xl bg-red-700 text-white hover:bg-red-400">High</button>
+                <button *ngIf="fraud.riskLevel == low " class="px-3 py-1 rounded-xl bg-yellow-700 text-white hover:bg-yellow-300">Low</button>
+                <button *ngIf="fraud.riskLevel == medium" class="px-3 py-1 rounded-xl bg-green-800 text-white hover:bg-green-400">Medium</button>
+                <button *ngIf="fraud.riskLevel == high" class="px-3 py-1 rounded-xl bg-red-700 text-white hover:bg-red-400">High</button>
               </div>
             </td>
             <td class="py-3 px-4 whitespace-nowrap flex justify-between hover:cursor-pointer">
-              <div class="hover:text-2xl" (click)="deleteFraudNumber(fraud.id)"><i class="fa solid fa-trash text-red-600"></i></div>
-              <div class="hover:text-2xl" (click)="editFraudNumber(fraud.id)"><i class="fa solid fa-edit text-green-600"></i></div>
-              <div class="hover:text-2xl"><i class="fa solid fa-database text-blue-600"></i></div>
+              <div class="hover:text-2xl" (click)="deleteFraudNumber(fraud.fraudNumberId)"><i class="fa solid fa-trash text-red-600"></i></div>
+              <div class="hover:text-2xl" (click)="changeVisibilityStatus(fraud.fraudNumberId)"><i class="fa solid fa-database text-blue-600"></i></div>
             </td>
           </tr>
         </tbody>
@@ -78,25 +79,6 @@
         <label for="phoneNumber" class="font-bold mb-2">Phone Number</label><span class="text-red-800 font-bold"> * </span>
         <input type="text" id="phoneNumber" class="form-control" formControlName="phoneNumber" autofocus/>
       </div>
-      <!-- Report Counts -->
-      <div class="form-group" class="py-1">
-        <label for="reportCount" class="font-bold mb-2">Number of Reports</label>
-        <input type="number" id="reportCount" class="form-control" formControlName="reportCount"/>
-      </div>
-            <!-- Rating -->
-      <div class="form-group" class="py-1">
-        <label for="rating" class="font-bold mb-2">Rating</label>
-        <input type="number" id="rating" class="form-control" formControlName="rating"/>
-      </div>
-      <!-- Risk Level -->
-      <div class="form-group" class="py-1">
-        <label for="riskLevel" class="font-bold mb-2">Risk Level</label>
-        <select class="form-control" id="riskLevel" formControlName="riskLevel">
-          <option [ngValue]="null">Select Risk Level</option>
-          <option [ngValue]="risk.value" *ngFor="let risk of riskType"> {{ risk.key }}</option>
-        </select>
-      </div>
-
     </form>
   </ng-template>
   <ng-template #abpFooter>

@@ -1,6 +1,6 @@
 import { AuthService } from '@abp/ng.core';
 import { Component, OnInit } from '@angular/core';
-import { FraudService } from '@proxy/fraud';
+import { FraudService } from '../fraud/fraud.service';
 import { ReportInvestigationService } from '@proxy/investigation';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { ICardInfo } from '../card/Interface/ICardInfo';
@@ -38,9 +38,9 @@ export class HomeComponent implements OnInit{
   }
   // Hook
   ngOnInit(): void {
-    this.getTotalReport();
+    this.getTotalReportCount();
     this.getTotalInvestigation();
-    this.getTotalFraudCases();
+    this.getTotalFraudNumbersCount();
     this.getCardInfo();
   }
 
@@ -78,11 +78,17 @@ export class HomeComponent implements OnInit{
     ]
   };
   // get total report
-  getTotalReport(){
-    this.reportService.getReportList().subscribe(report => {
-      this.totalReport = report.length;
+  getTotalReportCount(){
+    this.reportService.getTotalReportCount().subscribe(report => {
+      this.totalReport = report;
     });
   };
+
+  getTotalFraudNumbersCount(){
+    this.fraudService.getTotalFraudNumbersCount().subscribe(fraud =>{
+      this.totalFraudCases = fraud;
+    })
+  }
 
   // get total investigation
   getTotalInvestigation(){
@@ -90,11 +96,4 @@ export class HomeComponent implements OnInit{
       this.totalInvestigation = investigation.totalCount;
     })
   };
-
-  // get total fraud cases
-  getTotalFraudCases(){
-    this.fraudService.getList({ maxResultCount: 1, skipCount: 0}).subscribe(fraud =>{
-      this.totalFraudCases = fraud.totalCount;
-    })
-  }
 }

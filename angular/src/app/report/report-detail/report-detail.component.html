@@ -1,13 +1,55 @@
-<div class="bg-red-400 w-[100%]">
-  <div class="bg-violet-500 h-32">
-    First div
-  </div>
-  <div class="md:flex justify-between gap-4 mt-4 px-6">
-    <div class="bg-green-500 h-80 w-96">
-      Left Card
+<div class="w-[100%] mb-6">
+  <h3 class="h-16 flex justify-center items-center mb-0 font-bold space-x-2 md:text-4xl text-2xl">Report Number Details</h3>
+  <div class="grid grid-cols-2 mt-3 mb-3">
+    <!-- left card -->
+    <div class="flex flex-col rounded-xl shadow-lg px-2 mb-0">
+      <div class="text-center font-bold mb-0">
+        <i class="fa solid fa-phone text-sm font-bold text-blue-400 mb-2"></i>
+        <span class="text-sm text-gray-600 px-3 font-bold">Supect Number</span>
+        <p class="mb-0 text-gray-600 md:text-3xl text-lg">{{reportDetail.suspectNumber}}</p>
+      </div>
+      <hr>      
+      <div class="flex flex-col mt-2 px-2 text-gray-700 text-sm md:text-lg">
+        <p class="flex justify-between items-center ">Reporter<span class="text-center">
+          {{reportDetail.reporterNumber}}
+        </span></p> 
+        <p class="flex justify-between items-center ">Platform
+          <span>
+            {{reportDetail.platForm}}
+          </span>
+        </p>
+        <p class="flex justify-between items-center ">Report Date
+          <span>
+            {{reportDetail.incidentDate | date}}
+          </span>
+        </p>
+      </div>
     </div>
-    <div class="bg-pink-500 h-96 flex-1 mb-4">
-      Right Card
+    <!-- right card -->
+    <div class="mb-3 ml-2 rounded-xl shadow-lg flex-1 px-3 py-2">
+      <h3 class="text-center text-blue-500 text-lg md:text-3xl">Description</h3>
+      <hr>
+      <p class="text-gray-700">{{reportDetail.description}}</p>
     </div>
   </div>
+
+  <!-- Files -->
+  <div>
+    <h3>Files</h3>
+    <div class="grid grid-cols-4 gap-2 text-white px-2 h-32 py-2">
+      <div class=" bg-slate-300 rounded-xl px-2">
+        File 1
+      </div>
+      <div class="rounded-xl bg-slate-300 px-2">
+        File 2
+      </div>
+      <div class="rounded-xl bg-slate-300 px-2">
+        File 3
+      </div>
+      <div class="rounded-xl bg-slate-300 px-2">
+        File 4
+      </div>
+    </div>
+  </div>
+  <!-- files end -->
 </div>
