@@ -46,10 +46,10 @@ export class FraudService {
   getFraudNumberByPhone(phoneNumber: string){
     const request: Rest.Request<null> = {
       method: 'GET',
-      url: `/fraud-number/get-fraud-number-by-phone/${phoneNumber}`,
+      url: `/fraud-number/get-number-by-phone/${phoneNumber}`,
       responseType: 'json'
     }
-    return this.restService.request<null, string>(request, { apiName: 'webapi'});
+    return this.restService.request<null, any>(request, { apiName: 'webapi'});
   }
 
   // get all fraud numbers

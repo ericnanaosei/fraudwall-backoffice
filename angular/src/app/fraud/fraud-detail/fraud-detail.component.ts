@@ -1,51 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FraudNumberDto, FraudService } from '@proxy/fraud';
-import { ReportDto } from 'src/app/report/Dto/ReportDto';
-import { ReportService } from 'src/app/report/report.service';
+import { FraudNumber } from '../interface/fraud-number.interface';
+import { FraudService } from '../fraud.service';
 
 @Component({
   selector: 'app-fraud-detail',
   templateUrl: './fraud-detail.component.html'
 })
 export class FraudDetailComponent implements OnInit {
-  totalReport: number = 0;
-  report: ReportDto[] = [{
-    reportId: "",
-    reporterNumber: "",
-    suspectNumber: "",
-    platForm: null,
-    description: "",
-    incidentDate: null,
-  }]
-  fraudNumber: FraudNumberDto = {
-    phoneNumber: "",
-    reportCount: this.totalReport,
-    rating: null,
-    riskLevel: null
+  fraudNumber: FraudNumber = {
+    fraudNumberId: "",
+    fraudNumber: "",
+    totalReport: null,
+    visibility: null,
+    risk_Level: null,
+    createdAt: null,
+    modifiedAt: null,
   }
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly reportService: ReportService,
-    private readonly fraudService: FraudService
+    private readonly fraudNumberService: FraudService
   ) { }
 
   ngOnInit(): void {
     var phoneNumber = this.route.snapshot.paramMap.get("phoneNumber");
-    var fraudId = this.route.snapshot.paramMap.get("id");
-    this.getTotalReport(phoneNumber);
-    console.log(this.getFraudNumberDetail(fraudId))
+    this.getFraudNumberBySuspectNumber(phoneNumber);
+
   }
 
-  getTotalReport(phoneNumber: string){
-    this.reportService.getTotalReportForSuspect("0203162270").subscribe(report => {
-      this.totalReport = report.length;
-    })
-  };
-
-  getFraudNumberDetail(fraudId: string){
-    this.fraudService.get(fraudId).subscribe(fraudnumber =>{
+  getFraudNumberBySuspectNumber(phoneNumber: string){
+    this.fraudNumberService.getFraudNumberByPhone(phoneNumber).subscribe(fraudnumber =>{
       this.fraudNumber = fraudnumber;
     });
   }
