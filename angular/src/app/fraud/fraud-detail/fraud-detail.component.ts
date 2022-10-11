@@ -24,13 +24,13 @@ export class FraudDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    var phoneNumber = this.route.snapshot.paramMap.get("phoneNumber");
-    this.getFraudNumberBySuspectNumber(phoneNumber);
+    var fraudNumberId = this.route.snapshot.paramMap.get("fraudNumberId");
+    this.getFraudNumberById(fraudNumberId);
 
   }
 
-  getFraudNumberBySuspectNumber(phoneNumber: string){
-    this.fraudNumberService.getFraudNumberByPhone(phoneNumber).subscribe(fraudnumber =>{
+  getFraudNumberById(phoneNumber: string){
+    this.fraudNumberService.getFraudNumberById(phoneNumber).subscribe(fraudnumber =>{
       this.fraudNumber = fraudnumber;
     });
   }
