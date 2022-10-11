@@ -5,7 +5,7 @@ import { FraudComponent } from './fraud.component';
 
 const routes: Routes = [
   { path: '', component: FraudComponent },
-  { path: 'detail/:id/:phoneNumber', component: FraudDetailComponent}
+  { path: 'detail/:fraudNumberId', component: FraudDetailComponent}
 ];
 
 @NgModule({

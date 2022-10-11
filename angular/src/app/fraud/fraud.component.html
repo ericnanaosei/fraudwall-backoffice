@@ -33,15 +33,16 @@
         class="text-gray-700 text-sm font-medium">
         <tbody *ngFor="let fraud of fraudNumbers.items | 
           paginate: {itemsPerPage: 30, currentPage: page, totalItems: fraudNumbers.totalCount}">
-          <tr class="border-b border-gray-200 hover:bg-gray-100 hover:cursor-pointer mx-1" 
-            
-            *ngIf="searchTextEntered === '' || fraud.fraudNumber.trim().toLowerCase().includes(searchTextEntered)">
+          <tr class="border-b border-gray-200 hover:bg-gray-100" 
+            *ngIf="searchTextEntered === '' || fraud.fraudNumber.trim().toLowerCase().includes(searchTextEntered)"
+            >
             <td class="py-3 px-6 text-left whitespace-nowrap">{{fraud.fraudNumberId}}</td>
             <td class="py-3 px-6 text-start whitespace-nowrap">{{fraud.fraudNumber}}</td>
             <td class="py-3 px-6 text-start whitespace-nowrap">{{fraud.visibility}}</td>
-            <td class="py-3 px-6 grid grid-cols-2 gap-2 text-center whitespace-nowrap">
-              <div (click)="deleteFraudNumber(fraud.fraudNumberId)" class="hover:bg-red-300"><i class="fa solid fa-trash text-red-500"></i>Delete</div>
-              <div (click)="changeVisibilityStatus(fraud.fraudNumber)" class="hover:bg-blue-300"><i class="fa solid fa-edit text-blue-500"></i>Visibility</div>
+            <td class="py-3 px-6 grid grid-cols-3 gap-2 text-center whitespace-nowrap">
+              <div class="hover:bg-blue-300 hover:cursor-pointer" routerLink="detail/{{fraud.fraudNumberId}}"><i class="fa solid fa-info"></i>Details</div>
+              <div (click)="deleteFraudNumber(fraud.fraudNumberId)" class="hover:bg-red-300 hover:cursor-pointer"><i class="fa solid fa-trash text-red-500"></i>Delete</div>
+              <div (click)="changeVisibilityStatus(fraud.fraudNumber)" class="hover:bg-blue-300 hover:cursor-pointer"><i class="fa solid fa-edit text-blue-500"></i>Visibility</div>
             </td>
           </tr>
         </tbody>
