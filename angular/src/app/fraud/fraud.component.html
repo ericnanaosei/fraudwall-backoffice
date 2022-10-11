@@ -21,12 +21,10 @@
   <div class="overflow-x-auto">
     <table class="w-[100%]">
       <thead>
-        <tr class="bg-blue-500 text-gray-700 uppercase text-sm leading-normal text-start">
-          <th class="text-start px-2">ID</th>
+        <tr class="bg-blue-500 text-gray-700 uppercase text-sm leading-normal">
+          <th class="py-3 px-6 text-left">ID</th>
           <th class="py-3 px-6 text-left">Fraud Number</th>
-          <th class="py-3 px-6 text-left">Total Reports</th>
           <th class="py-3 px-6 text-left">Visibility</th>
-          <th class="py-3 px-6 text-center">Risk Level</th>
           <th class="py-3 px-6 text-center">Actions</th>
         </tr>
       </thead>
@@ -35,23 +33,15 @@
         class="text-gray-700 text-sm font-medium">
         <tbody *ngFor="let fraud of fraudNumbers.items | 
           paginate: {itemsPerPage: 30, currentPage: page, totalItems: fraudNumbers.totalCount}">
-          <tr class="border-b border-gray-200 hover:bg-gray-100 hover:cursor-pointer" 
+          <tr class="border-b border-gray-200 hover:bg-gray-100 hover:cursor-pointer mx-1" 
             
             *ngIf="searchTextEntered === '' || fraud.fraudNumber.trim().toLowerCase().includes(searchTextEntered)">
             <td class="py-3 px-6 text-left whitespace-nowrap">{{fraud.fraudNumberId}}</td>
             <td class="py-3 px-6 text-start whitespace-nowrap">{{fraud.fraudNumber}}</td>
-            <td class="py-3 px-6 text-left whitespace-nowrap">{{fraud.reportCount}}</td>
             <td class="py-3 px-6 text-start whitespace-nowrap">{{fraud.visibility}}</td>
-            <td class="py-3 px-6 text-left whitespace-nowrap">
-              <div class="flex justify-evenly hover:cursor-pointer font-bold">
-                <button *ngIf="fraud.riskLevel == low " class="px-3 py-1 rounded-xl bg-yellow-700 text-white hover:bg-yellow-300">Low</button>
-                <button *ngIf="fraud.riskLevel == medium" class="px-3 py-1 rounded-xl bg-green-800 text-white hover:bg-green-400">Medium</button>
-                <button *ngIf="fraud.riskLevel == high" class="px-3 py-1 rounded-xl bg-red-700 text-white hover:bg-red-400">High</button>
-              </div>
-            </td>
-            <td class="py-3 px-4 whitespace-nowrap flex justify-between hover:cursor-pointer">
-              <div class="hover:text-2xl" (click)="deleteFraudNumber(fraud.fraudNumberId)"><i class="fa solid fa-trash text-red-600"></i></div>
-              <div class="hover:text-2xl" (click)="changeVisibilityStatus(fraud.fraudNumber)"><i class="fa solid fa-database text-blue-600"></i></div>
+            <td class="py-3 px-6 grid grid-cols-2 gap-2 text-center whitespace-nowrap">
+              <div (click)="deleteFraudNumber(fraud.fraudNumberId)" class="hover:bg-red-300"><i class="fa solid fa-trash text-red-500"></i>Delete</div>
+              <div (click)="changeVisibilityStatus(fraud.fraudNumber)" class="hover:bg-blue-300"><i class="fa solid fa-edit text-blue-500"></i>Visibility</div>
             </td>
           </tr>
         </tbody>
