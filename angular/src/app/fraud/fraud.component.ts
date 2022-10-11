@@ -1,6 +1,6 @@
 import { PagedResultDto } from '@abp/ng.core';
 import { ConfirmationService, Confirmation } from '@abp/ng.theme.shared';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component,OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FraudNumber } from './interface/fraud-number.interface';
 import { FraudService } from './fraud.service';
@@ -10,7 +10,7 @@ import { riskLevelOptions } from './interface/fraud-number.interface';
   selector: 'app-fraud',
   templateUrl: './fraud.component.html',
 })
-export class FraudComponent implements OnInit {
+export class FraudComponent implements OnInit,OnChanges{
   fraudNumbers = { items: [], totalCount: 0 } as PagedResultDto<FraudNumber>;
   page: number = 0;
   isModalOpen = false;
@@ -27,13 +27,15 @@ export class FraudComponent implements OnInit {
   ngOnInit() {
     this.getFraudNumbers();
   }
+  ngOnChanges(change: SimpleChanges) {
+    console.log(change);
+  }
   
   // get fraud numbers
   getFraudNumbers(){
     this.fraudService.getFraudNumbers().subscribe(results => {
       this.fraudNumbers.items = results;
       this.fraudNumbers.totalCount = results.length;
-      console.log(results);
     })
   }
 
@@ -54,8 +56,8 @@ export class FraudComponent implements OnInit {
   changeVisibilityStatus(phoneNumber: string){
     this.confirmation.warn('::Are you sure you want to Update Visibility?', '::Confirm Action').subscribe((status) => {
       if (status === Confirmation.Status.confirm) {
-        this.fraudService.updateFraudNumberVisibility(phoneNumber).subscribe(()=>{
-          this.fraudService.getFraudNumbers();
+        this.fraudService.updateFraudNumberVisibility(phoneNumber).subscribe( ()=>{
+          this.getFraudNumbers();
         })
       }
     });
@@ -74,9 +76,16 @@ export class FraudComponent implements OnInit {
       return;
     }
 
-      this.fraudService.createFraudNumber(this.fraudNumberForm.value).subscribe(()=>{
-      this.isModalOpen = false;
-      this.fraudNumberForm.reset();
+      this.fraudService.createFraudNumber(this.fraudNumberForm.value).subscribe((results)=>{
+        if(results.status === 409){
+          this.isModalOpen = false;
+          this.fraudNumberForm.reset();
+          alert("Fraud Number Already Exists");
+        }
+        alert("Fraud Number Saved")
+        this.isModalOpen = false;
+        this.fraudNumberForm.reset();
+        this.getFraudNumbers();
     })
   }
 
@@ -85,7 +94,9 @@ export class FraudComponent implements OnInit {
   deleteFraudNumber(fraudNumberId: string) {
     this.confirmation.warn('::Are you sure you want to delete this Number?', '::Confirm Delete').subscribe((status) => {
       if (status === Confirmation.Status.confirm) {
-        this.fraudService.deleteFraudNumberById(fraudNumberId).subscribe(() => console.log("Updated"));
+        this.fraudService.deleteFraudNumberById(fraudNumberId).subscribe(() =>{
+          this.getFraudNumbers();
+        });
       }
     });
   }
