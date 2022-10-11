@@ -1,5 +1,4 @@
 import { Rest, RestService } from '@abp/ng.core';
-import { HttpResponse, HttpStatusCode } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -14,23 +13,24 @@ export class FraudService {
 
   // create new fraud number
   createFraudNumber(phoneNumber: string){
-    console.log(phoneNumber);
-    const request: Rest.Request<string> = {
+    // const { phone} = phoneNumber;
+    let phone = Object.values(phoneNumber);
+    const request: Rest.Request<null> = {
       method: 'POST',
-      url: `/fraud-number/` + phoneNumber,
+      url: `/fraud-number/${phone[0]}`,
       responseType: 'json'
     }
 
-    return this.restService.request<string, any>(request, { apiName: 'webapi'});
+    return this.restService.request<null, any>(request, { apiName: 'webapi'});
   }
 
   updateFraudNumberVisibility(phoneNumber: string){
     const request: Rest.Request<null> = {
       method: 'PATCH',
-      url: `/fraud-number/change-visibility-status/` + phoneNumber,
+      url: `/fraud-number/change-visibility-status/${phoneNumber}`,
       responseType: 'json'
     }
-    return this.restService.request(request, { apiName: 'webapi'})
+    return this.restService.request<null, any>(request, { apiName: 'webapi'})
   }
   // get total Fraud numbers
   getTotalFraudNumbersCount(){
@@ -46,7 +46,7 @@ export class FraudService {
   getFraudNumberByPhone(phoneNumber: string){
     const request: Rest.Request<null> = {
       method: 'GET',
-      url: `/fraud-number/get-fraud-number-by-phone/` + phoneNumber,
+      url: `/fraud-number/get-fraud-number-by-phone/${phoneNumber}`,
       responseType: 'json'
     }
     return this.restService.request<null, string>(request, { apiName: 'webapi'});
@@ -62,19 +62,19 @@ export class FraudService {
     return this.restService.request<null,any>( request, {apiName: 'webapi'});
   }
 
-  getFraudNumberById(fraudId:string){
+  getFraudNumberById(fraudNumberId:string){
     const request: Rest.Request<null> = {
       method: 'GET',
-      url: `/fraud-number/` + fraudId,
+      url: `/fraud-number/${fraudNumberId}`,
       responseType: 'json'
     }
     return this.restService.request<null, any>(request, { apiName: 'webapi'});
   }
 
-  deleteFraudNumberById(fraudId:string){
+  deleteFraudNumberById(fraudNumberId:string){
     const request: Rest.Request<null> = {
       method: 'DELETE',
-      url: `/fraud-number/` + fraudId,
+      url: `/fraud-number/${fraudNumberId}`,
       responseType: 'json'
     }
     return this.restService.request<null, any>(request, { apiName: 'webapi'});
