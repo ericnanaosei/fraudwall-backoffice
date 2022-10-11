@@ -24,12 +24,12 @@ export class ReportDetailComponent implements OnInit{
 
   ngOnInit(): void {
     const reportId = this.route.snapshot.paramMap.get('reportId');
-    this.getReportDetail(reportId);
+    this.getReportById(reportId);
   }
 
 
-  async getReportDetail(reportId: string){
-    this.reportService.getReport(reportId).subscribe(report =>{
+  async getReportById(reportId: string){
+    this.reportService.getReportById(reportId).subscribe(report =>{
       this.reportDetail = report;
     });
   }

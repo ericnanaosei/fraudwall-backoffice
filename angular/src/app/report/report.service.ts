@@ -1,5 +1,4 @@
 import { Rest, RestService } from '@abp/ng.core';
-import { HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ReportDto } from './Dto/ReportDto';
 
@@ -16,17 +15,26 @@ export class ReportService {
 
 
   // get all reports
-  getReportList(){
-    const request: Rest.Request<ReportDto> ={
+  getReport(){
+    const request: Rest.Request<null> ={
       method: 'GET',
       url: `/report`,
       responseType: 'json'
     };
-    return this.restService.request<ReportDto, ReportDto[]>(request, { apiName: 'webapi'});
+    return this.restService.request<null, ReportDto[]>(request, { apiName: 'webapi'});
+  }
+
+  getTotalReportCount(){
+    const request: Rest.Request<null> = {
+      method: 'GET',
+      url: `/report/get-total/report-count`,
+      responseType: 'json'
+    };
+    return this.restService.request<null,number>(request, { apiName: 'webapi'});
   }
 
   // get report by Id
-  getReport(id: string){
+  getReportById(id: string){
     const request: Rest.Request<string> = {
       method: 'GET',
       url: '/report/' + id
@@ -35,10 +43,10 @@ export class ReportService {
   }
 
   //get fraudNumber details
-  getNumberTotalReport(phoneNumber: string){
+  getTotalReportForSuspect(phoneNumber: string){
     const request: Rest.Request<ReportDto> = {
       method: 'GET',
-      url: '/report/phone-number/'+ phoneNumber
+      url: '/report/get-all-report-for-suspect/'+ phoneNumber
     };
     return this.restService.request<ReportDto,ReportDto[]>(request, { apiName: 'webapi'});
   }

@@ -39,7 +39,7 @@ export class FraudDetailComponent implements OnInit {
   }
 
   getTotalReport(phoneNumber: string){
-    this.reportService.getNumberTotalReport("0203162270").subscribe(report => {
+    this.reportService.getTotalReportForSuspect("0203162270").subscribe(report => {
       this.totalReport = report.length;
     })
   };

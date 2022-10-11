@@ -27,7 +27,7 @@ export class ReportComponent implements OnInit {
      }
 
   ngOnInit(){
-    this.reportService.getReportList().subscribe(report => {
+    this.reportService.getReport().subscribe(report => {
       this.reportList = report;
       this.totalCount = report.length;
     });
@@ -35,14 +35,14 @@ export class ReportComponent implements OnInit {
 
   // get report by id
   getReport(id: string){
-    this.reportService.getReport(id).subscribe(report => {
+    this.reportService.getReportById(id).subscribe(report => {
       return report;
     });
   }
   // on page change event
   pageChangeEvent(event: number){
     this.page = event;
-    this.reportService.getReportList();
+    this.reportService.getReport();
   }
 
   // create Investigation
