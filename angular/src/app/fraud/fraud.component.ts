@@ -52,9 +52,13 @@ export class FraudComponent implements OnInit {
 
   // change visibility status
   changeVisibilityStatus(phoneNumber: string){
-    this.fraudService.updateFraudNumberVisibility(phoneNumber).subscribe(()=>{
-      return this.fraudService.getFraudNumbers();
-    })
+    this.confirmation.warn('::Are you sure you want to Update Visibility?', '::Confirm Action').subscribe((status) => {
+      if (status === Confirmation.Status.confirm) {
+        this.fraudService.updateFraudNumberVisibility(phoneNumber).subscribe(()=>{
+          this.fraudService.getFraudNumbers();
+        })
+      }
+    });
   }
 
   // build form
