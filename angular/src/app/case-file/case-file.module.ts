@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { CaseFileRoutingModule } from './case-file-routing.module';
 import { CaseFileComponent } from './case-file.component';
+import { SearchModule } from '../search/search.module';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -11,7 +14,10 @@ import { CaseFileComponent } from './case-file.component';
   ],
   imports: [
     CommonModule,
-    CaseFileRoutingModule
+    SharedModule,
+    CaseFileRoutingModule,
+    SearchModule,
+    NgxPaginationModule
   ]
 })
 export class CaseFileModule { }

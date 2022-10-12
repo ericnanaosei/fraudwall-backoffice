@@ -1,1 +1,86 @@
-<p>case-file works!</p>
+<!-- Loading animation -->
+<ng-template #loading>
+  <p class="bg-blue-600 text-center mt-12 rounded-lg px-6 py-3 text-white animate-pulse">Loading.....</p>
+</ng-template>
+<!-- end of loading animation -->
+
+<!-- Container -->
+<div class="flex flex-col justify-center">
+  <!-- search area -->
+  <div class="flex justify-between mb-4 py-2 px-2">
+      <!-- search Component -->
+      <app-search (searchTextChanged)="onSearchedText($event)"></app-search>
+    <div class="flex px-2">
+      <button class="bg-violet-600 px-2 py-2 rounded-xl font-semibold text-white">
+        <i class="fa fa-plus"></i> Create Fraud Number
+      </button>
+    </div>
+  </div>
+  <!-- end of search area -->
+  <!-- Table frame -->
+  <div class="overflow-x-auto">
+    <table class="w-[100%]">
+      <thead>
+        <tr class="bg-blue-500 text-gray-700 uppercase text-sm leading-normal">
+          <th class="py-3 px-6 text-left">ID</th>
+          <th class="py-3 px-6 text-left">Suspect Number</th>
+          <th class="py-3 px-6 text-left">Remarks</th>
+          <th class="py-3 px-6 text-center">Actions</th>
+        </tr>
+      </thead>
+      <!-- table body -->
+      <ng-container *ngIf="caseFiles.items != null; else loading" 
+        class="text-gray-700 text-sm font-medium">
+        <tbody *ngFor="let case of caseFiles.items | 
+          paginate: {itemsPerPage: 30, currentPage: page, totalItems: caseFiles.totalCount}">
+          <tr class="border-b border-gray-200 hover:bg-gray-100" 
+            *ngIf="searchTextEntered === '' || case.suspectNumber.trim().toLowerCase().includes(searchTextEntered)"
+            >
+            <td class="py-3 px-6 text-left whitespace-nowrap">{{case.caseId}}</td>
+            <td class="py-3 px-6 text-start whitespace-nowrap">{{case.suspectNumber}}</td>
+            <td class="py-3 px-6 text-start whitespace-nowrap">{{case.remark | slice: 0: 30}}</td>
+            <td class="py-3 px-6 grid grid-cols-3 gap-2 text-center whitespace-nowrap">
+              <div (click)="removeCaseFile(case.caseId)" class="hover:bg-red-300 hover:cursor-pointer"><i class="fa solid fa-trash text-red-500"></i>Delete</div>
+            </td>
+          </tr>
+        </tbody>
+      </ng-container>
+      
+    </table>
+    <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls>
+    <!-- End of table -->
+  </div>
+  <!-- End of table frame -->
+</div>
+<!-- End of container -->
+
+
+<!-- Modal -->
+<abp-modal [(visible)]="isModalOpen">
+  <ng-template #abpHeader>
+    <h4 class="text-blue-400 font-bold">Create Fraud Number</h4>
+  </ng-template>
+
+  <ng-template #abpBody>
+    <form [formGroup]="fraudNumberForm" (ngSubmit)="save()">
+      <!-- Report Id -->
+      <div class="form-group" class="py-1">
+        <label for="phoneNumber" class="font-bold mb-2">Phone Number</label><span class="text-red-800 font-bold"> * </span>
+        <input type="text" id="phoneNumber" class="form-control" formControlName="phoneNumber" autofocus/>
+      </div>
+    </form>
+  </ng-template>
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      Close
+    </button>
+    <button class="btn btn-primary" (click)="save()" [disabled]="fraudNumberForm.invalid">
+          <i class="fa fa-check mr-1"></i>
+          Save
+    </button>
+  </ng-template>
+</abp-modal>
+<!-- End -->
+
+
+
