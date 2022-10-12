@@ -1,6 +1,6 @@
 import { Component,OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ReportDto } from '../Dto/ReportDto';
+import { ReportFile } from '../Dto/report.interface';
 import { ReportService } from '../report.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { ReportService } from '../report.service';
   templateUrl: './report-detail.component.html',
 })
 export class ReportDetailComponent implements OnInit{
-  reportDetail: ReportDto = {
+  reportDetail: ReportFile = {
     reportId: "",
     reporterNumber: "",
     suspectNumber: "",
@@ -16,6 +16,8 @@ export class ReportDetailComponent implements OnInit{
     description: "",
     incidentDate: null,
   };
+
+  reportFiles: string[];
 
   constructor(
     private readonly reportService: ReportService,
@@ -28,9 +30,10 @@ export class ReportDetailComponent implements OnInit{
   }
 
 
-  async getReportById(reportId: string){
-    this.reportService.getReportById(reportId).subscribe(report =>{
-      this.reportDetail = report;
-    });
+  getReportById(reportId: string){
+    this.reportService.getReportById(reportId).subscribe(data => {
+      this.reportDetail = data;
+      this.reportFiles = [...data.reportFile.fileLocation];
+    })
   }
 }

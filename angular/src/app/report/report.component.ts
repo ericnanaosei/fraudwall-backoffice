@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReportInvestigationService, statusOptions } from '@proxy/investigation';
-import { ReportDto } from './Dto/ReportDto';
+import { ReportFile } from './Dto/report.interface';
 import { ReportService } from './report.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { ReportService } from './report.service';
   templateUrl: './report.component.html',
 })
 export class ReportComponent implements OnInit {
-  reportList: ReportDto[];
+  reportList: ReportFile[];
   page: number = 1;
   totalCount: number = 0;
   // modal
