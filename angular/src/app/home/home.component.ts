@@ -1,21 +1,21 @@
 import { AuthService } from '@abp/ng.core';
 import { Component, OnInit } from '@angular/core';
 import { FraudService } from '../fraud/fraud.service';
-import { ReportInvestigationService } from '@proxy/investigation';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { ICardInfo } from '../card/Interface/ICardInfo';
 import { ReportService } from '../report/report.service';
+import { CaseFileService } from '../case-file/case-file.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  providers: [ReportService, ReportInvestigationService]
+  providers: [ReportService]
 })
 export class HomeComponent implements OnInit{
 
   cardInfo: ICardInfo[];
   totalReport: number;
-  totalInvestigation: number;
+  totalCaseFiles: number;
   totalFraudCases: number;
 
   // Home component constructor
@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit{
     private oAuthService: OAuthService, 
     private authService: AuthService,
     private readonly reportService: ReportService,
-    private readonly reportInvestigationService: ReportInvestigationService,
+    private readonly caseFileService: CaseFileService,
     private readonly fraudService: FraudService,
     ) {}
   
@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit{
   // Hook
   ngOnInit(): void {
     this.getTotalReportCount();
-    this.getTotalInvestigation();
+    this.getTotalRecordForCaseFiles();
     this.getTotalFraudNumbersCount();
     this.getCardInfo();
   }
@@ -62,11 +62,11 @@ export class HomeComponent implements OnInit{
         url: 'fraud'
       },
       {
-        title:"Investigations", 
-        icon: "fa solid fa-vial w-[90px]", 
-        total: this.totalInvestigation, 
-        color: "bg-green-600",
-        url: "investigation"
+        title:"Case Files", 
+        icon: "fa solid fa-file-export w-[90px]", 
+        total: this.totalCaseFiles, 
+        color: "bg-gray-800",
+        url: "case-file"
       },
       {
         title: "Archives", 
@@ -91,9 +91,9 @@ export class HomeComponent implements OnInit{
   }
 
   // get total investigation
-  getTotalInvestigation(){
-    this.reportInvestigationService.getList({ maxResultCount: 1, skipCount: 0 }).subscribe(investigation =>{
-      this.totalInvestigation = investigation.totalCount;
+  getTotalRecordForCaseFiles(){
+    this.caseFileService.getCaseFileTotalRecords().subscribe((data)=>{
+      this.totalCaseFiles = data;
     })
   };
 }

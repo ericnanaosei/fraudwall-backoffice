@@ -26,9 +26,9 @@ const routes: Routes = [
       import('@abp/ng.setting-management').then(m => m.SettingManagementModule.forLazy()),
   },
   { path: 'report', loadChildren: () => import('./report/report.module').then(m => m.ReportModule) },
-  { path: 'investigation', loadChildren: () => import('./investigation/investigation.module').then(m => m.InvestigationModule) },
   { path: 'fraud', loadChildren: () => import('./fraud/fraud.module').then(m => m.FraudModule) },
   { path: 'archive', loadChildren: () => import('./archive/archive.module').then(m => m.ArchiveModule) },
+  { path: 'case-file', loadChildren: () => import('./case-file/case-file.module').then(m => m.CaseFileModule) },
 ];
 
 @NgModule({
