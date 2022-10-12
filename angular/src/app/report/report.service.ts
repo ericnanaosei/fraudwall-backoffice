@@ -1,6 +1,5 @@
 import { Rest, RestService } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
-import { ReportDto } from './Dto/ReportDto';
 
 
 
@@ -21,7 +20,7 @@ export class ReportService {
       url: `/report`,
       responseType: 'json'
     };
-    return this.restService.request<null, ReportDto[]>(request, { apiName: 'webapi'});
+    return this.restService.request<null, any>(request, { apiName: 'webapi'});
   }
 
   getTotalReportCount(){
@@ -39,15 +38,15 @@ export class ReportService {
       method: 'GET',
       url: '/report/' + id
     };
-    return this.restService.request<string,ReportDto>(request, { apiName: 'webapi'});
+    return this.restService.request<string,any>(request, { apiName: 'webapi'});
   }
 
   //get fraudNumber details
   getTotalReportForSuspect(phoneNumber: string){
-    const request: Rest.Request<ReportDto> = {
+    const request: Rest.Request<string> = {
       method: 'GET',
       url: '/report/get-all-report-for-suspect/'+ phoneNumber
     };
-    return this.restService.request<ReportDto,ReportDto[]>(request, { apiName: 'webapi'});
+    return this.restService.request<string,any>(request, { apiName: 'webapi'});
   }
 }

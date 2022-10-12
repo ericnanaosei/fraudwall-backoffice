@@ -32,7 +32,7 @@
       <ng-container *ngIf="(reportList) != null; else loadingReport">
         <tbody class="text-gray-700 text-sm font-medium" 
           *ngFor="let report of reportList |
-          paginate: {itemsPerPage: 10, currentPage: page, totalItems: totalCount}" >
+          paginate: {itemsPerPage: 30, currentPage: page, totalItems: totalCount}" >
           <tr class="border-b border-gray-200 hover:bg-gray-100 hover:cursor-pointer"
             routerLink="detail/{{report.reportId}}" 
             *ngIf="searchTextEntered==='' || 
@@ -41,7 +41,7 @@
             <td class="py-3 px-6 text-start whitespace-nowrap">{{report.suspectNumber}}</td>
             <td class="py-3 px-6 text-left whitespace-nowrap">{{report.platForm}}</td>
             <td class="py-3 px-6 text-left whitespace-nowrap">{{report.incidentDate}}</td>
-            <td class="py-3 px-6 text-left whitespace-nowrap">{{report.description}}</td>
+            <td class="py-3 px-6 text-left whitespace-nowrap">{{report.description }}</td>
             <td class="py-3 px-6 text-start whitespace-nowrap flex justify-between hover:cursor-pointer">
               <div class="hover:text-2xl"><i class="fa solid fa-trash text-red-600"></i></div>
               <div class="hover:text-2xl" (click)="createInvestigation()"><i class="fa solid fa-vial text-green-600"></i></div>
