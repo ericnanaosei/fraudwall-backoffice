@@ -18,8 +18,6 @@ import { CardModule } from './card/card.module';
 import { LogoComponent } from './logo/logo.component';
 import { FraudwallLayoutComponent } from './fraudwall-layout/fraudwall-layout.component';
 import { SidebarModule } from './sidebar/sidebar.module';
-import { InvestigationModule } from './investigation/investigation.module';
-import { SearchComponent } from './search/search.component';
 
 
 
@@ -45,7 +43,6 @@ import { SearchComponent } from './search/search.component';
     ThemeBasicModule.forRoot(),
     CardModule,
     SidebarModule,
-    InvestigationModule
   ],
   declarations: [AppComponent, LogoComponent, FraudwallLayoutComponent],
   providers: [APP_ROUTE_PROVIDER],
