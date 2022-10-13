@@ -1,6 +1,8 @@
 import { PagedResultDto } from '@abp/ng.core';
+import { Confirmation, ConfirmationService} from '@abp/ng.theme.shared';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ReportService } from 'src/app/report/report.service';
 import { CaseFileService } from '../case-file.service';
 
 @Component({
@@ -16,7 +18,9 @@ export class CaseDetailComponent implements OnInit {
   constructor(
     private readonly caseFileService: CaseFileService,
     private readonly route: ActivatedRoute,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly reportService: ReportService,
+    private readonly confirmation: ConfirmationService
   ) { }
 
   ngOnInit(): void {
@@ -46,5 +50,13 @@ export class CaseDetailComponent implements OnInit {
 
   gotoReportDetail(reportId: string){
     this.router.navigate([`report/detail/${reportId}`])
+  }
+  removeReportById(reportId: string, caseId){
+    this.confirmation.warn('::Are you sure you want to delete this Report?', '::Confirm Delete').subscribe((status)=>{
+      if(status === Confirmation.Status.confirm){
+        console.log("Report Deleted: " + reportId)
+        this.getCaseFileById(caseId);
+      }
+    })
   }
 }
