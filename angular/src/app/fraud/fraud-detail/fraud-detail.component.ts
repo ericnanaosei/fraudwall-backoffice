@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FraudNumber } from '../interface/fraud-number.interface';
 import { FraudService } from '../fraud.service';
+import { Confirmation, ConfirmationService } from '@abp/ng.theme.shared';
 
 @Component({
   selector: 'app-fraud-detail',
@@ -20,7 +21,8 @@ export class FraudDetailComponent implements OnInit {
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly fraudNumberService: FraudService
+    private readonly fraudNumberService: FraudService,
+    private readonly confirmation: ConfirmationService
   ) { }
 
   ngOnInit(): void {
@@ -34,4 +36,15 @@ export class FraudDetailComponent implements OnInit {
       this.fraudNumber = fraudnumber;
     });
   }
+
+    // change visibility status
+    changeVisibilityStatus(phoneNumber: string){
+      this.confirmation.warn('::Are you sure you want to Update Visibility?', '::Confirm Action').subscribe((status) => {
+        if (status === Confirmation.Status.confirm) {
+          this.fraudNumberService.updateFraudNumberVisibility(phoneNumber).subscribe( (fraudNumber)=>{
+            this.getFraudNumberById(fraudNumber.fraudNumberId)
+          })
+        }
+      })
+    }
 }

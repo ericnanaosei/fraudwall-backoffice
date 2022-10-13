@@ -8,14 +8,15 @@
         <span class="text-sm text-gray-600 px-3 font-bold">Supect Number</span>
         <p class="mb-0 text-gray-600 md:text-3xl text-lg">{{caseFile.suspectNumber}}</p>
       </div>
-      <hr class="mb-0">      
+      <hr>      
       <div class="grid grid-cols-3 mt-1 px-6 text-gray-700 text-sm md:text-lg">
-        <p class="font-semibold"> Total Reports<span class="text-start font-light block">
+        <p class="font-semibold"> Total Reports
+          <span class="text-start font-light block">
           {{caseFile.reports.length}}
         </span></p> 
         <p class="font-semibold"> Case Status
           <span class="text-start block font-light text-small">
-            {{caseFile.caseStatus | uppercase}}
+            {{caseFile.caseStatus | titlecase }}
           </span>
         </p>
         <p class="font-semibold"> Report Date
