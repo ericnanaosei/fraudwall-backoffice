@@ -37,7 +37,7 @@
         <div class="flex justify-between">
           <div>
             <h5>Visibility Status</h5>
-            <span class="font-semibold text-blue-500">{{fraudNumber.visibility.toString() | titlecase}}</span>
+            <span class="font-semibold text-blue-500">{{fraudNumber.visibility?.toString() | titlecase}}</span>
           </div>
           <button class="px-6 py-3 bg-yellow-700 text-white" (click)="changeVisibilityStatus(fraudNumber.fraudNumber)">Change Visibility</button>
         </div>
