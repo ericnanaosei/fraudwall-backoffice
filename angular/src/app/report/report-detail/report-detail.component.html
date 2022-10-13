@@ -37,10 +37,10 @@
   <!-- Files -->
   <div class="mb-6">
     <h3>Files</h3>
-    <div class="grid grid-cols-3 gap-2 text-white px-2 h-32 py-2">
+    <div class="grid grid-cols-3 gap-2 text-white px-2 pb-10">
       <ng-container *ngIf="reportFiles !== null">
         <div *ngFor="let file of reportFiles" class=" bg-slate-300 rounded-xl px-2">
-          <img src={{file}}>
+          <img src={{file}} class="object-contain">
         </div>
       </ng-container>
       
