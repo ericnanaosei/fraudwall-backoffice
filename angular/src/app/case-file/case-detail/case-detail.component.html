@@ -1,0 +1,72 @@
+<div class="w-[100%]">
+  <h3 class="h-16 flex justify-center items-center mb-0 font-bold space-x-2 md:text-4xl text-2xl">Case File Details</h3>
+  <div class="grid grid-cols-1 mt-3 mb-3">
+    <!-- left card -->
+    <div *ngIf="caseFile" class="flex flex-col rounded-xl shadow-lg px-2 mb-10">
+      <div class="text-center font-bold mb-0">
+        <i class="fa solid fa-phone text-sm font-bold text-blue-400 mb-2"></i>
+        <span class="text-sm text-gray-600 px-3 font-bold">Supect Number</span>
+        <p class="mb-0 text-gray-600 md:text-3xl text-lg">{{caseFile.suspectNumber}}</p>
+      </div>
+      <hr class="mb-0">      
+      <div class="grid grid-cols-3 mt-1 px-6 text-gray-700 text-sm md:text-lg">
+        <p class="font-semibold"> Total Reports<span class="text-start font-light block">
+          {{caseFile.reports.length}}
+        </span></p> 
+        <p class="font-semibold"> Case Status
+          <span class="text-start block font-light text-small">
+            {{caseFile.caseStatus | uppercase}}
+          </span>
+        </p>
+        <p class="font-semibold"> Report Date
+          <span class="text-start block font-light">
+            {{caseFile.createdAt}}
+          </span>
+        </p>
+      </div>
+    </div>
+    <div *ngIf="caseFile" class="mb-3 ml-2 rounded-xl shadow-lg flex-1 px-3 py-2">
+      <h3 class="text-center text-blue-500 text-lg md:text-3xl">Remarks</h3>
+      <hr>
+      <p class="text-gray-700">{{caseFile.remark}}</p>
+    </div>
+  </div>
+
+  <!-- Files -->
+  <div class="mb-6 px-2">
+    <h3>Reports</h3>
+      <!-- Table frame -->
+    <div class="overflow-x-auto">
+      <table class="w-[100%]">
+        <thead>
+          <tr class="bg-blue-500 text-gray-700 uppercase text-sm leading-normal">
+            <th class="py-3 px-6 text-left">ID</th>
+            <th class="py-3 px-6 text-left">Suspect Number</th>
+            <th class="py-3 px-6 text-center">Actions</th>
+          </tr>
+        </thead>
+        <!-- table body -->
+        <ng-container *ngIf="reports" 
+          class="text-gray-700 text-sm font-medium">
+          <tbody *ngFor="let report of reports.items | 
+            paginate: { itemsPerPage: 30, currentPage: page, totalItems: reports.totalCount}"
+            class="hover:cursor-pointer"
+            >
+            <tr class="border-b border-gray-200 hover:bg-gray-100" 
+              *ngIf="searchTextEntered === '' || report.suspectNumber.trim().toLowerCase().includes(searchTextEntered)"
+              >
+              <td class="py-3 px-6 text-left whitespace-nowrap" (click)="gotoReportDetail(report.reportId)">{{report.reportId}}</td>
+              <td class="py-3 px-6 text-start whitespace-nowrap" (click)="gotoReportDetail(report.reportId)">{{report.suspectNumber}}</td>
+              <td class="py-3 px-6 text-center whitespace-nowrap">
+                <div (click)="removeCaseFile(case.caseId)" class="hover:bg-red-300 hover:cursor-pointer"><i class="fa solid fa-trash text-red-500"></i>Delete</div>
+              </td>
+            </tr>
+          </tbody>
+        </ng-container>
+        <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls>
+      </table>
+      
+      <!-- End of table -->
+    </div>
+  </div>
+</div>

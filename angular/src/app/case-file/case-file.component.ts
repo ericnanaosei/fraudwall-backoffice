@@ -12,8 +12,9 @@ export class CaseFileComponent implements OnInit {
   caseFiles = { items: [], totalCount: 0 } as PagedResultDto<any>;
   page: number = 0;
   isModalOpen = false;
-
   searchTextEntered = "";
+
+
   constructor(
     private readonly caseFileService: CaseFileService,
     private readonly confirmation: ConfirmationService
