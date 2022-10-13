@@ -30,11 +30,10 @@ export class CaseFileService {
     return this.restService.request<null, any>(request, { apiName: 'webapi'});
   }
 
-  getCaseFileById(caseFileId: string){
+  getCaseFileById(caseId: string){
     const request: Rest.Request<null> = {
       method: 'GET',
-      url: `/case-file/${caseFileId}`,
-      responseType: 'json'
+      url: `/case-file/${caseId}`,
     }
     return this.restService.request<null, any>(request, { apiName: 'webapi'});
   }

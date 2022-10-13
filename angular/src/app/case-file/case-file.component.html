@@ -32,14 +32,16 @@
       <ng-container *ngIf="caseFiles.items != null; else loading" 
         class="text-gray-700 text-sm font-medium">
         <tbody *ngFor="let case of caseFiles.items | 
-          paginate: {itemsPerPage: 30, currentPage: page, totalItems: caseFiles.totalCount}">
+          paginate: {itemsPerPage: 30, currentPage: page, totalItems: caseFiles.totalCount}"
+          class="hover:cursor-pointer"
+          >
           <tr class="border-b border-gray-200 hover:bg-gray-100" 
             *ngIf="searchTextEntered === '' || case.suspectNumber.trim().toLowerCase().includes(searchTextEntered)"
             >
-            <td class="py-3 px-6 text-left whitespace-nowrap">{{case.caseId}}</td>
-            <td class="py-3 px-6 text-start whitespace-nowrap">{{case.suspectNumber}}</td>
-            <td class="py-3 px-6 text-start whitespace-nowrap">{{case.remark | slice: 0: 30}}</td>
-            <td class="py-3 px-6 grid grid-cols-3 gap-2 text-center whitespace-nowrap">
+            <td class="py-3 px-6 text-left whitespace-nowrap" routerLink="detail/{{case.caseId}}">{{case.caseId}}</td>
+            <td class="py-3 px-6 text-start whitespace-nowrap" routerLink="detail/{{case.caseId}}">{{case.suspectNumber}}</td>
+            <td class="py-3 px-6 text-start whitespace-nowrap" routerLink="detail/{{case.caseId}}">{{case.remark | slice: 0: 40}}</td>
+            <td class="py-3 px-6 text-center whitespace-nowrap">
               <div (click)="removeCaseFile(case.caseId)" class="hover:bg-red-300 hover:cursor-pointer"><i class="fa solid fa-trash text-red-500"></i>Delete</div>
             </td>
           </tr>

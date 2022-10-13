@@ -33,7 +33,7 @@ export class ReportDetailComponent implements OnInit{
   getReportById(reportId: string){
     this.reportService.getReportById(reportId).subscribe(data => {
       this.reportDetail = data;
-      this.reportFiles = [...data.reportFile.fileLocation];
+      this.reportFiles = data.reportFile ? [...data.reportFile.fileLocation]: null;
     })
   }
 }
