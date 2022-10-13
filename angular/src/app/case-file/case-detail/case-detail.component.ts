@@ -1,6 +1,7 @@
 import { PagedResultDto } from '@abp/ng.core';
 import { Confirmation, ConfirmationService} from '@abp/ng.theme.shared';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReportService } from 'src/app/report/report.service';
 import { CaseFileService } from '../case-file.service';
@@ -15,12 +16,19 @@ export class CaseDetailComponent implements OnInit {
   page: number = 0;
   reports = { items: [], totalCount: 0 } as PagedResultDto<any>;
 
+  // modal
+  isModalOpen = false;
+
+  // Remark
+  remarkForm: FormGroup;
+
   constructor(
     private readonly caseFileService: CaseFileService,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     private readonly reportService: ReportService,
-    private readonly confirmation: ConfirmationService
+    private readonly confirmation: ConfirmationService,
+    private readonly formBuilder: FormBuilder,
   ) { }
 
   ngOnInit(): void {
@@ -51,6 +59,8 @@ export class CaseDetailComponent implements OnInit {
   gotoReportDetail(reportId: string){
     this.router.navigate([`report/detail/${reportId}`])
   }
+
+  // remove report
   removeReportById(reportId: string, caseId){
     this.confirmation.warn('::Are you sure you want to delete this Report?', '::Confirm Delete').subscribe((status)=>{
       if(status === Confirmation.Status.confirm){
@@ -59,4 +69,38 @@ export class CaseDetailComponent implements OnInit {
       }
     })
   }
+
+  // Add or Edit Remarks
+  addEditRemarks(){
+    this.buildRemarkForm();
+    this.isModalOpen = true;
+
+  }
+
+  buildRemarkForm(){
+    this.remarkForm = this.formBuilder.group({
+      remark: ['', Validators.required]
+    })
+  }
+  saveRemark(){
+    try {
+      if(!this.remarkForm.valid){
+        throw new Error("Form Is Invalid")
+      };
+      this.caseFileService.addRemarksToCaseFile('caseId', this.remarkForm.value).subscribe((result)=>{
+        if(result){
+          alert("Record Saved");
+          this.isModalOpen = false;
+          this.remarkForm.reset();
+          this.getCaseFileById('caseId');
+        }
+        this.isModalOpen = false;
+        this.remarkForm.reset();
+        throw new Error("Error Saving Record");
+      })
+    } catch (error) {
+      return alert(error);
+    }
+  }
+
 }

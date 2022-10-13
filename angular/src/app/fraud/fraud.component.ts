@@ -1,6 +1,6 @@
 import { PagedResultDto } from '@abp/ng.core';
 import { ConfirmationService, Confirmation } from '@abp/ng.theme.shared';
-import { Component,OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component,OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FraudNumber } from './interface/fraud-number.interface';
 import { FraudService } from './fraud.service';
@@ -10,7 +10,7 @@ import { riskLevelOptions } from './interface/fraud-number.interface';
   selector: 'app-fraud',
   templateUrl: './fraud.component.html',
 })
-export class FraudComponent implements OnInit,OnChanges{
+export class FraudComponent implements OnInit{
   fraudNumbers = { items: [], totalCount: 0 } as PagedResultDto<FraudNumber>;
   page: number = 0;
   isModalOpen = false;
@@ -26,11 +26,7 @@ export class FraudComponent implements OnInit,OnChanges{
 
   ngOnInit() {
     this.getFraudNumbers();
-  }
-  ngOnChanges(change: SimpleChanges) {
-    console.log(change);
-  }
-  
+  }  
   // get fraud numbers
   getFraudNumbers(){
     this.fraudService.getFraudNumbers().subscribe(results => {

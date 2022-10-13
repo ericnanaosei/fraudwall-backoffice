@@ -27,7 +27,10 @@
       </div>
     </div>
     <div *ngIf="caseFile" class="mb-3 ml-2 rounded-xl shadow-lg flex-1 px-3 py-2">
-      <h3 class="text-center text-blue-500 text-lg md:text-3xl">Remarks</h3>
+      <div class="flex justify-between mb-0">
+        <h3 class="text-blue-600 text-xl font-semibold">Remarks</h3>
+        <button (click)="addEditRemarks()" class="px-8 py-2 bg-blue-600 text-xl text-white font-semibold">Add/Edit</button>
+      </div>
       <hr>
       <p class="text-gray-700">{{caseFile.remark}}</p>
     </div>
@@ -35,12 +38,12 @@
 
   <!-- Files -->
   <div class="mb-6 px-2 pb-10">
-    <h3>Reports</h3>
+    <h3 class="text-xl text-blue-600 font-semibold">Reports</h3>
       <!-- Table frame -->
     <div class="overflow-x-auto">
       <table class="w-[100%]">
         <thead>
-          <tr class="bg-blue-500 text-gray-700 uppercase text-sm leading-normal">
+          <tr class="bg-blue-600 text-white uppercase text-sm font-semibold leading-normal">
             <th class="py-3 px-6 text-left">ID</th>
             <th class="py-3 px-6 text-left">Suspect Number</th>
             <th class="py-3 px-6 text-center">Actions</th>
@@ -71,3 +74,30 @@
     </div>
   </div>
 </div>
+
+
+
+<abp-modal [(visible)]="isModalOpen">
+  <ng-template #abpHeader>
+    <h4 class="text-blue-400 font-bold">Add/Edit Remarks</h4>
+  </ng-template>
+
+  <ng-template #abpBody>
+    <form [formGroup]="remarkForm" (ngSubmit)="save()">
+      <!-- Report Id -->
+      <div class="form-group" class="py-1">
+        <label for="remark" class="font-bold mb-2">Remarks</label><span class="text-red-800 font-bold"> * </span>
+        <input type="text" id="remark" class="form-control" formControlName="remark" autofocus/>
+      </div>
+    </form>
+  </ng-template>
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      Close
+    </button>
+    <button class="btn btn-primary" (click)="saveRemark()" [disabled]="remarkForm.invalid">
+          <i class="fa fa-check mr-1"></i>
+          Save
+    </button>
+  </ng-template>
+</abp-modal>
