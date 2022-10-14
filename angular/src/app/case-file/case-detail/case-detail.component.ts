@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReportService } from 'src/app/report/report.service';
 import { CaseFileService } from '../case-file.service';
+import { AddRemarkDto } from '../interface/add-remarks.interface';
 
 @Component({
   selector: 'app-case-detail',
@@ -15,7 +16,7 @@ export class CaseDetailComponent implements OnInit {
   searchTextEntered = "";
   page: number = 0;
   reports = { items: [], totalCount: 0 } as PagedResultDto<any>;
-
+  selectedCase = {} as any;
   // modal
   isModalOpen = false;
 
@@ -71,36 +72,30 @@ export class CaseDetailComponent implements OnInit {
   }
 
   // Add or Edit Remarks
-  addEditRemarks(){
-    this.buildRemarkForm();
-    this.isModalOpen = true;
-
+  addEditRemarks(caseId: string){
+    this.caseFileService.getCaseFileById(caseId).subscribe(result => {
+      this.selectedCase = result;
+      this.buildRemarkForm();
+      this.isModalOpen = true;
+    })
   }
 
   buildRemarkForm(){
     this.remarkForm = this.formBuilder.group({
-      remark: ['', Validators.required]
+      remarks: [this.selectedCase.remark || '', Validators.required]
     })
   }
   saveRemark(){
-    try {
-      if(!this.remarkForm.valid){
-        throw new Error("Form Is Invalid")
-      };
-      this.caseFileService.addRemarksToCaseFile('caseId', this.remarkForm.value).subscribe((result)=>{
-        if(result){
-          alert("Record Saved");
-          this.isModalOpen = false;
-          this.remarkForm.reset();
-          this.getCaseFileById('caseId');
-        }
-        this.isModalOpen = false;
-        this.remarkForm.reset();
-        throw new Error("Error Saving Record");
-      })
-    } catch (error) {
-      return alert(error);
+    if(this.remarkForm.invalid){
+      return;
     }
+    const request = this.caseFileService.addRemarksToCaseFile(this.selectedCase.caseId, this.remarkForm.value);
+    request.subscribe(result => {
+      this.isModalOpen = false;
+      this.remarkForm.reset();
+      alert("Record Saved");
+      return this.getCaseFileById(result.caseId);
+    })
   }
 
 }

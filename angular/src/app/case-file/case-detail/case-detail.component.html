@@ -29,7 +29,7 @@
     <div *ngIf="caseFile" class="mb-3 ml-2 rounded-xl shadow-lg flex-1 px-3 py-2">
       <div class="flex justify-between mb-0">
         <h3 class="text-blue-600 text-xl font-semibold">Remarks</h3>
-        <button (click)="addEditRemarks()" class="px-8 py-2 bg-blue-600 text-xl text-white font-semibold">Add/Edit</button>
+        <button (click)="addEditRemarks(caseFile.caseId)" class="px-8 py-2 bg-blue-600 text-xl text-white font-semibold">Add/Edit</button>
       </div>
       <hr>
       <p class="text-gray-700">{{caseFile.remark}}</p>
@@ -85,9 +85,10 @@
   <ng-template #abpBody>
     <form [formGroup]="remarkForm" (ngSubmit)="save()">
       <!-- Report Id -->
-      <div class="form-group" class="py-1">
-        <label for="remark" class="font-bold mb-2">Remarks</label><span class="text-red-800 font-bold"> * </span>
-        <input type="text" id="remark" class="form-control" formControlName="remark" autofocus/>
+      <div class="form-group" class="py-1 border-blue-600">
+        <label for="remarks" class="font-bold mb-2 text-xl text-gray-700">Remarks</label><span class="text-red-800 font-bold"> * </span>
+        <textarea class="px-2" formControlName="remarks" id="remarks" cols="43" rows="20" autofocus autocomplete spellcheck>
+        </textarea>
       </div>
     </form>
   </ng-template>
