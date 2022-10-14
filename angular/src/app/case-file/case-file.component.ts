@@ -1,6 +1,7 @@
 import { PagedResultDto } from '@abp/ng.core';
 import { Confirmation, ConfirmationService } from '@abp/ng.theme.shared';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CaseFileService } from './case-file.service';
 
 @Component({
@@ -17,7 +18,8 @@ export class CaseFileComponent implements OnInit {
 
   constructor(
     private readonly caseFileService: CaseFileService,
-    private readonly confirmation: ConfirmationService
+    private readonly confirmation: ConfirmationService,
+    private readonly router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -52,4 +54,9 @@ export class CaseFileComponent implements OnInit {
   onSearchedText(searchedText:string){
     this.searchTextEntered = searchedText;
   }
+
+  gotoFraudPage(){
+    this.router.navigate(['fraud'])
+  }
+
 }

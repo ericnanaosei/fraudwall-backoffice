@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReportService } from 'src/app/report/report.service';
 import { CaseFileService } from '../case-file.service';
+import { CaseFileStatus } from '../types/case-file-status.enum';
 
 @Component({
   selector: 'app-case-detail',
@@ -65,7 +66,17 @@ export class CaseDetailComponent implements OnInit {
   removeReportById(reportId: string, caseId){
     this.confirmation.warn('::Are you sure you want to delete this Report?', '::Confirm Delete').subscribe((status)=>{
       if(status === Confirmation.Status.confirm){
-        console.log("Report Deleted: " + reportId)
+        this.toasterService.success("Reported Deleted", "Delete Report");
+        this.getCaseFileById(caseId);
+      }
+    })
+  }
+
+  // Close Case File
+  changeStatus(caseId: string, status: CaseFileStatus){
+    this.confirmation.warn('::Are you sure you want to Change Status?', '::Confirm Action').subscribe((status)=>{
+      if(status === Confirmation.Status.confirm){
+        this.toasterService.success("Status Changed", "Change Status");
         this.getCaseFileById(caseId);
       }
     })
@@ -96,6 +107,10 @@ export class CaseDetailComponent implements OnInit {
       this.remarkForm.reset();
       return this.getCaseFileById(result.caseId);
     })
+  }
+
+  gotoFraudPage(){
+    this.router.navigate(['fraud'])
   }
 
 }
