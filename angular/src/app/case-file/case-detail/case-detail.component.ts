@@ -1,10 +1,11 @@
 import { PagedResultDto } from '@abp/ng.core';
-import { Confirmation, ConfirmationService} from '@abp/ng.theme.shared';
+import { Confirmation, ConfirmationService, ToasterService} from '@abp/ng.theme.shared';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReportService } from 'src/app/report/report.service';
 import { CaseFileService } from '../case-file.service';
+import { CaseFileStatus } from '../types/case-file-status.enum';
 
 @Component({
   selector: 'app-case-detail',
@@ -15,7 +16,7 @@ export class CaseDetailComponent implements OnInit {
   searchTextEntered = "";
   page: number = 0;
   reports = { items: [], totalCount: 0 } as PagedResultDto<any>;
-
+  selectedCase = {} as any;
   // modal
   isModalOpen = false;
 
@@ -29,6 +30,7 @@ export class CaseDetailComponent implements OnInit {
     private readonly reportService: ReportService,
     private readonly confirmation: ConfirmationService,
     private readonly formBuilder: FormBuilder,
+    private readonly toasterService: ToasterService,
   ) { }
 
   ngOnInit(): void {
@@ -64,43 +66,51 @@ export class CaseDetailComponent implements OnInit {
   removeReportById(reportId: string, caseId){
     this.confirmation.warn('::Are you sure you want to delete this Report?', '::Confirm Delete').subscribe((status)=>{
       if(status === Confirmation.Status.confirm){
-        console.log("Report Deleted: " + reportId)
+        this.toasterService.success("Reported Deleted", "Delete Report");
+        this.getCaseFileById(caseId);
+      }
+    })
+  }
+
+  // Close Case File
+  changeStatus(caseId: string, status: CaseFileStatus){
+    this.confirmation.warn('::Are you sure you want to Change Status?', '::Confirm Action').subscribe((status)=>{
+      if(status === Confirmation.Status.confirm){
+        this.toasterService.success("Status Changed", "Change Status");
         this.getCaseFileById(caseId);
       }
     })
   }
 
   // Add or Edit Remarks
-  addEditRemarks(){
-    this.buildRemarkForm();
-    this.isModalOpen = true;
-
+  addEditRemarks(caseId: string){
+    this.caseFileService.getCaseFileById(caseId).subscribe(result => {
+      this.selectedCase = result;
+      this.buildRemarkForm();
+      this.isModalOpen = true;
+    })
   }
 
   buildRemarkForm(){
     this.remarkForm = this.formBuilder.group({
-      remark: ['', Validators.required]
+      remarks: [this.selectedCase.remark || '', Validators.required]
     })
   }
   saveRemark(){
-    try {
-      if(!this.remarkForm.valid){
-        throw new Error("Form Is Invalid")
-      };
-      this.caseFileService.addRemarksToCaseFile('caseId', this.remarkForm.value).subscribe((result)=>{
-        if(result){
-          alert("Record Saved");
-          this.isModalOpen = false;
-          this.remarkForm.reset();
-          this.getCaseFileById('caseId');
-        }
-        this.isModalOpen = false;
-        this.remarkForm.reset();
-        throw new Error("Error Saving Record");
-      })
-    } catch (error) {
-      return alert(error);
+    if(this.remarkForm.invalid){
+      return;
     }
+    const request = this.caseFileService.addRemarksToCaseFile(this.selectedCase.caseId, this.remarkForm.value);
+    request.subscribe(result => {
+      this.toasterService.success("New Record Saved", "Add/Edit Remarks");
+      this.isModalOpen = false;
+      this.remarkForm.reset();
+      return this.getCaseFileById(result.caseId);
+    })
+  }
+
+  gotoFraudPage(){
+    this.router.navigate(['fraud'])
   }
 
 }
