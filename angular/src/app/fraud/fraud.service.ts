@@ -13,11 +13,9 @@ export class FraudService {
 
   // create new fraud number
   createFraudNumber(phoneNumber: string){
-    // const { phone} = phoneNumber;
-    let phone = Object.values(phoneNumber);
     const request: Rest.Request<null> = {
       method: 'POST',
-      url: `/fraud-number/${phone[0]}`,
+      url: `/fraud-number/${phoneNumber}`,
       responseType: 'json'
     }
 

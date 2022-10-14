@@ -9,7 +9,7 @@
         <p class="mb-0 text-gray-600 md:text-3xl text-lg">{{fraudNumber.fraudNumber}}</p>
       </div>
       <hr>      
-      <div class="grid grid-cols-3 mt-1 px-6 text-gray-700 text-sm md:text-lg">
+      <div class="md:grid grid-cols-3 mt-1 px-6 text-gray-700 text-sm md:text-lg">
         <p class="font-semibold">Total Reports
           <span class="text-start block font-light text-small">
             {{fraudNumber.totalReport}}
@@ -29,7 +29,7 @@
     </div>
     <!-- right card -->
     <div class="mt-5 rounded-xl shadow-lg flex-1 px-3 py-2">
-      <div class="grid grid-cols-2 py-6">
+      <div class="md:grid grid-cols-2 py-6">
         <div>
           <h5>Risk Level</h5>
           <button class="text-blue-500 font-semibold">{{fraudNumber.risk_Level | titlecase}}</button>

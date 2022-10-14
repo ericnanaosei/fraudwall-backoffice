@@ -2,16 +2,20 @@
   <h3 class="h-16 flex justify-center items-center mb-0 font-bold space-x-2 md:text-4xl text-2xl">Case File Details</h3>
   <div class="grid grid-cols-1 mt-3 mb-3">
     <!-- left card -->
-    <div *ngIf="caseFile" class="flex flex-col rounded-xl shadow-lg px-2 mb-10">
-      <div class="text-center font-bold mb-0">
+    <div *ngIf="caseFile" class="flex flex-col rounded-xl shadow-lg px-2 mb-10 hover:cursor-pointer">
+      <div class="text-center font-bold mb-0 relative">
         <i class="fa solid fa-phone text-sm font-bold text-blue-400 mb-2"></i>
         <span class="text-sm text-gray-600 px-3 font-bold">Supect Number</span>
         <p class="mb-0 text-gray-600 md:text-3xl text-lg">{{caseFile.suspectNumber}}</p>
+        <div class="md:absolute top-6 left-2">
+          <button class="bg-red-500 px-2 py-1 mr-1 text-white rounded-full font-light">Close Case</button>
+          <button class="bg-purple-500 px-2 py-1 text-white rounded-full font-light">Create Fraud Number</button>
+        </div>
       </div>
       <hr>      
-      <div class="grid grid-cols-3 mt-1 px-6 text-gray-700 text-sm md:text-lg">
+      <div class="md:grid grid-cols-4 mt-1 px-6 text-gray-700 text-sm md:text-lg">
         <p class="font-semibold"> Total Reports
-          <span class="text-start font-light block">
+          <span class="text-start font-light text-pink-800 block">
           {{caseFile.reports.length}}
         </span></p> 
         <p class="font-semibold"> Case Status
@@ -22,6 +26,11 @@
         <p class="font-semibold"> Report Date
           <span class="text-start block font-light">
             {{caseFile.createdAt}}
+          </span>
+        </p>
+        <p class="font-semibold"> Modified Date
+          <span class="text-start block font-light">
+            {{caseFile.modifiedAt}}
           </span>
         </p>
       </div>

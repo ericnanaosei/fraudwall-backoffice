@@ -1,5 +1,5 @@
 import { PagedResultDto } from '@abp/ng.core';
-import { ConfirmationService, Confirmation } from '@abp/ng.theme.shared';
+import { ConfirmationService, Confirmation, ToasterService } from '@abp/ng.theme.shared';
 import { Component,OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FraudNumber } from './interface/fraud-number.interface';
@@ -21,7 +21,8 @@ export class FraudComponent implements OnInit{
   constructor(
     private readonly fraudService: FraudService,
     private readonly formBuilder: FormBuilder,
-    private readonly confirmation: ConfirmationService
+    private readonly confirmation: ConfirmationService,
+    private readonly toasterService: ToasterService
     ) {}
 
   ngOnInit() {
@@ -71,17 +72,22 @@ export class FraudComponent implements OnInit{
     if (this.fraudNumberForm.invalid) {
       return;
     }
-
-      this.fraudService.createFraudNumber(this.fraudNumberForm.value).subscribe((results)=>{
+      const phoneNumber = this.fraudNumberForm.value.phoneNumber
+      this.fraudService.createFraudNumber(phoneNumber).subscribe((results)=>{
         if(results.status === 409){
+          this.toasterService.error(`Fraud Number Already Exists`, "Create Fraud Number");
           this.isModalOpen = false;
           this.fraudNumberForm.reset();
-          alert("Fraud Number Already Exists");
         }
-        alert("Fraud Number Saved")
-        this.isModalOpen = false;
-        this.fraudNumberForm.reset();
-        this.getFraudNumbers();
+        else if(results?.status === 400){
+          this.toasterService.info(`Creating Fraud Number Requires Valid Reported Numbers`, "Create Fraud Number", { sticky: true});
+        }
+        else{
+          this.toasterService.success(`Fraud Number: ${results.fraudNumber} Created`, "Create Fraud Number");
+          this.isModalOpen = false;
+          this.fraudNumberForm.reset();
+          this.getFraudNumbers();
+        }
     })
   }
 
@@ -91,6 +97,7 @@ export class FraudComponent implements OnInit{
     this.confirmation.warn('::Are you sure you want to delete this Number?', '::Confirm Delete').subscribe((status) => {
       if (status === Confirmation.Status.confirm) {
         this.fraudService.deleteFraudNumberById(fraudNumberId).subscribe(() =>{
+          this.toasterService.success("Fraud Number Deleted", "Delete Fraud Number");
           this.getFraudNumbers();
         });
       }

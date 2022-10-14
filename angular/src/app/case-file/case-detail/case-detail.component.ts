@@ -1,11 +1,10 @@
 import { PagedResultDto } from '@abp/ng.core';
-import { Confirmation, ConfirmationService} from '@abp/ng.theme.shared';
+import { Confirmation, ConfirmationService, ToasterService} from '@abp/ng.theme.shared';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReportService } from 'src/app/report/report.service';
 import { CaseFileService } from '../case-file.service';
-import { AddRemarkDto } from '../interface/add-remarks.interface';
 
 @Component({
   selector: 'app-case-detail',
@@ -30,6 +29,7 @@ export class CaseDetailComponent implements OnInit {
     private readonly reportService: ReportService,
     private readonly confirmation: ConfirmationService,
     private readonly formBuilder: FormBuilder,
+    private readonly toasterService: ToasterService,
   ) { }
 
   ngOnInit(): void {
@@ -91,9 +91,9 @@ export class CaseDetailComponent implements OnInit {
     }
     const request = this.caseFileService.addRemarksToCaseFile(this.selectedCase.caseId, this.remarkForm.value);
     request.subscribe(result => {
+      this.toasterService.success("New Record Saved", "Add/Edit Remarks");
       this.isModalOpen = false;
       this.remarkForm.reset();
-      alert("Record Saved");
       return this.getCaseFileById(result.caseId);
     })
   }
