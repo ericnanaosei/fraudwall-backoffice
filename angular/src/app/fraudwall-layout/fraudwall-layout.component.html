@@ -1,41 +1,23 @@
 <!-- Header Section -->
-<div 
-class="flex justify-between 
-align-middle relative left-0
-right-0 top-0 w-[calc(100vw)]
-bg-slate-400 h-[60px] px-2 py-2
-"
->
-  <i (click)="showSideBar()" class="fa duotone fa-bars text-4xl ml-6 hover:cursor-pointer" [ngClass]="{hidden: showSideBar$}"></i>
-  <i (click)="closeSideBar()" class="fa solid fa-arrow-left text-4xl ml-6 hover:cursor-pointer" [ngClass]="{hidden: !showSideBar$}"></i>
-  <app-logo></app-logo>
-  <ng-template #loginBtn>
-    <button class="
-    bg-slate-500 
-    px-4
-    text-center 
-    rounded-lg 
-    text-white 
-    mr-4
-    text-1xl" (click)="login()">
-    <i class="fa fa-sign-in"></i>Login</button>
-  </ng-template>
-  <div 
-    class="
-    flex
-    justify-between 
-    text-center
-    mr-4
-    text-white
-    text-[20px]
-    " 
-    *ngIf="(currentUser$ | async)?.isAuthenticated; else loginBtn">
-    <ul class="flex justify-between">
-      <li class="px-3 text-pink-800"><a><strong>{{ (currentUser$ | async)?.userName }}</strong></a></li>
-      <li class="px-3 hover:cursor-pointer"><a (click)="navigateToManageProfile()"><i class="fa solid fa-user"></i></a></li>
-      <li class="px-3 hover:cursor-pointer"><a (click)="logout()"><i class="fa fa-power-off"></i></a></li>
-    </ul>
+<div class="flex justify-between items-center bg-orange-500 h-[60px] px-10 w-[100%]">
+  <div>
+    <i (click)="showSideBar()" class="fa duotone fa-bars text-4xl hover:cursor-pointer" [ngClass]="{hidden: showSideBar$}"></i>
+    <i (click)="closeSideBar()" class="fa solid fa-times text-4xl hover:cursor-pointer" [ngClass]="{hidden: !showSideBar$}"></i>
   </div>
+  <ng-template #loginBtn>
+    <button class="bg-white px-4 rounded-lg font-bold text-lg text-pink-800 py-2" (click)="login()">
+      <i class="fa fa-sign-in"></i>Login
+    </button>
+  </ng-template>
+  <ul class="hidden md:flex justify-between items-center text-white text-center font-light" *ngIf="(currentUser$ | async)?.isAuthenticated; else loginBtn">
+    <li class="px-4 hover:cursor-pointer" routerLink="">Home</li>
+    <li class="px-4 hover:cursor-pointer" routerLink="report">Reports</li>
+    <li class="px-4 hover:cursor-pointer" routerLink="fraud">Fraud</li>
+    <li class="px-4 hover:cursor-pointer" routerLink="case-file">Case</li>
+    <li class="px-4 text-white bg-pink-900 py-1 rounded-full font-light">{{ (currentUser$ | async)?.userName | titlecase }}</li>
+    <li class="px-4 hover:cursor-pointer"><a (click)="navigateToManageProfile()"><i class="fa solid fa-user"></i></a></li>
+    <li class="px-4 hover:cursor-pointer"><a (click)="logout()"><i class="fa fa-power-off"></i></a></li>
+  </ul>
 </div>
 
 <!-- Sidebar section -->
