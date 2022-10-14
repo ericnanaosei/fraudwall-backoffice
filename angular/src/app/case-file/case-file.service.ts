@@ -60,7 +60,7 @@ export class CaseFileService {
   changeCaseStatus(caseFileId: string, status: CaseFileStatus){
     const request: Rest.Request<null> = {
       method: 'PATCH',
-      url: `/case-file/change-status/${caseFileId}/status/${status}`,
+      url: `/case-file/change-status/${caseFileId}/to/${status}`,
       responseType: 'json'
     };
     return this.restService.request<null, any>(request, { apiName: 'webapi'});

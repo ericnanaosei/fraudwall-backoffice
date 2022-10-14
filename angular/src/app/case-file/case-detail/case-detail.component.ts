@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReportService } from 'src/app/report/report.service';
 import { CaseFileService } from '../case-file.service';
-import { CaseFileStatus } from '../types/case-file-status.enum';
+import { CaseFileStatusOptions, CaseFileStatus } from '../types/case-file-status.enum';
 
 @Component({
   selector: 'app-case-detail',
@@ -19,9 +19,14 @@ export class CaseDetailComponent implements OnInit {
   selectedCase = {} as any;
   // modal
   isModalOpen = false;
+  isCaseStatusModalOpen = false;
 
   // Remark
   remarkForm: FormGroup;
+
+  // case status
+  caseFileStatusOptions = CaseFileStatusOptions;
+  caseStatusForm: FormGroup;
 
   constructor(
     private readonly caseFileService: CaseFileService,
@@ -72,13 +77,12 @@ export class CaseDetailComponent implements OnInit {
     })
   }
 
-  // Close Case File
-  changeStatus(caseId: string, status: CaseFileStatus){
-    this.confirmation.warn('::Are you sure you want to Change Status?', '::Confirm Action').subscribe((status)=>{
-      if(status === Confirmation.Status.confirm){
-        this.toasterService.success("Status Changed", "Change Status");
-        this.getCaseFileById(caseId);
-      }
+  // Change Case File Status
+  changeCaseStatus(caseId: string, status: CaseFileStatus){
+    this.caseFileService.getCaseFileById(caseId).subscribe(result =>{
+      this.selectedCase = result;
+      this.buildStatusForm();
+      this.isCaseStatusModalOpen = true;
     })
   }
 
@@ -91,11 +95,13 @@ export class CaseDetailComponent implements OnInit {
     })
   }
 
+  // remark form build
   buildRemarkForm(){
     this.remarkForm = this.formBuilder.group({
       remarks: [this.selectedCase.remark || '', Validators.required]
     })
   }
+  // saving remark 
   saveRemark(){
     if(this.remarkForm.invalid){
       return;
@@ -106,6 +112,36 @@ export class CaseDetailComponent implements OnInit {
       this.isModalOpen = false;
       this.remarkForm.reset();
       return this.getCaseFileById(result.caseId);
+    })
+  }
+
+
+  // building form for status
+  buildStatusForm(){
+    this.caseStatusForm = this.formBuilder.group({
+      case_status: [ this.selectedCase.caseStatus || '', Validators.required]
+    })
+  }
+
+  // save status change
+  saveStatusChanged(){
+    if(this.caseStatusForm.invalid){
+      return;
+    }
+    const status = this.caseStatusForm.value.case_status
+    const request = this.caseFileService.changeCaseStatus(this.selectedCase.caseId, status);
+    request.subscribe(result =>{
+      if(result){
+        this.toasterService.success("Status Updated", "Change Case Status");
+        this.isCaseStatusModalOpen = false;
+        this.caseStatusForm.reset();
+        return this.getCaseFileById(result.caseId);
+      }
+      else{
+        this.toasterService.error("Changing Status Failed", "Change Case Status");
+        this.isCaseStatusModalOpen = false;
+        this.caseStatusForm.reset();
+      }
     })
   }
 
