@@ -1,6 +1,8 @@
 import { CurrentUserDto } from '@abp/ng.core';
 import { Component,Input, OnInit} from '@angular/core';
 import { Observable } from 'rxjs';
+import { IMenu } from '../fraudwall-layout/menu.interface';
+import { MENU_ITEMS } from '../fraudwall-layout/menu.items';
 
 
 @Component({
@@ -9,8 +11,10 @@ import { Observable } from 'rxjs';
 })
 export class SidebarComponent implements OnInit {
 
-  @Input() showSideBar$: boolean;
+  @Input() sideBarOpen: boolean;
   @Input()currentUser$: Observable<CurrentUserDto>
+
+  menuItems: IMenu[] = MENU_ITEMS
 
   constructor() { }
 

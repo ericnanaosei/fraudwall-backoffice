@@ -14,7 +14,7 @@ export class FraudwallLayoutComponent implements OnInit {
     @Inject(NAVIGATE_TO_MANAGE_PROFILE) public navigateToManageProfile
     ){}
 
-  showSideBar$: boolean = false;
+  showSideBar$ = false;
 
   ngOnInit(): void {}
   currentUser$: Observable<CurrentUserDto> = this.configState.getOne$('currentUser');
