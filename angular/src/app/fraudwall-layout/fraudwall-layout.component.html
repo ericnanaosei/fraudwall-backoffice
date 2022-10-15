@@ -1,5 +1,5 @@
 <!-- Header Section -->
-<div class="flex justify-between items-center bg-orange-500 h-[60px] px-10 w-[100%]">
+<div class="flex justify-between items-center bg-blue-400 h-[60px] px-10 w-[100%]">
   <div>
     <i (click)="showSideBar()" class="fa duotone fa-bars text-4xl hover:cursor-pointer" [ngClass]="{hidden: showSideBar$}"></i>
     <i (click)="closeSideBar()" class="fa solid fa-times text-4xl hover:cursor-pointer" [ngClass]="{hidden: !showSideBar$}"></i>
@@ -9,12 +9,14 @@
       <i class="fa fa-sign-in"></i>Login
     </button>
   </ng-template>
-  <ul class="hidden md:flex justify-between items-center text-white text-center font-light" *ngIf="(currentUser$ | async)?.isAuthenticated; else loginBtn">
+  <ul class="hidden md:flex justify-center items-center text-white font-light" *ngIf="(currentUser$ | async)?.isAuthenticated; else loginBtn">
     <li class="px-4 hover:cursor-pointer" routerLink="">Home</li>
-    <li class="px-4 hover:cursor-pointer" routerLink="report">Reports</li>
-    <li class="px-4 hover:cursor-pointer" routerLink="fraud">Fraud</li>
-    <li class="px-4 hover:cursor-pointer" routerLink="case-file">Case</li>
-    <li class="px-4 text-white bg-pink-900 py-1 rounded-full font-light">{{ (currentUser$ | async)?.userName | titlecase }}</li>
+    <li class="px-4 hover:cursor-pointer" routerLink="report">Report Cases</li>
+    <li class="px-4 hover:cursor-pointer" routerLink="fraud">Fraud Number Cases</li>
+    <li class="px-4 hover:cursor-pointer" routerLink="case-file">Case Files</li>
+  </ul>
+  <ul class="flex justify-center items-center text-white font-light" *ngIf="(currentUser$ | async)?.isAuthenticated; else loginBtn">
+    <li class="px-4 text-white bg-pink-900 py-1 rounded-full font-light hover:cursor-pointer" routerLink="">{{ (currentUser$ | async)?.userName | titlecase }}</li>
     <li class="px-4 hover:cursor-pointer"><a (click)="navigateToManageProfile()"><i class="fa solid fa-user"></i></a></li>
     <li class="px-4 hover:cursor-pointer"><a (click)="logout()"><i class="fa fa-power-off"></i></a></li>
   </ul>
