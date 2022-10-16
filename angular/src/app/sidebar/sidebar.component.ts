@@ -1,5 +1,5 @@
 import { CurrentUserDto } from '@abp/ng.core';
-import { Component,Input, OnInit} from '@angular/core';
+import { Component,EventEmitter,Input, OnInit, Output} from '@angular/core';
 import { Observable } from 'rxjs';
 import { IMenu } from '../fraudwall-layout/menu.interface';
 import { MENU_ITEMS } from '../fraudwall-layout/menu.items';
@@ -19,5 +19,11 @@ export class SidebarComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  @Output() closeSideBarEvent =  new EventEmitter<boolean>()
+
+  initSideBarEvent(){
+    this.closeSideBarEvent.emit(!this.sideBarOpen);
   }
 }

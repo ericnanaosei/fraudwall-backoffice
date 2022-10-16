@@ -22,7 +22,7 @@
 </div>
 
 <!-- Sidebar section -->
-<sidebar [sideBarOpen]="showSideBar$" [currentUser$]="currentUser$"></sidebar>
+<sidebar [sideBarOpen]="showSideBar$" [currentUser$]="currentUser$" (closeSideBarEvent)=handleSideBarEvent($event)></sidebar>
 
 <!-- Main content section -->
 <div class="mt-[40px] flex-1 container justify-center items-center">

@@ -30,7 +30,7 @@ export class FraudwallLayoutComponent implements OnInit {
   showSideBar(){
     this.showSideBar$ = !this.showSideBar$
   }
-  closeSideBar(){
-    this.showSideBar$ = !this.showSideBar$
+  handleSideBarEvent(event: boolean){
+    this.showSideBar$ = event;
   }
 }
