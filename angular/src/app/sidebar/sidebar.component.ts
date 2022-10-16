@@ -26,4 +26,7 @@ export class SidebarComponent implements OnInit {
   initSideBarEvent(){
     this.closeSideBarEvent.emit(!this.sideBarOpen);
   }
+  sideBarTransformation(){
+    return this.sideBarOpen? 'translate-x-0': 'translate-x-full';
+  }
 }

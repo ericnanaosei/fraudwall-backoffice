@@ -1,12 +1,12 @@
 <ng-container *ngIf="sideBarOpen">
-  <div class="fixed top-0 left-0 bg-blue-500 w-[20vw] h-full ease-in-out duration-300" *ngIf="(currentUser$ | async)?.isAuthenticated">
+  <div ngClass="sideBarTransformation()" class="fixed top-0 left-0 bg-blue-500 w-[15vw] h-full ease-in-out duration-300" *ngIf="(currentUser$ | async)?.isAuthenticated">
     <ul class="mt-6 py-4">
       <ng-container *ngFor="let item of menuItems">
-        <li routerLink={{item.url}} class="hover:cursor-pointer py-2">
-          {{item.title}}
+        <li routerLink={{item.url}} class="hover:cursor-pointer py-2 text-3xl">
+          <i class={{item.icon}}></i>
         </li>
       </ng-container> 
-      <i class="fa solid fa-times text-xl hover:cursor-pointer px-3 py-3 absolute top-0 right-6" (click)="initSideBarEvent()"></i>
+      <i class="bi bi-x-lg text-xl hover:cursor-pointer px-3 py-3 absolute top-0 right-6" (click)="initSideBarEvent()"></i>
     </ul>  
   </div>
 </ng-container>

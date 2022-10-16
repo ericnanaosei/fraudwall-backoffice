@@ -3,37 +3,37 @@ import { IMenu } from "./menu.interface";
 export const MENU_ITEMS: IMenu[] = [
   {
     title: 'Home',
-    icon: 'fa regular fa-house',
+    icon: 'fa solid fa-house-user',
     url: ''
   },
   {
     title: 'Report',
-    icon: 'fa regular fa-house',
+    icon: 'bi bi-folder-symlink',
     url: '/report'
   },
   {
     title: 'Case',
-    icon: 'fa regular fa-house',
+    icon: 'bi bi-stack',
     url: '/case-file'
   },
   {
     title: 'Fraud',
-    icon: 'fa regular fa-house',
+    icon: 'bi bi-shield-fill-exclamation',
     url: '/fraud'
   },
   {
     title: 'Users',
-    icon: 'fa regular fa-house',
+    icon: 'bi bi-people',
     url: '/identity/users'
   },
   {
     title: 'Roles',
-    icon: 'fa regular fa-house',
+    icon: 'bi bi-tools',
     url: '/identity/roles'
   },
   {
     title: 'Tenants',
-    icon: 'fa regular fa-house',
+    icon: 'bi bi-gear-fill',
     url: '/tenant-management/tenants'
   }
 ]
