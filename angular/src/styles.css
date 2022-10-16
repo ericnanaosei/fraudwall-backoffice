@@ -5,12 +5,6 @@
 
 @layer base{
   html{
-    @apply text-black
+    @apply text-black m-0 p-0 border-none
   }
-}
-
-html{
-  margin: 0;
-  padding: 0;
-  border: none;
 }

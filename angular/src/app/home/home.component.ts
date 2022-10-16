@@ -49,28 +49,28 @@ export class HomeComponent implements OnInit{
       return this.cardInfo = [
       {
         title: "Report Cases", 
-        icon: "fa duotone fa-folder-open w-[90px]", 
+        icon: "bi bi-folder-symlink w-[90px]", 
         total: this.totalReport, 
         color: "bg-yellow-600", 
         url:"report"
       },
       {
         title: "Fraud Cases", 
-        icon: "fa solid fa-suitcase w-[90px]",
+        icon: "bi bi-shield-fill-exclamation w-[90px]",
         total: this.totalFraudCases, 
         color: "bg-red-600",
         url: 'fraud'
       },
       {
         title:"Case Files", 
-        icon: "fa solid fa-file-export w-[90px]", 
+        icon: "bi bi-stack w-[90px]", 
         total: this.totalCaseFiles, 
         color: "bg-gray-800",
         url: "case-file"
       },
       {
         title: "Archives", 
-        icon: "fa solid fa-database w-[90px]", 
+        icon: "bi bi-archive w-[90px]", 
         total: 0, 
         color: "bg-blue-600",
         url: "archive"

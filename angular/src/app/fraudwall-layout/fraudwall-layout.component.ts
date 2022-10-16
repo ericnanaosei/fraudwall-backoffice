@@ -2,6 +2,8 @@
 import { AuthService, CurrentUserDto, ConfigStateService, NAVIGATE_TO_MANAGE_PROFILE } from '@abp/ng.core';
 import { Component, Inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { IMenu } from './menu.interface';
+import { MENU_ITEMS } from './menu.items';
 
 @Component({
   selector: 'abp-fraudwall-layout',
@@ -15,6 +17,8 @@ export class FraudwallLayoutComponent implements OnInit {
     ){}
 
   showSideBar$ = false;
+
+  menuItems: IMenu[] = MENU_ITEMS
 
   ngOnInit(): void {}
   currentUser$: Observable<CurrentUserDto> = this.configState.getOne$('currentUser');
