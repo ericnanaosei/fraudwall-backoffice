@@ -19,9 +19,9 @@
   <!-- end of search area -->
   <!-- Table frame -->
   <div class="overflow-x-auto">
-    <table class="w-[100%]">
+    <table class="w-[100%] bg-gray-100">
       <thead>
-        <tr class="bg-blue-500 text-gray-700 uppercase text-sm leading-normal">
+        <tr class="bg-blue-600 text-white uppercase text-sm leading-normal text-start">
           <th class="py-3 px-6 text-left">ID</th>
           <th class="py-3 px-6 text-left">Suspect Number</th>
           <th class="py-3 px-6 text-left">Remarks</th>
@@ -35,7 +35,7 @@
           paginate: {itemsPerPage: 30, currentPage: page, totalItems: caseFiles.totalCount}"
           class="hover:cursor-pointer"
           >
-          <tr class="border-b border-gray-200 hover:bg-gray-100" 
+          <tr class="border-b border-gray-200 hover:bg-blue-200" 
             *ngIf="searchTextEntered === '' || case.suspectNumber.trim().toLowerCase().includes(searchTextEntered)"
             >
             <td class="py-3 px-6 text-left whitespace-nowrap" routerLink="detail/{{case.caseId}}">{{case.caseId}}</td>
