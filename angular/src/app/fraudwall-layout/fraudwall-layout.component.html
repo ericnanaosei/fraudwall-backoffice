@@ -1,5 +1,5 @@
 <!-- Header Section -->
-<div class="flex justify-between items-center bg-blue-400 py-3">
+<div class="flex justify-between items-center bg-blue-500 py-3">
   <ng-template #loginBtn>
     <button class="bg-white px-4 rounded-lg font-bold text-lg text-pink-800 py-2" (click)="login()">
       <i class="fa fa-sign-in"></i>Login
@@ -10,16 +10,16 @@
   </div>
   <ul class="hidden md:flex justify-center items-center text-white font-light mb-0" *ngIf="(currentUser$ | async)?.isAuthenticated; else loginBtn">
       <ng-container *ngFor="let item of menuItems">
-        <li routerLink={{item.url}} class="hover:cursor-pointer px-4">
-          <i class={{item.icon}}></i>
+        <li routerLink={{item.url}} class="hover:cursor-pointer px-3 text-[18px] text-gray-200 font-semibold">
+          <i class={{item.icon}} ngClass="text-green-400 text-[16px]"></i>
           {{item.title}}
         </li>
       </ng-container> 
   </ul>
   <ul class="flex justify-center items-center text-white font-light mb-0" *ngIf="(currentUser$ | async)?.isAuthenticated; else loginBtn">
-    <li class="px-4 text-white bg-pink-900 rounded-full font-light hover:cursor-pointer" routerLink="">{{ (currentUser$ | async)?.userName | titlecase }}</li>
-    <li class="px-4 hover:cursor-pointer"><a (click)="navigateToManageProfile()"><i class="bi bi-person-fill"></i></a></li>
-    <li class="px-4 hover:cursor-pointer"><a (click)="logout()"><i class="bi bi-power"></i></a></li>
+    <li class="px-4 py-2 text-white bg-purple-700 rounded-full font-bold hover:cursor-pointer" routerLink="">{{ (currentUser$ | async)?.userName | titlecase }}</li>
+    <li class="px-3 hover:cursor-pointer text-2xl" (click)="navigateToManageProfile()"><i class="bi bi-person-fill"></i></li>
+    <li class="px-3 hover:cursor-pointer text-2xl" (click)="logout()"><i class="bi bi-power"></i></li>
   </ul>
 </div>
 

@@ -4,19 +4,19 @@
     <!-- left card -->
     <div *ngIf="caseFile" class="flex flex-col rounded-xl shadow-lg px-2 mb-10">
       <div class="text-center mb-0 relative">
-        <i class="bi bi-phone-vibrate text-[25px] text-blue-400 mb-2"></i>
+        <i class="bi bi-phone-vibrate text-[25px] text-purple-700 mb-2"></i>
         <p class="mb-0 text-gray-600 md:text-3xl text-lg">{{caseFile.suspectNumber}}</p>
 
         <div class="md:absolute top-6 right-3">
-          <button class="bg-red-500 px-2 py-1 mr-1 text-white rounded-full font-light" (click)="changeCaseStatus(caseFile.caseId)">Change Status</button>
+          <button class="bg-green-500 px-2 py-1 mr-1 rounded-full text-white" (click)="changeCaseStatus(caseFile.caseId)">Edit Status</button>
                   <!-- Navigation Back to Fraud page -->
-          <button class="bg-purple-500 px-2 py-1 text-white rounded-full font-light" (click)="gotoFraudPage()">Create Fraud Number</button>
+          <button class="bg-red-500 px-2 py-1 text-white rounded-full" (click)="gotoFraudPage()">Create Fraud </button>
         </div>
       </div>
       <hr>      
       <div class="md:grid grid-cols-4 mt-1 px-6 text-gray-700 text-sm md:text-lg">
         <p class="font-semibold"> Total Reports
-          <span class="text-start font-light text-pink-800 block">
+          <span class="text-start font-bold text-purple-800 block">
           {{caseFile.reports.length}}
         </span></p> 
         <p class="font-semibold"> Case Status
@@ -51,9 +51,9 @@
     <h3 class="text-xl text-blue-600 font-semibold">Reports</h3>
       <!-- Table frame -->
     <div class="overflow-x-auto">
-      <table class="w-[100%]">
+      <table class="w-[100%] bg-gray-100">
         <thead>
-          <tr class="bg-blue-600 text-white uppercase text-sm font-semibold leading-normal">
+          <tr class="bg-blue-600 text-white uppercase text-sm leading-normal text-start">
             <th class="py-3 px-6 text-left">ID</th>
             <th class="py-3 px-6 text-left">Suspect Number</th>
             <th class="py-3 px-6 text-center">Actions</th>
@@ -66,7 +66,7 @@
             paginate: { itemsPerPage: 30, currentPage: page, totalItems: reports.totalCount}"
             class="hover:cursor-pointer"
             >
-            <tr class="border-b border-gray-200 hover:bg-gray-100" 
+            <tr class="border-b border-gray-200 hover:bg-blue-200" 
               *ngIf="searchTextEntered === '' || report.suspectNumber.trim().toLowerCase().includes(searchTextEntered)"
               >
               <td class="py-3 px-6 text-left whitespace-nowrap" (click)="gotoReportDetail(report.reportId)">{{report.reportId}}</td>
@@ -89,7 +89,7 @@
 <!-- Add Remarks Modal -->
 <abp-modal [(visible)]="isModalOpen">
   <ng-template #abpHeader>
-    <h4 class="text-blue-400 font-bold">Add/Edit Remarks</h4>
+    <h4 class="text-blue-600 font-bold">Add/Edit Remarks</h4>
   </ng-template>
 
   <ng-template #abpBody>
@@ -97,7 +97,7 @@
       <!-- Report Id -->
       <div class="form-group" class="py-1 border-blue-600">
         <label for="remarks" class="font-bold mb-2 text-xl text-gray-700">Remarks</label><span class="text-red-800 font-bold"> * </span>
-        <textarea class="px-2" formControlName="remarks" id="remarks" cols="43" rows="20" autofocus autocomplete spellcheck>
+        <textarea class="px-2 outline-none" formControlName="remarks" id="remarks" cols="43" rows="20" autofocus autocomplete spellcheck>
         </textarea>
       </div>
     </form>
@@ -117,14 +117,14 @@
 <!-- change Status Modal -->
 <abp-modal [(visible)]="isCaseStatusModalOpen">
   <ng-template #abpHeader>
-    <h4 class="text-blue-400 font-bold">Change Status</h4>
+    <h4 class="text-blue-600 font-light">Change Case File Status</h4>
   </ng-template>
 
   <ng-template #abpBody>
     <form [formGroup]="caseStatusForm" (ngSubmit)="save()">
       <!-- Report Id -->
       <div class="form-group" class="py-1 border-blue-600">
-        <label for="case_status" class="font-bold mb-2 text-xl text-gray-700">Status</label><span class="text-red-800 font-bold"> * </span>
+        <label for="case_status" class="mb-2 text-xl text-gray-700">Status</label><span class="text-red-800 font-bold"> * </span>
         <select class="form-control" id="case_status" formControlName="case_status">
           <option [ngValue]="null">Select Status</option>
           <option [ngValue]="status.value" *ngFor="let status of caseFileStatusOptions"> {{ status.key }}</option>

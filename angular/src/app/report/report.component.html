@@ -4,21 +4,19 @@
 </ng-template>
 
 <!-- Main frame -->
-<div class="flex flex-col justify-center">
-  <!-- Search and Add area -->
   <div class="flex justify-between mb-4 py-2 px-2">
     <app-search (searchTextChanged)="onSearchedText($event)"></app-search>
   </div>
   <!-- End of search-->
   <div class="overflow-x-auto">
-    <table class="w-[100%]">
+    <table class="w-[100%] bg-gray-100">
       <thead>
-        <tr class="bg-blue-500 text-gray-700 uppercase text-sm leading-normal text-start">
+        <tr class="bg-blue-600 text-white uppercase text-sm leading-normal text-start">
           <th class="py-3 px-6 text-left">Report ID</th>
           <th class="py-3 px-6 text-left">Suspect Number</th>
           <th class="py-3 px-6 text-left">Platform</th>
           <th class="py-3 px-6 text-left">Incident Date</th>
-          <th class="py-3 px-6 text-left">Description</th>
+          <th class="py-3 px-6 text-center">Description</th>
         </tr>
       </thead>
   
@@ -27,7 +25,7 @@
         <tbody class="text-gray-700 text-sm font-medium" 
           *ngFor="let report of reportList |
           paginate: {itemsPerPage: 30, currentPage: page, totalItems: totalCount}" >
-          <tr class="border-b border-gray-200 hover:bg-gray-100 hover:cursor-pointer"
+          <tr class="border-b border-gray-200 hover:bg-blue-200 hover:cursor-pointer"
             routerLink="detail/{{report.reportId}}" 
             *ngIf="searchTextEntered==='' || 
             report.suspectNumber.trim().toLowerCase().includes(searchTextEntered)">
@@ -35,12 +33,10 @@
             <td class="py-3 px-6 text-start whitespace-nowrap">{{report.suspectNumber}}</td>
             <td class="py-3 px-6 text-left whitespace-nowrap">{{report.platForm}}</td>
             <td class="py-3 px-6 text-left whitespace-nowrap">{{report.incidentDate}}</td>
-            <td class="py-3 px-6 text-left whitespace-nowrap">{{report.description | slice:0:20 }}</td>
+            <td class="py-3 px-6 text-left whitespace-nowrap">{{report.description | slice:0:70 }}</td>
           </tr>
         </tbody>
       </ng-container>
     </table>
     <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls>
   </div>
-</div>
-<!-- End of frame -->

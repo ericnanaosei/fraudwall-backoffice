@@ -4,9 +4,6 @@
 </ng-template>
 <!-- end of loading animation -->
 
-<!-- Container -->
-<div class="flex flex-col justify-center">
-  <!-- search area -->
   <div class="flex justify-between mb-4 py-2 px-2">
       <!-- search Component -->
       <app-search (searchTextChanged)="onSearchedText($event)"></app-search>
@@ -19,9 +16,9 @@
   <!-- end of search area -->
   <!-- Table frame -->
   <div class="overflow-x-auto">
-    <table class="w-[100%]">
+    <table class="w-[100%] bg-gray-100">
       <thead>
-        <tr class="bg-blue-500 text-gray-700 uppercase text-sm leading-normal">
+        <tr class="bg-blue-600 text-white uppercase text-sm leading-normal text-start">
           <th class="py-3 px-6 text-left">ID</th>
           <th class="py-3 px-6 text-left">Fraud Number</th>
           <th class="py-3 px-6 text-left">Visibility</th>
@@ -33,7 +30,7 @@
         class="text-gray-700 text-sm font-medium">
         <tbody *ngFor="let fraud of fraudNumbers.items | 
           paginate: {itemsPerPage: 30, currentPage: page, totalItems: fraudNumbers.totalCount}">
-          <tr class="border-b border-gray-200 hover:bg-gray-100 hover:cursor-pointer" 
+          <tr class="border-b border-gray-200 hover:bg-blue-200 hover:cursor-pointer" 
             *ngIf="searchTextEntered === '' || fraud.fraudNumber.trim().toLowerCase().includes(searchTextEntered)"
             >
             <td class="py-3 px-6 text-left whitespace-nowrap" routerLink="detail/{{fraud.fraudNumberId}}">{{fraud.fraudNumberId}}</td>
@@ -51,8 +48,6 @@
     <!-- End of table -->
   </div>
   <!-- End of table frame -->
-</div>
-<!-- End of container -->
 
 
 <!-- Modal -->
