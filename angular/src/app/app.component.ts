@@ -16,17 +16,17 @@ export class AppComponent  implements OnInit{
   constructor(private readonly replaceableComponent: ReplaceableComponentsService){}
 
   ngOnInit(): void {
-      this.replaceableComponent.add({
-        component: LogoComponent,
-        key: eThemeBasicComponents.Logo,
-      })
-      this.replaceableComponent.add({
-        component: FraudwallLayoutComponent,
-        key: eThemeBasicComponents.ApplicationLayout
-      }),
-      this.replaceableComponent.add({
-        component: SidebarComponent,
-        key: eThemeBasicComponents.Routes
-      })
+      // this.replaceableComponent.add({
+      //   component: LogoComponent,
+      //   key: eThemeBasicComponents.Logo,
+      // })
+      // this.replaceableComponent.add({
+      //   component: FraudwallLayoutComponent,
+      //   key: eThemeBasicComponents.ApplicationLayout
+      // }),
+      // this.replaceableComponent.add({
+      //   component: SidebarComponent,
+      //   key: eThemeBasicComponents.Routes
+      // })
   }
 }
