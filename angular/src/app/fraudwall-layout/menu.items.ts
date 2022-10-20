@@ -3,7 +3,7 @@ import { IMenu } from "./menu.interface";
 export const MENU_ITEMS: IMenu[] = [
   {
     title: 'Home',
-    icon: 'fa solid fa-house-user',
+    icon: 'bi bi-house',
     url: ''
   },
   {

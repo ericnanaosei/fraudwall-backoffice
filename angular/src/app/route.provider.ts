@@ -8,20 +8,20 @@ export const APP_ROUTE_PROVIDER = [
 function configureRoutes(routesService: RoutesService) {
   return () => {
     routesService.add([
-      {
-        path: '/',
-        name: 'Home',
-        iconClass: 'fas fa-home',
-        order: 1,
-        layout: eLayoutType.application,
-      },
-      {
-        path: "/report",
-        name: 'Reports',
-        iconClass: 'fa light fa-address-card',
-        order: 2,
-        layout: eLayoutType.application
-      }
+      // {
+      //   path: '/',
+      //   name: 'Home',
+      //   iconClass: 'bi bi-house',
+      //   order: 1,
+      //   layout: eLayoutType.application,
+      // },
+      // {
+      //   path: "/report",
+      //   name: 'Reports',
+      //   iconClass: 'bi bi-house',
+      //   order: 2,
+      //   layout: eLayoutType.application
+      // }
     ]);
   };
 }

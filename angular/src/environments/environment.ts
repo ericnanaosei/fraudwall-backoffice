@@ -1,8 +1,6 @@
 import { Environment } from '@abp/ng.core';
-import { HttpHeaders } from '@angular/common/http';
 
 const baseUrl = 'http://localhost:4200';
-const API_KEY = "k4gLDkkiXIPgKNEvBw/ACZNbExs1hEl5W0WsOnMMNq4="
 
 export const environment = {
   production: false,

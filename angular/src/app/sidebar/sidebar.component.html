@@ -1,5 +1,5 @@
 <ng-container *ngIf="sideBarOpen">
-  <div ngClass="sideBarTransformation()" class="fixed top-0 left-0 bg-blue-600 w-[15vw] h-full ease-in-out duration-300" *ngIf="(currentUser$ | async)?.isAuthenticated">
+  <div ngClass="sideBarTransformation()" class="fixed top-0 left-0 bg-blue-600 w-[15vw] h-full ease-in-out duration-300">
     <ul class="py-4 px-3 mt-10 relative flex flex-col justify-start items-start">
       <ng-container *ngFor="let item of menuItems">
         <li routerLink={{item.url}} class="hover:cursor-pointer py-2 ml-0 text-3xl">
