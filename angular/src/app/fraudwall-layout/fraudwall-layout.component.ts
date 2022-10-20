@@ -29,6 +29,7 @@ export class FraudwallLayoutComponent implements OnInit {
 
   logout() {
     this.authService.logout().subscribe();
+    this.authService.navigateToLogin();
   }
 
   showSideBar(){

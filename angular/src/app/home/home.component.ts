@@ -6,6 +6,7 @@ import { ICardInfo } from '../card/Interface/ICardInfo';
 import { ReportService } from '../report/report.service';
 import { CaseFileService } from '../case-file/case-file.service';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',

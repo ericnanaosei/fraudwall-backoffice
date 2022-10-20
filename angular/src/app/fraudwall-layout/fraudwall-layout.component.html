@@ -1,20 +1,23 @@
-<!-- Header Section -->
+<ng-template #loginBtn>
+  <button class="bg-white px-4 rounded-lg font-bold text-lg text-pink-800 py-2 mr-3" (click)="login()">
+    <i class="bi bi-box-arrow-in-right"></i>Login
+  </button>
+</ng-template>
+
 <div class="flex justify-between items-center bg-blue-500 py-3">
-  <div>
-    <i (click)="showSideBar()" class="fa duotone fa-bars text-4xl hover:cursor-pointer px-3"></i>
+  <div class="text-2xl hover:cursor-pointer px-3">
+    <i (click)="showSideBar()" class="bi bi-menu-button-wide"></i>
   </div>
-  <ul class="hidden md:flex justify-center items-center text-white font-light mb-0" *ngIf="(currentUser$ | async)?.isAuthenticated">
+  <ul class="hidden md:flex justify-center items-center text-white font-light mb-0" *ngIf="(currentUser$ | async)?.isAuthenticated; else loginBtn">
       <ng-container *ngFor="let item of menuItems">
         <li routerLink={{item.url}} class="hover:cursor-pointer px-3 text-[18px] text-gray-200 font-semibold">
           <i class={{item.icon}} ngClass="text-green-400 text-[16px]"></i>
           {{item.title}}
         </li>
       </ng-container> 
-  </ul>
-  <ul class="flex justify-center items-center text-white font-light mb-0" *ngIf="(currentUser$ | async)?.isAuthenticated; else login()">
-    <li class="px-4 py-2 text-white bg-purple-700 rounded-full font-bold hover:cursor-pointer" routerLink="">{{ (currentUser$ | async)?.userName | titlecase }}</li>
-    <li class="px-3 hover:cursor-pointer text-2xl" (click)="navigateToManageProfile()"><i class="bi bi-person-fill"></i></li>
-    <li class="px-3 hover:cursor-pointer text-2xl" (click)="logout()"><i class="bi bi-power"></i></li>
+      <li class="px-4 py-2 text-white bg-purple-700 rounded-full font-bold hover:cursor-pointer" routerLink="">{{ (currentUser$ | async)?.userName | titlecase }}</li>
+      <li class="px-3 hover:cursor-pointer text-2xl" (click)="navigateToManageProfile()"><i class="bi bi-person-fill"></i></li>
+      <li class="px-3 hover:cursor-pointer text-2xl" (click)="logout()"><i class="bi bi-power"></i></li>
   </ul>
 </div>
 
