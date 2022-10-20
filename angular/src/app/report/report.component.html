@@ -24,7 +24,7 @@
       <ng-container *ngIf="(reportList) != null; else loadingReport">
         <tbody class="text-gray-700 text-sm font-medium" 
           *ngFor="let report of reportList |
-          paginate: {itemsPerPage: 30, currentPage: page, totalItems: totalCount}" >
+          paginate: {itemsPerPage: 10, currentPage: page, totalItems: totalCount}" >
           <tr class="border-b border-gray-200 hover:bg-blue-200 hover:cursor-pointer"
             routerLink="detail/{{report.reportId}}" 
             *ngIf="searchTextEntered==='' || 

@@ -1,4 +1,5 @@
 import { Rest, RestService } from '@abp/ng.core';
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 
@@ -12,13 +13,13 @@ export class ReportService {
     private readonly restService:RestService,
     ) { }
 
-
   // get all reports
   getReport(){
     const request: Rest.Request<null> ={
       method: 'GET',
       url: `/report`,
-      responseType: 'json'
+      responseType: 'json',
+      headers: new HttpHeaders().append("X-API-KEY","k4gLDkkiXIPgKNEvBw/ACZNbExs1hEl5W0WsOnMMNq4=")
     };
     return this.restService.request<null, any>(request, { apiName: 'webapi'});
   }
@@ -27,7 +28,7 @@ export class ReportService {
     const request: Rest.Request<null> = {
       method: 'GET',
       url: `/report/get-total/report-count`,
-      responseType: 'json'
+      headers: new HttpHeaders().append("X-API-KEY","k4gLDkkiXIPgKNEvBw/ACZNbExs1hEl5W0WsOnMMNq4=")
     };
     return this.restService.request<null,number>(request, { apiName: 'webapi'});
   }
@@ -36,7 +37,8 @@ export class ReportService {
   getReportById(id: string){
     const request: Rest.Request<string> = {
       method: 'GET',
-      url: '/report/' + id
+      url: '/report/' + id,
+      headers: new HttpHeaders().append("X-API-KEY","k4gLDkkiXIPgKNEvBw/ACZNbExs1hEl5W0WsOnMMNq4=")
     };
     return this.restService.request<string,any>(request, { apiName: 'webapi'});
   }
@@ -45,7 +47,8 @@ export class ReportService {
   getTotalReportForSuspect(phoneNumber: string){
     const request: Rest.Request<string> = {
       method: 'GET',
-      url: '/report/get-all-report-for-suspect/'+ phoneNumber
+      url: '/report/get-all-report-for-suspect/'+ phoneNumber,
+      headers: new HttpHeaders().append("X-API-KEY","k4gLDkkiXIPgKNEvBw/ACZNbExs1hEl5W0WsOnMMNq4=")
     };
     return this.restService.request<string,any>(request, { apiName: 'webapi'});
   }
