@@ -1,18 +1,19 @@
 <ng-template #loginBtn>
-  <button class="bg-white px-4 rounded-lg font-bold text-lg text-pink-800 py-2 mr-3" (click)="login()">
+  <button class="bg-white px-4 rounded-lg font-bold text-lg text-orange-600 py-2 mr-3" (click)="login()">
     <i class="bi bi-box-arrow-in-right"></i>Login
   </button>
 </ng-template>
 
 <div>
-  <div class=" fixed left-0 right-0 top-0 flex justify-between items-center bg-blue-500 py-3">
-    <div class="text-2xl hover:cursor-pointer px-3">
+  <div class=" fixed left-0 right-0 top-0 flex justify-between items-center bg-white py-3">
+    <div class="text-xl hover:cursor-pointer px-3">
       <i (click)="showSideBar()" class="bi bi-menu-button-wide"></i>
     </div>
+    <img src="../../assets/logo512.png" width="100px" alt="">
     <ul class="hidden md:flex justify-center items-center text-white font-light mb-0" *ngIf="(currentUser$ | async)?.isAuthenticated; else loginBtn">
         <ng-container *ngFor="let item of menuItems">
-          <li routerLink={{item.url}} class="hover:cursor-pointer px-3 text-[18px] text-gray-200 font-semibold">
-            <i class={{item.icon}} ngClass="text-green-400 text-[16px]"></i>
+          <li routerLink={{item.url}} class="hover:cursor-pointer px-3 text-[16px] text-gray-400 font-semibold">
+            <i class={{item.icon}} ngClass="text-orange-400 text-[16px]"></i>
             {{item.title}}
           </li>
         </ng-container> 
